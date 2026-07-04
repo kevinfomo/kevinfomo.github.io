@@ -493,6 +493,58 @@ input,select,button{touch-action:manipulation}
 .sb-item.off{opacity:.5;cursor:default}
 .sb-item.off:hover{background:none;color:var(--sbt)}
 
+/* ══ MODULE FINANCE (accent --acc-fin) ══ */
+/* Barre du bas contextuelle : item actif en bleu Finance */
+.bnav-inner.fin .bnav-item.active{color:var(--acc-fin)}
+/* Contrôle segmenté (mode de saisie, type dépense/revenu) */
+.fin-seg{display:flex;background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rs);padding:3px;gap:3px;margin-bottom:10px}
+.fin-seg button{flex:1;padding:9px 6px;border:none;border-radius:9px;background:none;color:var(--tx2);font-size:12.5px;font-weight:600;font-family:var(--font-body);cursor:pointer;min-height:38px;transition:background .15s,color .15s;touch-action:manipulation}
+.fin-seg button.on{background:var(--card);color:var(--tx1);box-shadow:0 1px 4px rgba(15,23,42,.12)}
+.fin-seg.type button.on{color:#fff}
+.fin-seg.type button.on.dep{background:var(--sb)}
+.fin-seg.type button.on.rev{background:var(--acc2)}
+/* Champs de formulaire Finance */
+.fin-fld{flex:1;min-width:100px}
+.fin-fld label{display:block;font-size:10px;color:var(--tx3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.fin-fld input,.fin-fld select{width:100%;padding:9px 8px;border:1.5px solid var(--bdr2);border-radius:var(--rs);font-size:13px;font-family:var(--font-body);background:var(--bg);color:var(--tx1);min-height:40px}
+.fin-fld input:focus,.fin-fld select:focus{outline:none;border-color:var(--acc-fin);background:var(--card)}
+.fin-frow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.action-btn.fin{background:var(--acc-fin)}
+/* Ligne de transaction */
+.fin-tx{display:flex;align-items:center;gap:9px;padding:9px 2px;border-bottom:1px solid var(--bdr)}
+.fin-tx:last-child{border-bottom:none}
+.fin-tx-main{flex:1;min-width:0}
+.fin-tx-cat{font-size:12.5px;font-weight:600;color:var(--tx1);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.fin-tx-note{font-size:11px;color:var(--tx3);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fin-tx-mnt{font-size:13px;font-weight:700;font-family:var(--font-head);white-space:nowrap}
+.fin-tx-mnt.rev{color:var(--greenTx)}
+.fin-tx-btn{padding:7px;background:none;border:none;color:var(--tx3);cursor:pointer;display:flex;min-width:34px;min-height:34px;align-items:center;justify-content:center;border-radius:8px;touch-action:manipulation}
+.fin-tx-btn:active{background:var(--bg)}
+.fin-date-lbl{font-size:10.5px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin:10px 0 2px}
+.fin-date-lbl:first-child{margin-top:0}
+/* Navigation par mois (‹ mois ›) */
+.fin-mois{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.fin-mois-lbl{font-family:var(--font-head);font-weight:700;font-size:14.5px;color:var(--tx1);text-transform:capitalize}
+.fin-mois button{width:40px;height:40px;border-radius:12px;border:1px solid var(--bdr2);background:var(--card);color:var(--tx1);cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
+.fin-mois button:disabled{opacity:.35;cursor:default}
+/* Barres de budget : 3 états */
+.fin-bud{padding:10px 2px;border-bottom:1px solid var(--bdr)}
+.fin-bud:last-child{border-bottom:none}
+.fin-bud-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:5px}
+.fin-bud-nom{font-size:12.5px;font-weight:600;color:var(--tx1);display:flex;align-items:center;gap:6px}
+.fin-bud-val{font-size:11.5px;color:var(--tx2);white-space:nowrap}
+.fin-bud-track{height:9px;border-radius:5px;background:var(--bdr);overflow:hidden}
+.fin-bud-fill{height:100%;border-radius:5px;transition:width .3s var(--anim)}
+.fin-bud-fill.ok{background:var(--acc)}
+.fin-bud-fill.warn{background:var(--amber)}
+.fin-bud-fill.over{background:var(--red)}
+.fin-bud-rythme{font-size:11px;color:var(--tx3);margin-top:4px;display:flex;gap:5px;align-items:center}
+.fin-bud-edit{margin-top:8px;padding:10px;background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rs);display:none}
+.fin-bud-edit.op{display:block}
+/* Puces de catégories (gestion) */
+.fin-cat-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 8px 6px 12px;border:1px solid var(--bdr);border-radius:16px;font-size:11.5px;background:var(--card);color:var(--tx1);margin:0 5px 6px 0}
+.fin-cat-chip .del{background:none;border:none;color:var(--tx3);cursor:pointer;padding:2px 4px;font-size:13px;line-height:1;font-family:var(--font-body)}
+.fin-cat-chip.socle{color:var(--tx2);background:var(--bg)}
 </style>
 </head>
 <body>
@@ -525,12 +577,14 @@ input,select,button{touch-action:manipulation}
     <div class="sb-section-lbl">Outils</div>
     <div class="sb-item" data-section="frigo" onclick="goToSection('frigo')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="5" y1="10" x2="19" y2="10"/><line x1="9" y1="5" x2="9" y2="7"/><line x1="9" y1="13" x2="9" y2="16"/></svg>Idées Frigo</div>
     <div class="sb-section-lbl">Module Finance</div>
-    <div class="sb-item off"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Finance — à venir</div>
+    <div class="sb-item" data-section="fin-saisie" onclick="goToSection('fin-saisie')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.8 2.8 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Saisie</div>
+    <div class="sb-item" data-section="fin-budgets" onclick="goToSection('fin-budgets')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Budgets</div>
   </nav>
   <div class="sb-footer" id="drawer-version"></div>
 </nav>
 
 <input type="file" id="kf-import-file" accept=".json,application/json" style="display:none" onchange="kfImport(this)">
+<input type="file" id="fin-import-csv" accept=".csv,text/csv" style="display:none" onchange="finCsvImport(this)">
 
 <!-- ══ SIDEBAR (desktop) ══ -->
 <aside class="sidebar">
@@ -580,22 +634,31 @@ input,select,button{touch-action:manipulation}
       Idées Frigo
     </div>
     <div class="sb-section-lbl">Module Finance</div>
-    <div class="sb-item off">
-      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-      Finance — à venir
+    <div class="sb-item" data-section="fin-saisie" onclick="goToSection('fin-saisie')">
+      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.8 2.8 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+      Saisie
+    </div>
+    <div class="sb-item" data-section="fin-budgets" onclick="goToSection('fin-budgets')">
+      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+      Budgets
     </div>
   </nav>
   <div class="sb-footer" id="sidebar-version"></div>
 </aside>
 
 <!-- ══ BOTTOM NAV (mobile) ══ -->
+<!-- Barre contextuelle : un groupe d'items par module, la navigation affiche le bon groupe.
+     Pas de bouton « Menu » ici : le tiroir s'ouvre uniquement via le hamburger de la barre du haut. -->
 <nav class="bnav" id="bottom-nav" style="display:none" aria-label="Navigation principale">
-  <div class="bnav-inner">
+  <div class="bnav-inner" id="bnav-grp-fitness">
     <button class="bnav-item" data-section="home" onclick="goToSection('home')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Fitness</button>
     <button class="bnav-item" data-section="mesures" onclick="goToSection('mesures')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Mesures</button>
     <button class="bnav-item" data-section="suivi-sport" onclick="goToSection('suivi-sport')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Sport</button>
     <button class="bnav-item" data-section="suivi-nutrition" onclick="goToSection('suivi-nutrition')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Nutrition</button>
-    <button class="bnav-item" onclick="toggleDrawer()"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>Menu</button>
+  </div>
+  <div class="bnav-inner fin" id="bnav-grp-finance" style="display:none">
+    <button class="bnav-item" data-section="fin-saisie" onclick="goToSection('fin-saisie')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Saisie</button>
+    <button class="bnav-item" data-section="fin-budgets" onclick="goToSection('fin-budgets')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Budgets</button>
   </div>
 </nav>
 
@@ -650,13 +713,23 @@ input,select,button{touch-action:manipulation}
       <div class="hub-rappel" id="hub-fit-rappel"></div>
     </div>
   </div>
-  <div class="hub-carte hub-module a-venir" aria-disabled="true">
-    <div class="hub-module-ic fin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
-    <div>
-      <div class="hub-module-nom">Finance</div>
-      <div class="hub-module-desc">Saisie · Budgets · Tableau de bord · Impôts</div>
+  <div class="hub-carte hub-module" onclick="goToSection('fin-saisie')" role="button" aria-label="Ouvrir le module Finance">
+    <div style="flex:1">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div class="hub-module-ic fin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        <div>
+          <div class="hub-module-nom">Finance</div>
+          <div class="hub-module-desc">Saisie &middot; Budgets · Tableau de bord et Impôts à venir</div>
+        </div>
+        <div class="hub-module-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </div>
+      <div class="hub-stats">
+        <div class="hub-stat"><div class="hub-stat-l">Dépenses du mois</div><div class="hub-stat-v" id="hub-fin-dep">—</div></div>
+        <div class="hub-stat"><div class="hub-stat-l">Revenus du mois</div><div class="hub-stat-v" id="hub-fin-rev">—</div></div>
+        <div class="hub-stat"><div class="hub-stat-l">Solde</div><div class="hub-stat-v" id="hub-fin-solde">—</div></div>
+      </div>
+      <div class="hub-rappel" id="hub-fin-rappel"></div>
     </div>
-    <div class="hub-badge-soon">Bientôt</div>
   </div>
 
   <!-- Données (transversal) -->
@@ -1450,6 +1523,143 @@ input,select,button{touch-action:manipulation}
 </div>
 </div>
 
+<!-- ══ MODULE FINANCE — SAISIE ══ -->
+<div id="sec-fin-saisie" class="section" style="display:none">
+<div class="page-head">
+  <div class="page-title">Saisie</div>
+  <div class="page-sub">Transactions au fil de l'eau &middot; ou montants agr&eacute;g&eacute;s pour rattraper une p&eacute;riode</div>
+</div>
+
+<div class="card">
+  <div class="fin-seg" role="tablist" aria-label="Mode de saisie">
+    <button id="fin-mode-tx" class="on" onclick="finMode('tx')">Transaction</button>
+    <button id="fin-mode-agg" onclick="finMode('agg')">Agr&eacute;g&eacute; (p&eacute;riode)</button>
+  </div>
+  <div id="fin-mode-hint" style="font-size:11px;color:var(--tx3);line-height:1.5;margin-bottom:10px"></div>
+
+  <div class="fin-seg type" role="tablist" aria-label="Type d'entrée">
+    <button id="fin-type-dep" class="on dep" onclick="finType('dep')">D&eacute;pense</button>
+    <button id="fin-type-rev" class="rev" onclick="finType('rev')">Revenu</button>
+  </div>
+
+  <!-- Date simple (mode transaction) -->
+  <div class="fin-frow" id="fin-frow-date">
+    <div class="fin-fld">
+      <label for="fin-date">Date</label>
+      <input type="date" id="fin-date">
+    </div>
+    <div class="fin-fld">
+      <label for="fin-montant">Montant (&euro;)</label>
+      <input type="number" inputmode="decimal" id="fin-montant" placeholder="24,90" min="0" step="0.01">
+    </div>
+  </div>
+
+  <!-- Période (mode agrégé) : l'entrée est datée du dernier jour de la période -->
+  <div class="fin-frow" id="fin-frow-periode" style="display:none">
+    <div class="fin-fld">
+      <label for="fin-du">Du</label>
+      <input type="date" id="fin-du">
+    </div>
+    <div class="fin-fld">
+      <label for="fin-au">Au</label>
+      <input type="date" id="fin-au">
+    </div>
+    <div class="fin-fld">
+      <label for="fin-montant-agg">Total (&euro;)</label>
+      <input type="number" inputmode="decimal" id="fin-montant-agg" placeholder="180" min="0" step="0.01">
+    </div>
+  </div>
+
+  <div class="fin-frow">
+    <div class="fin-fld" id="fin-fld-cat">
+      <label for="fin-cat" id="fin-cat-lbl">Cat&eacute;gorie</label>
+      <select id="fin-cat"></select>
+    </div>
+    <div class="fin-fld" style="flex:1.4">
+      <label for="fin-note">Note (optionnel)</label>
+      <input type="text" id="fin-note" placeholder="ex. courses Leclerc" maxlength="80">
+    </div>
+  </div>
+
+  <button class="action-btn fin" id="fin-save-btn" onclick="finSave()">Enregistrer</button>
+  <button id="fin-cancel-btn" onclick="finCancelEdit()" style="display:none;width:100%;margin-top:8px;padding:10px;background:none;border:1.5px solid var(--bdr2);border-radius:var(--r);font-size:13px;color:var(--tx2);cursor:pointer;font-family:var(--font-body)">Annuler la modification</button>
+</div>
+
+<div class="card">
+  <div class="fin-mois">
+    <button onclick="finMoisNav(-1)" aria-label="Mois précédent"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <div class="fin-mois-lbl" id="fin-tx-mois-lbl"></div>
+    <button id="fin-tx-mois-next" onclick="finMoisNav(1)" aria-label="Mois suivant"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+  </div>
+  <div class="mg3" style="margin-bottom:10px">
+    <div class="met"><div class="met-l">D&eacute;penses</div><div class="met-v" id="fin-tx-tot-dep" style="font-size:15px">&mdash;</div></div>
+    <div class="met"><div class="met-l">Revenus</div><div class="met-v" id="fin-tx-tot-rev" style="font-size:15px">&mdash;</div></div>
+    <div class="met"><div class="met-l">Solde</div><div class="met-v" id="fin-tx-tot-solde" style="font-size:15px">&mdash;</div></div>
+  </div>
+  <div id="fin-tx-liste"></div>
+</div>
+
+<div class="card">
+  <div class="acc-item" style="margin-bottom:0;border:none">
+    <div class="acc-head" style="border-radius:var(--rs)" onclick="toggleAcc(this)">
+      <div><div class="acc-title">G&eacute;rer les cat&eacute;gories</div><div class="acc-meta">Socle fixe + tes cat&eacute;gories personnalis&eacute;es</div></div>
+      <span class="acc-chev">&#9660;</span>
+    </div>
+    <div class="acc-body">
+      <div id="fin-cats-liste" style="margin-bottom:8px"></div>
+      <div style="display:flex;gap:8px">
+        <input type="text" id="fin-cat-new" placeholder="Nouvelle cat&eacute;gorie" maxlength="24" style="flex:1;padding:9px;border:1.5px solid var(--bdr2);border-radius:var(--rs);font-size:13px;font-family:var(--font-body);background:var(--bg);color:var(--tx1)">
+        <button class="data-btn" style="width:auto;padding:0 16px" onclick="finCatAdd()">Ajouter</button>
+      </div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:6px">Une cat&eacute;gorie personnalis&eacute;e ne peut &ecirc;tre supprim&eacute;e que si aucune transaction ne l'utilise.</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="section-label">Donn&eacute;es du module</div>
+  <div style="display:flex;gap:8px">
+    <button class="data-btn" onclick="finCsvExport()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export CSV</button>
+    <button class="data-btn" onclick="document.getElementById('fin-import-csv').click()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Import CSV</button>
+  </div>
+  <div style="font-size:11px;color:var(--tx3);margin-top:8px;line-height:1.5">CSV format fran&ccedil;ais (s&eacute;parateur ; · dates JJ/MM/AAAA · montants 1234,56), pr&ecirc;t pour Excel/Numbers. L'import d&eacute;tecte les doublons (date + montant + cat&eacute;gorie + type). Les transactions sont aussi incluses dans la sauvegarde JSON globale de l'accueil.</div>
+</div>
+</div>
+
+<!-- ══ MODULE FINANCE — BUDGETS ══ -->
+<div id="sec-fin-budgets" class="section" style="display:none">
+<div class="page-head">
+  <div class="page-title">Budgets</div>
+  <div class="page-sub">Budget type mensuel par cat&eacute;gorie &middot; ajustable ponctuellement pour un mois donn&eacute;</div>
+</div>
+
+<div class="card">
+  <div class="fin-mois">
+    <button onclick="finBudMoisNav(-1)" aria-label="Mois précédent"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <div class="fin-mois-lbl" id="fin-bud-mois-lbl"></div>
+    <button id="fin-bud-mois-next" onclick="finBudMoisNav(1)" aria-label="Mois suivant"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+  </div>
+  <div class="mg3" style="margin-bottom:0">
+    <div class="met"><div class="met-l">Budg&eacute;t&eacute;</div><div class="met-v" id="fin-bud-tot-b" style="font-size:15px">&mdash;</div></div>
+    <div class="met"><div class="met-l">D&eacute;pens&eacute;</div><div class="met-v" id="fin-bud-tot-d" style="font-size:15px">&mdash;</div></div>
+    <div class="met"><div class="met-l">Reste</div><div class="met-v" id="fin-bud-tot-r" style="font-size:15px">&mdash;</div></div>
+  </div>
+  <div class="hub-rappel" id="fin-bud-recap" style="margin-top:10px"></div>
+</div>
+
+<div class="card">
+  <div class="section-label">Budgets par cat&eacute;gorie</div>
+  <div style="font-size:11px;color:var(--tx3);margin-bottom:6px">Touche le crayon d'une cat&eacute;gorie pour d&eacute;finir son budget type (tous les mois) ou un ajustement pour ce mois uniquement.</div>
+  <div id="fin-bud-liste"></div>
+</div>
+
+<div class="card" id="fin-hb-card" style="display:none">
+  <div class="section-label">Hors budget</div>
+  <div style="font-size:11px;color:var(--tx3);margin-bottom:6px">D&eacute;penses du mois dans des cat&eacute;gories sans budget d&eacute;fini — rien ne passe sous le radar.</div>
+  <div id="fin-hb-liste"></div>
+</div>
+</div>
+
 </div><!-- /content -->
 </div><!-- /main -->
 
@@ -2065,7 +2275,7 @@ function ico(name, size, cls) {
 // (le module Fitness regroupe : dash, sport, nutrition, mesures,
 //  frigo, habits — clés localStorage préfixées kf_fit_*)
 // ════════════════════════════════════════════════════════════
-const APP_VERSION = '9.0';
+const APP_VERSION = '10.0';
 
 // ── Migration du schéma v8 → v9 : renommage des clés vers kf_fit_* + kf_meta.
 //    Règle : l'ancienne clé n'écrase jamais une nouvelle clé déjà présente,
@@ -2176,14 +2386,20 @@ const App = {
 
   // ── Registre des modules de l'app-mère (le hub s'en sert pour l'affichage)
   modules: {
-    fitness: { nom: 'Fitness', actif: true,  sections: ['home','sport','nutrition','mesures','frigo','suivi-sport','suivi-nutrition','courses'] },
-    finance: { nom: 'Finance', actif: false, sections: [] } // à construire (v10)
+    fitness: { nom: 'Fitness', actif: true, sections: ['home','sport','nutrition','mesures','frigo','suivi-sport','suivi-nutrition','courses'] },
+    finance: { nom: 'Finance', actif: true, sections: ['fin-saisie','fin-budgets'] } // Tableau de bord + Impôts : v11
+  },
+
+  // Module propriétaire d'une section (sert à la barre du bas contextuelle)
+  moduleDe(section) {
+    for (const m in App.modules) if (App.modules[m].sections.includes(section)) return m;
+    return null;
   },
 
   // ── Navigation + tiroir
   nav: {
-    ALL: ['hub','home','sport','nutrition','mesures','frigo','suivi-sport','suivi-nutrition','courses'],
-    TITRES: { hub:'Accueil', home:'Fitness', sport:'Plan Sportif', nutrition:'Plan Nutritionnel', mesures:'Mesures & Objectifs', frigo:'Idées Frigo', 'suivi-sport':'Suivi Sportif', 'suivi-nutrition':'Suivi Nutritionnel', courses:'Liste de Courses' },
+    ALL: ['hub','home','sport','nutrition','mesures','frigo','suivi-sport','suivi-nutrition','courses','fin-saisie','fin-budgets'],
+    TITRES: { hub:'Accueil', home:'Fitness', sport:'Plan Sportif', nutrition:'Plan Nutritionnel', mesures:'Mesures & Objectifs', frigo:'Idées Frigo', 'suivi-sport':'Suivi Sportif', 'suivi-nutrition':'Suivi Nutritionnel', courses:'Liste de Courses', 'fin-saisie':'Finance · Saisie', 'fin-budgets':'Finance · Budgets' },
     current: 'hub',
 
     goTo(section) {
@@ -2195,10 +2411,16 @@ const App = {
       const target = document.getElementById('sec-' + section);
       if (target) target.style.display = 'block';
 
-      // Le hub est la seule page sans barres : bouton menu flottant à la place
+      // Le hub est la seule page sans barres : bouton menu flottant à la place.
+      // Barre du bas contextuelle : seul le groupe d'items du module actif est affiché.
       const estHub = section === 'hub';
       const bnav = document.getElementById('bottom-nav');
       if (bnav) bnav.style.display = estHub ? 'none' : 'flex';
+      const mod = App.moduleDe(section);
+      const gFit = document.getElementById('bnav-grp-fitness');
+      const gFin = document.getElementById('bnav-grp-finance');
+      if (gFit) gFit.style.display = (mod === 'fitness') ? 'flex' : 'none';
+      if (gFin) gFin.style.display = (mod === 'finance') ? 'flex' : 'none';
       const tbar = document.getElementById('topbar');
       if (tbar) tbar.style.display = estHub ? 'none' : 'flex';
       const flot = document.getElementById('menu-flottant');
@@ -2227,6 +2449,8 @@ const App = {
       if (section === 'frigo')           App.frigo.init();
       if (section === 'suivi-sport')     App.sport.init();
       if (section === 'suivi-nutrition') App.nutrition.init();
+      if (section === 'fin-saisie')      App.finance.initSaisie();
+      if (section === 'fin-budgets')     App.finance.initBudgets();
 
       window.scrollTo(0, 0);
     },
@@ -2370,6 +2594,9 @@ const App = {
           rp.style.color = 'var(--greenTx)';
         }
       }
+
+      // Aperçu du module Finance (dépenses/revenus du mois + état des budgets)
+      App.finance.hubStats();
 
       // Widgets quotidiens + info dernière sauvegarde
       App.habits.render();
@@ -3617,6 +3844,495 @@ const App = {
   // ════════════════════════════════════════════
   // MODULE DONNÉES — export / import / calendrier
   // ════════════════════════════════════════════
+  // MODULE FINANCE — Saisie & Budgets (clés kf_fin_*)
+  // Transaction : { id, date:'AAAA-MM-JJ', montant, type:'dep'|'rev', cat, note, agg?, du?, au? }
+  //  · type 'dep' → cat = catégorie de dépense ; type 'rev' → cat = nature fiscale du revenu
+  //  · agg:true = montant agrégé sur une période [du, au], daté du dernier jour (au) et compté dans ce mois
+  // Budgets : kf_fin_budget = { type:{cat:montant}, mois:{'AAAA-MM':{cat:montant}} }
+  //  · budget type = défini une fois, s'applique à tous les mois ; l'ajustement mensuel prime s'il existe
+  // ════════════════════════════════════════════
+  finance: {
+    // Socle de catégories de dépenses (non supprimables) + natures fiscales des revenus (fixes : elles alimentent la future page Impôts)
+    CATS_SOCLE: ['Logement','Courses','Transport','Restos/Sorties','Abonnements','Santé','Sport','Épargne','Tontine','Imprévus'],
+    NATURES: ['Salaire','Gratification de stage','Plateforme (Shopopop…)','Don familial / présent d\'usage','Tontine','Autre'],
+
+    tx: [],              // transactions en mémoire (miroir de kf_fin_tx)
+    mode: 'tx',          // mode de saisie : 'tx' | 'agg'
+    type: 'dep',         // type d'entrée : 'dep' | 'rev'
+    editId: null,        // id en cours de modification (null = création)
+    moisTx: null,        // curseur mois de la liste Saisie ('AAAA-MM')
+    moisBud: null,       // curseur mois de la page Budgets
+
+    // ── Chargement + helpers
+    charger() {
+      if (App.finance.tx.length) return;
+      const t = App.storage.load('kf_fin_tx');
+      App.finance.tx = Array.isArray(t) ? t : [];
+    },
+    sauver() { App.storage.save('kf_fin_tx', App.finance.tx); },
+    cats() {
+      const perso = App.storage.load('kf_fin_cats');
+      return App.finance.CATS_SOCLE.concat(Array.isArray(perso) ? perso : []);
+    },
+    moisCourant() { return App.ui.todayStr().slice(0, 7); },
+    fmtEUR(n) {
+      return (Math.round(n * 100) / 100).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    },
+    fmtMois(m) {
+      const [a, mo] = m.split('-');
+      return new Date(+a, +mo - 1, 1).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+    },
+    decaleMois(m, d) {
+      const [a, mo] = m.split('-');
+      const dt = new Date(+a, +mo - 1 + d, 1);
+      return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0');
+    },
+    duMois(m) { return App.finance.tx.filter(t => (t.date || '').startsWith(m)); },
+    totaux(m) {
+      let dep = 0, rev = 0;
+      App.finance.duMois(m).forEach(t => { if (t.type === 'rev') rev += t.montant; else dep += t.montant; });
+      return { dep, rev };
+    },
+
+    // ══ PAGE SAISIE ══
+    initSaisie() {
+      App.finance.charger();
+      if (!App.finance.moisTx) App.finance.moisTx = App.finance.moisCourant();
+      const d = document.getElementById('fin-date');
+      if (d && !d.value) d.value = App.ui.todayStr();
+      // Période agrégée par défaut : du 1er du mois à aujourd'hui
+      const du = document.getElementById('fin-du'), au = document.getElementById('fin-au');
+      if (du && !du.value) du.value = App.ui.todayStr().slice(0, 8) + '01';
+      if (au && !au.value) au.value = App.ui.todayStr();
+      App.finance.setMode(App.finance.mode);
+      App.finance.setType(App.finance.type);
+      App.finance.renderCatsGestion();
+      App.finance.renderListe();
+    },
+    setMode(m) {
+      App.finance.mode = m;
+      document.getElementById('fin-mode-tx').classList.toggle('on', m === 'tx');
+      document.getElementById('fin-mode-agg').classList.toggle('on', m === 'agg');
+      document.getElementById('fin-frow-date').style.display = m === 'tx' ? 'flex' : 'none';
+      document.getElementById('fin-frow-periode').style.display = m === 'agg' ? 'flex' : 'none';
+      App.ui.setEl('fin-mode-hint', m === 'tx'
+        ? 'Une entrée par opération, au fil de l\'eau.'
+        : 'Rattrapage rapide : un total par catégorie sur une période. L\'entrée est datée du dernier jour de la période et comptée dans ce mois.');
+    },
+    setType(t) {
+      App.finance.type = t;
+      const bd = document.getElementById('fin-type-dep'), br = document.getElementById('fin-type-rev');
+      bd.classList.toggle('on', t === 'dep');
+      br.classList.toggle('on', t === 'rev');
+      App.ui.setEl('fin-cat-lbl', t === 'dep' ? 'Catégorie' : 'Nature fiscale');
+      App.finance.remplirSelect();
+    },
+    remplirSelect(valeur) {
+      const sel = document.getElementById('fin-cat');
+      if (!sel) return;
+      const liste = App.finance.type === 'dep' ? App.finance.cats() : App.finance.NATURES;
+      sel.innerHTML = liste.map(c => '<option value="' + App.finance.esc(c) + '">' + App.finance.esc(c) + '</option>').join('');
+      if (valeur && liste.includes(valeur)) sel.value = valeur;
+    },
+    esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); },
+
+    save() {
+      const f = App.finance;
+      const agg = f.mode === 'agg';
+      const montant = App.ui.safeNum(document.getElementById(agg ? 'fin-montant-agg' : 'fin-montant').value, 0);
+      if (montant <= 0) { App.ui.toast('Indique un montant supérieur à 0', 'err'); return; }
+      let date, du = null, au = null;
+      if (agg) {
+        du = document.getElementById('fin-du').value;
+        au = document.getElementById('fin-au').value;
+        if (!du || !au) { App.ui.toast('Indique la période (du / au)', 'err'); return; }
+        if (du > au) { const t = du; du = au; au = t; } // tolérance : bornes inversées
+        date = au; // convention validée : daté du dernier jour de la période
+      } else {
+        date = document.getElementById('fin-date').value;
+        if (!date) { App.ui.toast('Indique une date', 'err'); return; }
+      }
+      const entree = {
+        id: f.editId || ('tx' + Date.now() + Math.floor(Math.random() * 1e4)),
+        date, montant: Math.round(montant * 100) / 100,
+        type: f.type,
+        cat: document.getElementById('fin-cat').value,
+        note: (document.getElementById('fin-note').value || '').trim()
+      };
+      if (agg) { entree.agg = true; entree.du = du; entree.au = au; }
+      if (f.editId) {
+        const i = f.tx.findIndex(t => t.id === f.editId);
+        if (i >= 0) f.tx[i] = entree;
+        App.ui.toast('Transaction modifiée');
+      } else {
+        f.tx.push(entree);
+        App.ui.toast((f.type === 'rev' ? 'Revenu' : 'Dépense') + ' de ' + f.fmtEUR(montant) + ' enregistré' + (f.type === 'rev' ? '' : 'e'));
+      }
+      f.sauver();
+      f.cancelEdit(true);
+      f.moisTx = date.slice(0, 7); // la liste montre le mois de l'entrée qu'on vient de saisir
+      f.renderListe();
+    },
+    edit(id) {
+      const f = App.finance, t = f.tx.find(x => x.id === id);
+      if (!t) return;
+      f.editId = id;
+      f.setMode(t.agg ? 'agg' : 'tx');
+      f.setType(t.type);
+      if (t.agg) {
+        document.getElementById('fin-du').value = t.du || '';
+        document.getElementById('fin-au').value = t.au || t.date;
+        document.getElementById('fin-montant-agg').value = t.montant;
+      } else {
+        document.getElementById('fin-date').value = t.date;
+        document.getElementById('fin-montant').value = t.montant;
+      }
+      f.remplirSelect(t.cat);
+      document.getElementById('fin-note').value = t.note || '';
+      document.getElementById('fin-save-btn').textContent = 'Enregistrer la modification';
+      document.getElementById('fin-cancel-btn').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+    cancelEdit(silencieux) {
+      const f = App.finance;
+      f.editId = null;
+      document.getElementById('fin-montant').value = '';
+      document.getElementById('fin-montant-agg').value = '';
+      document.getElementById('fin-note').value = '';
+      document.getElementById('fin-date').value = App.ui.todayStr();
+      document.getElementById('fin-save-btn').textContent = 'Enregistrer';
+      document.getElementById('fin-cancel-btn').style.display = 'none';
+      if (!silencieux) App.finance.renderListe();
+    },
+    del(id) {
+      App.ui.confirm('Supprimer cette entrée ? Pense à exporter une sauvegarde régulièrement.', () => {
+        App.finance.tx = App.finance.tx.filter(t => t.id !== id);
+        App.finance.sauver();
+        if (App.finance.editId === id) App.finance.cancelEdit(true);
+        App.finance.renderListe();
+        App.ui.toast('Entrée supprimée');
+      }, 'Supprimer');
+    },
+    moisNav(d) {
+      const f = App.finance;
+      const cible = f.decaleMois(f.moisTx, d);
+      if (cible > f.moisCourant()) return; // pas de futur
+      f.moisTx = cible;
+      f.renderListe();
+    },
+
+    renderListe() {
+      const f = App.finance;
+      App.ui.setEl('fin-tx-mois-lbl', f.fmtMois(f.moisTx));
+      const next = document.getElementById('fin-tx-mois-next');
+      if (next) next.disabled = f.moisTx >= f.moisCourant();
+      const tot = f.totaux(f.moisTx);
+      App.ui.setEl('fin-tx-tot-dep', f.fmtEUR(tot.dep));
+      App.ui.setEl('fin-tx-tot-rev', f.fmtEUR(tot.rev));
+      App.ui.setEl('fin-tx-tot-solde', (tot.rev - tot.dep >= 0 ? '+' : '−') + f.fmtEUR(Math.abs(tot.rev - tot.dep)));
+      const ctn = document.getElementById('fin-tx-liste');
+      if (!ctn) return;
+      const liste = f.duMois(f.moisTx).slice().sort((a, b) => b.date.localeCompare(a.date) || (b.id > a.id ? 1 : -1));
+      if (!liste.length) {
+        ctn.innerHTML = '<div style="font-size:12px;color:var(--tx3);padding:14px 0;text-align:center">Aucune entrée ce mois-ci. Saisis ta première ' + (f.moisTx === f.moisCourant() ? 'dépense ou ton premier revenu ci-dessus.' : 'entrée via le formulaire (choisis la bonne date).') + '</div>';
+        return;
+      }
+      let html = '', dernDate = '';
+      liste.forEach(t => {
+        if (t.date !== dernDate) { dernDate = t.date; html += '<div class="fin-date-lbl">' + App.ui.fmtDate(t.date) + '</div>'; }
+        const badge = t.agg ? ' <span class="bdg bdg-b" title="Montant agrégé">Σ ' + App.ui.fmtDate(t.du) + ' → ' + App.ui.fmtDate(t.au) + '</span>' : '';
+        html += '<div class="fin-tx">'
+          + '<div class="fin-tx-main"><div class="fin-tx-cat">' + f.esc(t.cat) + badge + '</div>'
+          + (t.note ? '<div class="fin-tx-note">' + f.esc(t.note) + '</div>' : '') + '</div>'
+          + '<div class="fin-tx-mnt' + (t.type === 'rev' ? ' rev' : '') + '">' + (t.type === 'rev' ? '+' : '−') + f.fmtEUR(t.montant) + '</div>'
+          + '<button class="fin-tx-btn" onclick="finEdit(\'' + t.id + '\')" aria-label="Modifier">' + ico('edit', 15) + '</button>'
+          + '<button class="fin-tx-btn" onclick="finDel(\'' + t.id + '\')" aria-label="Supprimer">' + ico('trash', 15) + '</button>'
+          + '</div>';
+      });
+      ctn.innerHTML = html;
+    },
+
+    // ── Gestion des catégories personnalisées
+    renderCatsGestion() {
+      const ctn = document.getElementById('fin-cats-liste');
+      if (!ctn) return;
+      const perso = App.storage.load('kf_fin_cats') || [];
+      ctn.innerHTML = App.finance.CATS_SOCLE.map(c => '<span class="fin-cat-chip socle">' + App.finance.esc(c) + '</span>').join('')
+        + perso.map(c => '<span class="fin-cat-chip">' + App.finance.esc(c)
+          + '<button class="del" onclick="finCatDel(\'' + App.finance.esc(c).replace(/'/g, '&#39;') + '\')" aria-label="Supprimer la catégorie">✕</button></span>').join('');
+    },
+    catAdd() {
+      const inp = document.getElementById('fin-cat-new');
+      const nom = (inp.value || '').trim();
+      if (!nom) return;
+      if (App.finance.cats().some(c => c.toLowerCase() === nom.toLowerCase())) { App.ui.toast('Cette catégorie existe déjà', 'err'); return; }
+      const perso = App.storage.load('kf_fin_cats') || [];
+      perso.push(nom);
+      App.storage.save('kf_fin_cats', perso);
+      inp.value = '';
+      App.finance.renderCatsGestion();
+      App.finance.remplirSelect(App.finance.type === 'dep' ? nom : null);
+      App.ui.toast('Catégorie « ' + nom + ' » ajoutée');
+    },
+    catDel(nom) {
+      App.finance.charger();
+      if (App.finance.tx.some(t => t.cat === nom)) { App.ui.toast('Impossible : des transactions utilisent cette catégorie', 'err'); return; }
+      App.ui.confirm('Supprimer la catégorie « ' + nom + ' » ?', () => {
+        App.storage.save('kf_fin_cats', (App.storage.load('kf_fin_cats') || []).filter(c => c !== nom));
+        App.finance.renderCatsGestion();
+        App.finance.remplirSelect();
+        App.ui.toast('Catégorie supprimée');
+      }, 'Supprimer');
+    },
+
+    // ══ PAGE BUDGETS ══
+    budgets() {
+      const b = App.storage.load('kf_fin_budget');
+      return (b && typeof b === 'object') ? { type: b.type || {}, mois: b.mois || {} } : { type: {}, mois: {} };
+    },
+    budgetDe(cat, mois) {
+      const b = App.finance.budgets();
+      const ovr = b.mois[mois];
+      if (ovr && typeof ovr[cat] === 'number') return { montant: ovr[cat], ajuste: true };
+      if (typeof b.type[cat] === 'number') return { montant: b.type[cat], ajuste: false };
+      return null;
+    },
+    initBudgets() {
+      App.finance.charger();
+      if (!App.finance.moisBud) App.finance.moisBud = App.finance.moisCourant();
+      App.finance.renderBudgets();
+    },
+    budMoisNav(d) {
+      const f = App.finance;
+      const cible = f.decaleMois(f.moisBud, d);
+      if (cible > f.moisCourant()) return;
+      f.moisBud = cible;
+      f.renderBudgets();
+    },
+    // Retrouve l'éditeur inline d'une catégorie (comparaison directe : pas de CSS.escape, noms libres)
+    budEditeur(cat) {
+      let trouve = null;
+      document.querySelectorAll('.fin-bud-edit').forEach(e => { if (e.dataset.cat === cat) trouve = e; });
+      return trouve;
+    },
+    budEdit(cat) {
+      // Ouvre/ferme l'éditeur inline de la catégorie (un seul ouvert à la fois)
+      document.querySelectorAll('.fin-bud-edit').forEach(e => { if (e.dataset.cat !== cat) e.classList.remove('op'); });
+      const ed = App.finance.budEditeur(cat);
+      if (ed) ed.classList.toggle('op');
+    },
+    budSave(cat) {
+      const f = App.finance, mois = f.moisBud;
+      const ed = App.finance.budEditeur(cat);
+      if (!ed) return;
+      const vType = ed.querySelector('.bud-in-type').value;
+      const vOvr = ed.querySelector('.bud-in-ovr').value;
+      const b = f.budgets();
+      // Budget type : vide = pas de budget pour cette catégorie
+      if (vType === '') delete b.type[cat];
+      else b.type[cat] = App.ui.safeNum(vType, 0);
+      // Ajustement du mois : vide = on suit le budget type
+      if (!b.mois[mois]) b.mois[mois] = {};
+      if (vOvr === '') delete b.mois[mois][cat];
+      else b.mois[mois][cat] = App.ui.safeNum(vOvr, 0);
+      if (!Object.keys(b.mois[mois]).length) delete b.mois[mois];
+      App.storage.save('kf_fin_budget', b);
+      App.ui.toast('Budget « ' + cat + ' » enregistré');
+      f.renderBudgets();
+    },
+    // Jours restants dans le mois (inclut aujourd'hui) — pour l'indicateur de rythme
+    joursRestants() {
+      const n = new Date();
+      return new Date(n.getFullYear(), n.getMonth() + 1, 0).getDate() - n.getDate() + 1;
+    },
+
+    renderBudgets() {
+      const f = App.finance, mois = f.moisBud, courant = mois === f.moisCourant();
+      App.ui.setEl('fin-bud-mois-lbl', f.fmtMois(mois));
+      const next = document.getElementById('fin-bud-mois-next');
+      if (next) next.disabled = mois >= f.moisCourant();
+
+      // Dépenses du mois par catégorie (revenus exclus des budgets)
+      const depParCat = {};
+      f.duMois(mois).forEach(t => { if (t.type !== 'rev') depParCat[t.cat] = (depParCat[t.cat] || 0) + t.montant; });
+
+      // Catégories affichées : toutes celles connues + celles (anciennes/supprimées) qui ont du mouvement ce mois
+      const toutes = f.cats().slice();
+      Object.keys(depParCat).forEach(c => { if (!toutes.includes(c)) toutes.push(c); });
+
+      let totB = 0, totD = 0, html = '', hbHtml = '', nbOver = 0, nbWarn = 0;
+      toutes.forEach(cat => {
+        const bud = f.budgetDe(cat, mois);
+        const dep = depParCat[cat] || 0;
+        if (!bud) {
+          // Sans budget : toujours listée (sinon impossible de définir son premier budget) ; dépense mise en évidence si mouvement
+          hbHtml += '<div class="fin-tx"><div class="fin-tx-main"><div class="fin-tx-cat">' + f.esc(cat) + '</div></div>'
+            + (dep > 0 ? '<div class="fin-tx-mnt" style="color:var(--amberTx)">−' + f.fmtEUR(dep) + '</div>' : '<div class="fin-tx-mnt" style="color:var(--tx3);font-weight:400">—</div>')
+            + '<button class="fin-tx-btn" onclick="finBudEdit(\'' + f.esc(cat).replace(/'/g, '&#39;') + '\')" aria-label="Définir un budget">' + ico('edit', 15) + '</button></div>'
+            + f.budEditeurHtml(cat, mois);
+          return;
+        }
+        totB += bud.montant; totD += dep;
+        const pct = bud.montant > 0 ? (dep / bud.montant) * 100 : (dep > 0 ? 200 : 0);
+        const etat = pct > 100 ? 'over' : pct >= 80 ? 'warn' : 'ok';
+        if (etat === 'over') nbOver++; else if (etat === 'warn') nbWarn++;
+        const reste = bud.montant - dep;
+        // Rythme : uniquement pour le mois en cours (pour un mois passé, le constat final suffit)
+        let rythme = '';
+        if (courant) {
+          rythme = reste >= 0
+            ? ico('clock', 12) + '<span>reste ' + f.fmtEUR(reste) + ' · ' + f.fmtEUR(reste / f.joursRestants()) + '/jour jusqu\'à la fin du mois</span>'
+            : ico('alert', 12) + '<span>dépassé de ' + f.fmtEUR(-reste) + '</span>';
+        } else if (reste < 0) {
+          rythme = ico('alert', 12) + '<span>dépassé de ' + f.fmtEUR(-reste) + '</span>';
+        }
+        html += '<div class="fin-bud">'
+          + '<div class="fin-bud-head"><div class="fin-bud-nom">' + f.esc(cat) + (bud.ajuste ? ' <span class="bdg bdg-b">ajusté ce mois</span>' : '') + '</div>'
+          + '<div class="fin-bud-val">' + f.fmtEUR(dep) + ' / ' + f.fmtEUR(bud.montant)
+          + ' <button class="fin-tx-btn" style="min-width:30px;min-height:30px;vertical-align:middle" onclick="finBudEdit(\'' + f.esc(cat).replace(/'/g, '&#39;') + '\')" aria-label="Modifier le budget">' + ico('edit', 14) + '</button></div></div>'
+          + '<div class="fin-bud-track"><div class="fin-bud-fill ' + etat + '" style="width:' + Math.min(100, pct) + '%"></div></div>'
+          + (rythme ? '<div class="fin-bud-rythme"' + (reste < 0 ? ' style="color:var(--redTx)"' : '') + '>' + rythme + '</div>' : '')
+          + f.budEditeurHtml(cat, mois);
+      });
+
+      App.ui.setEl('fin-bud-tot-b', f.fmtEUR(totB));
+      App.ui.setEl('fin-bud-tot-d', f.fmtEUR(totD));
+      App.ui.setEl('fin-bud-tot-r', (totB - totD >= 0 ? '' : '−') + f.fmtEUR(Math.abs(totB - totD)));
+      const recap = document.getElementById('fin-bud-recap');
+      if (recap) {
+        if (!totB) { recap.innerHTML = ico('target', 14) + '<span>Aucun budget défini pour l\'instant — touche le crayon d\'une catégorie ci-dessous pour commencer.</span>'; recap.style.color = 'var(--tx2)'; }
+        else if (nbOver) { recap.innerHTML = ico('alert', 14) + '<span>' + nbOver + ' budget' + (nbOver > 1 ? 's' : '') + ' dépassé' + (nbOver > 1 ? 's' : '') + ' — regarde où ça coince, sans te flageller.</span>'; recap.style.color = 'var(--redTx)'; }
+        else if (nbWarn) { recap.innerHTML = ico('alert', 14) + '<span>' + nbWarn + ' budget' + (nbWarn > 1 ? 's' : '') + ' au-delà de 80 % — zone de vigilance.</span>'; recap.style.color = 'var(--amberTx)'; }
+        else { recap.innerHTML = ico('check', 14) + '<span>Tous les budgets sont dans les clous' + (courant ? ' pour l\'instant' : '') + '.</span>'; recap.style.color = 'var(--greenTx)'; }
+      }
+      const lst = document.getElementById('fin-bud-liste');
+      if (lst) lst.innerHTML = html || '<div style="font-size:12px;color:var(--tx3);padding:14px 0;text-align:center">Aucune catégorie budgétée. Le budget type se définit une fois et vaut pour tous les mois.</div>';
+      const hbCard = document.getElementById('fin-hb-card');
+      if (hbCard) hbCard.style.display = hbHtml ? 'block' : 'none';
+      App.ui.setHTML('fin-hb-liste', hbHtml);
+    },
+    // Éditeur inline d'un budget : budget type (tous les mois) + ajustement du mois affiché
+    budEditeurHtml(cat, mois) {
+      const b = App.finance.budgets();
+      const vType = (typeof b.type[cat] === 'number') ? b.type[cat] : '';
+      const vOvr = (b.mois[mois] && typeof b.mois[mois][cat] === 'number') ? b.mois[mois][cat] : '';
+      const e = App.finance.esc(cat), eq = e.replace(/'/g, '&#39;');
+      return '<div class="fin-bud-edit" data-cat="' + e + '">'
+        + '<div class="fin-frow" style="margin-bottom:6px">'
+        + '<div class="fin-fld"><label>Budget type (€/mois)</label><input type="number" inputmode="decimal" class="bud-in-type" min="0" step="1" placeholder="aucun" value="' + vType + '"></div>'
+        + '<div class="fin-fld"><label>Ajustement pour ' + App.finance.fmtMois(mois) + '</label><input type="number" inputmode="decimal" class="bud-in-ovr" min="0" step="1" placeholder="suivre le type" value="' + vOvr + '"></div>'
+        + '</div>'
+        + '<button class="data-btn" style="min-height:38px;padding:8px" onclick="finBudSave(\'' + eq + '\')">Enregistrer ce budget</button>'
+        + '</div>';
+    },
+
+    // ══ APERÇU HUB ══
+    hubStats() {
+      App.finance.charger();
+      const f = App.finance, m = f.moisCourant(), tot = f.totaux(m);
+      App.ui.setEl('hub-fin-dep', f.fmtEUR(tot.dep));
+      App.ui.setEl('hub-fin-rev', f.fmtEUR(tot.rev));
+      App.ui.setEl('hub-fin-solde', (tot.rev - tot.dep >= 0 ? '+' : '−') + f.fmtEUR(Math.abs(tot.rev - tot.dep)));
+      const rp = document.getElementById('hub-fin-rappel');
+      if (!rp) return;
+      if (!f.tx.length) { rp.innerHTML = ico('edit', 14) + '<span>Commence par saisir tes premières dépenses du mois</span>'; rp.style.color = 'var(--tx2)'; return; }
+      // Budgets dépassés ce mois → alerte ; sinon tout va bien
+      let over = 0;
+      const dep = {};
+      f.duMois(m).forEach(t => { if (t.type !== 'rev') dep[t.cat] = (dep[t.cat] || 0) + t.montant; });
+      Object.keys(dep).forEach(c => { const b = f.budgetDe(c, m); if (b && b.montant > 0 && dep[c] > b.montant) over++; });
+      if (over) { rp.innerHTML = ico('alert', 14) + '<span><strong>' + over + ' budget' + (over > 1 ? 's' : '') + ' dépassé' + (over > 1 ? 's' : '') + '</strong> ce mois — voir la page Budgets</span>'; rp.style.color = 'var(--redTx)'; }
+      else { rp.innerHTML = ico('check', 14) + '<span>Budgets dans les clous ce mois-ci</span>'; rp.style.color = 'var(--greenTx)'; }
+    },
+
+    // ══ EXPORT / IMPORT CSV (format français : ; · JJ/MM/AAAA · 1234,56 · UTF-8 BOM) ══
+    csvExport() {
+      App.finance.charger();
+      const f = App.finance;
+      if (!f.tx.length) { App.ui.toast('Aucune transaction à exporter', 'err'); return; }
+      const champ = v => { v = String(v == null ? '' : v); return /[;"\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+      const lignes = ['Date;Type;Catégorie;Montant;Note;Agrégé;Du;Au'];
+      f.tx.slice().sort((a, b) => a.date.localeCompare(b.date)).forEach(t => {
+        lignes.push([
+          App.ui.fmtDate(t.date),
+          t.type === 'rev' ? 'Revenu' : 'Dépense',
+          champ(t.cat),
+          String(t.montant.toFixed(2)).replace('.', ','),
+          champ(t.note || ''),
+          t.agg ? 'Oui' : 'Non',
+          t.agg ? App.ui.fmtDate(t.du) : '',
+          t.agg ? App.ui.fmtDate(t.au) : ''
+        ].join(';'));
+      });
+      App.dataio.download('kf-finance-' + App.ui.todayStr() + '.csv', '\ufeff' + lignes.join('\r\n'), 'text/csv;charset=utf-8');
+      App.ui.toast('CSV exporté — ' + f.tx.length + ' transaction' + (f.tx.length > 1 ? 's' : ''));
+    },
+    csvImport(input) {
+      const file = input.files && input.files[0];
+      input.value = '';
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          App.finance.charger();
+          const f = App.finance;
+          // Découpe CSV tolérante aux guillemets (champs avec ; ou retours ligne)
+          const texte = String(reader.result).replace(/^\ufeff/, '');
+          const lignes = [];
+          let champ = '', ligne = [], q = false;
+          for (let i = 0; i < texte.length; i++) {
+            const c = texte[i];
+            if (q) {
+              if (c === '"' && texte[i + 1] === '"') { champ += '"'; i++; }
+              else if (c === '"') q = false;
+              else champ += c;
+            } else if (c === '"') q = true;
+            else if (c === ';') { ligne.push(champ); champ = ''; }
+            else if (c === '\n' || c === '\r') {
+              if (c === '\r' && texte[i + 1] === '\n') i++;
+              ligne.push(champ); champ = '';
+              if (ligne.some(x => x !== '')) lignes.push(ligne);
+              ligne = [];
+            } else champ += c;
+          }
+          if (champ !== '' || ligne.length) { ligne.push(champ); if (ligne.some(x => x !== '')) lignes.push(ligne); }
+          if (lignes.length < 2) throw new Error('vide');
+          const versISO = d => { const p = (d || '').trim().split('/'); return p.length === 3 ? p[2] + '-' + p[1] + '-' + p[0] : null; };
+          // Clé de dédoublonnage validée : date + montant + catégorie + type
+          const cle = t => t.date + '|' + t.montant.toFixed(2) + '|' + t.cat + '|' + t.type;
+          const existantes = new Set(f.tx.map(cle));
+          let ajoutees = 0, ignorees = 0, invalides = 0;
+          const nouvelles = [];
+          lignes.slice(1).forEach(l => {
+            const date = versISO(l[0]);
+            const montant = parseFloat(String(l[3] || '').replace(/\s/g, '').replace(',', '.'));
+            const cat = (l[2] || '').trim();
+            if (!date || !cat || !(montant > 0)) { invalides++; return; }
+            const t = {
+              id: 'tx' + Date.now() + Math.floor(Math.random() * 1e6),
+              date, montant: Math.round(montant * 100) / 100,
+              type: /^rev/i.test((l[1] || '').trim()) ? 'rev' : 'dep',
+              cat, note: (l[4] || '').trim()
+            };
+            if (/^oui$/i.test((l[5] || '').trim())) { t.agg = true; t.du = versISO(l[6]) || t.date; t.au = versISO(l[7]) || t.date; }
+            if (existantes.has(cle(t))) { ignorees++; return; }
+            existantes.add(cle(t));
+            nouvelles.push(t); ajoutees++;
+          });
+          if (!ajoutees) { App.ui.toast(ignorees ? 'Rien à importer : ' + ignorees + ' doublon' + (ignorees > 1 ? 's' : '') + ' détecté' + (ignorees > 1 ? 's' : '') : 'Aucune ligne valide dans ce fichier', 'err'); return; }
+          App.ui.confirm('Importer ' + ajoutees + ' transaction' + (ajoutees > 1 ? 's' : '') + ' ?' + (ignorees ? ' (' + ignorees + ' doublon' + (ignorees > 1 ? 's' : '') + ' ignoré' + (ignorees > 1 ? 's' : '') + ')' : '') + (invalides ? ' — ' + invalides + ' ligne' + (invalides > 1 ? 's' : '') + ' invalide' + (invalides > 1 ? 's' : '') + ' écartée' + (invalides > 1 ? 's' : '') : ''), () => {
+            f.tx = f.tx.concat(nouvelles);
+            f.sauver();
+            f.renderListe();
+            App.ui.toast(ajoutees + ' transaction' + (ajoutees > 1 ? 's' : '') + ' importée' + (ajoutees > 1 ? 's' : ''));
+          }, 'Importer');
+        } catch (e) { App.ui.toast('Fichier CSV invalide — utilise le format de l\'export', 'err'); }
+      };
+      reader.readAsText(file);
+    }
+  },
+
+  // ════════════════════════════════════════════
   dataio: {
     icsCfg() {
       const c = App.storage.load('kf_fit_ics');
@@ -3653,7 +4369,7 @@ const App = {
       const meta = App.storage.load('kf_meta') || {};
       meta.dernierExport = App.ui.todayStr();
       App.storage.save('kf_meta', meta);
-      const dump = { app: 'KF-Apps', version: 9, exporte: new Date().toISOString(), donnees: {} };
+      const dump = { app: 'KF-Apps', version: 10, exporte: new Date().toISOString(), donnees: {} };
       try {
         for (let i = 0; i < localStorage.length; i++) {
           const k = localStorage.key(i);
@@ -3773,6 +4489,21 @@ function frVersJournal(btn)     { App.frigo.versJournal(btn); }
 
 function habEau(d)              { App.habits.eau(d); }
 function habSommeil(v)          { App.habits.setSommeil(v); }
+
+function finMode(m)             { App.finance.setMode(m); }
+function finType(t)             { App.finance.setType(t); }
+function finSave()              { App.finance.save(); }
+function finEdit(id)            { App.finance.edit(id); }
+function finDel(id)             { App.finance.del(id); }
+function finCancelEdit()        { App.finance.cancelEdit(); }
+function finMoisNav(d)          { App.finance.moisNav(d); }
+function finCatAdd()            { App.finance.catAdd(); }
+function finCatDel(nom)         { App.finance.catDel(nom); }
+function finBudMoisNav(d)       { App.finance.budMoisNav(d); }
+function finBudEdit(cat)        { App.finance.budEdit(cat); }
+function finBudSave(cat)        { App.finance.budSave(cat); }
+function finCsvExport()         { App.finance.csvExport(); }
+function finCsvImport(input)    { App.finance.csvImport(input); }
 
 function kfExport()             { App.dataio.exportJSON(); }
 function kfImport(input)        { App.dataio.importJSON(input); }
