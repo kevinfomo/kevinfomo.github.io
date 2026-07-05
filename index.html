@@ -227,27 +227,6 @@ select{font-size:12px;padding:5px 10px;border:1px solid var(--bdr2);border-radiu
 /* ── PLAISIR TAG ── */
 .plaisir{background:linear-gradient(90deg,#fbbf24,#f59e0b);color:#fff;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600}
 
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  .sidebar{display:none}
-  .main{margin-left:0;padding-bottom:70px}
-  .content{padding:1rem}
-  .mg4{grid-template-columns:repeat(2,1fr)}
-  .phase-grid{grid-template-columns:1fr 1fr}
-  .tgrid-sport{grid-template-columns:22px 1fr 60px 45px}
-  .tgrid-sport .col-last{display:none}
-  .rec-two{grid-template-columns:1fr}
-  .ing-grid{grid-template-columns:1fr}
-  .week-grid{grid-template-columns:repeat(6,1fr)}
-  .page-title{font-size:18px}
-}
-@media(max-width:400px){
-  .mg4{grid-template-columns:repeat(2,1fr)}
-  .phase-grid{grid-template-columns:1fr}
-  .mg3{grid-template-columns:1fr 1fr}
-}
-
-
 /* ══ HOME ══ */
 #sec-home{min-height:100vh}
 .home-hero{background:var(--reflet),var(--card);color:var(--tx1);padding:1.6rem 1.5rem 1.4rem;border-radius:var(--r);margin:1rem 1.5rem 0;border:1px solid var(--verre-bdr);box-shadow:0 2px 12px rgba(15,23,42,.06)}
@@ -316,7 +295,7 @@ select{font-size:12px;padding:5px 10px;border:1px solid var(--bdr2);border-radiu
 .action-btn.green{background:#16a34a}
 .action-btn.green:hover{background:#15803d}
 .toast{display:none;text-align:center;padding:10px;font-size:13px;color:var(--greenTx);background:var(--greenBg);border-radius:var(--rs);margin-top:8px}
-/* ══ RESPONSIVE ══ */
+/* ══ RESPONSIVE (bloc unique consolidé — v12.1) ══ */
 @media(max-width:768px){
   .sidebar{display:none}
   .main{margin-left:0!important;padding-bottom:72px}
@@ -331,9 +310,13 @@ select{font-size:12px;padding:5px 10px;border:1px solid var(--bdr2);border-radiu
   .ss-input-grid{grid-template-columns:1fr 1fr}
   .sn-macro-grid{grid-template-columns:repeat(2,1fr)}
   .phase-grid{grid-template-columns:1fr 1fr}
+  .tgrid-sport{grid-template-columns:22px 1fr 60px 45px}
   .tgrid-sport .col-last{display:none}
+  .dash-wrap{padding:1rem 1rem 0}
 }
-@media(max-width:400px){.mg4{grid-template-columns:repeat(2,1fr)}.phase-grid{grid-template-columns:1fr}}
+@media(max-width:400px){.mg4{grid-template-columns:repeat(2,1fr)}.phase-grid{grid-template-columns:1fr}.mg3{grid-template-columns:1fr 1fr}}
+/* Sur desktop, la sidebar suffit : la barre du bas serait redondante (le JS la pilote via style inline, d'où !important) */
+@media(min-width:769px){.bnav{display:none!important}}
 
 
 /* ══ SUIVI SPORT v2 ══ */
@@ -421,7 +404,6 @@ select{font-size:12px;padding:5px 10px;border:1px solid var(--bdr2);border-radiu
 #modal-ok{background:var(--red);border:none;color:#fff}
 /* Tableau de bord */
 .dash-wrap{padding:1rem 1.5rem 0;display:flex;flex-direction:column;gap:12px}
-@media(max-width:768px){.dash-wrap{padding:1rem 1rem 0}}
 .rappel{display:flex;gap:9px;align-items:flex-start;padding:9px 12px;border-radius:var(--rs);font-size:12px;line-height:1.5;margin-bottom:6px}
 .rappel:last-child{margin-bottom:0}
 .rappel svg{flex-shrink:0;margin-top:1px}
@@ -599,27 +581,8 @@ input,select,button{touch-action:manipulation}
     <div><div class="sb-logo">Kévin FOMO</div><div class="sb-sub">Suivi &amp; Plans</div></div>
     <button class="dr-close" onclick="closeDrawer()" aria-label="Fermer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   </div>
-  <nav class="sb-nav">
-    <div class="sb-item" data-section="hub" onclick="goToSection('hub')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg>Accueil</div>
-    <div class="sb-section-lbl">Module Fitness</div>
-    <div class="sb-item" data-section="home" onclick="goToSection('home')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Accueil Fitness</div>
-    <div class="sb-section-lbl">Plans</div>
-    <div class="sb-item" data-section="sport" onclick="goToSection('sport')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Plan Sportif</div>
-    <div class="sb-item" data-section="nutrition" onclick="goToSection('nutrition')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2l1.5 14.5a2 2 0 002 1.5h11a2 2 0 002-1.5L21 2"/><path d="M7 2v4a2 2 0 004 0V2M13 2v4a2 2 0 004 0V2"/></svg>Plan Nutritionnel</div>
-    <div class="sb-item" data-section="courses" onclick="goToSection('courses')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Liste de Courses</div>
-    <div class="sb-section-lbl">Suivi</div>
-    <div class="sb-item" data-section="suivi-sport" onclick="goToSection('suivi-sport')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Suivi Sportif</div>
-    <div class="sb-item" data-section="suivi-nutrition" onclick="goToSection('suivi-nutrition')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Suivi Nutritionnel</div>
-    <div class="sb-item" data-section="mesures" onclick="goToSection('mesures')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Mesures &amp; Objectifs</div>
-    <div class="sb-section-lbl">Outils</div>
-    <div class="sb-item" data-section="frigo" onclick="goToSection('frigo')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="5" y1="10" x2="19" y2="10"/><line x1="9" y1="5" x2="9" y2="7"/><line x1="9" y1="13" x2="9" y2="16"/></svg>Idées Frigo</div>
-    <div class="sb-section-lbl">Module Finance</div>
-    <div class="sb-item" data-section="fin-dash" onclick="goToSection('fin-dash')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Tableau de bord</div>
-    <div class="sb-item" data-section="fin-saisie" onclick="goToSection('fin-saisie')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.8 2.8 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Saisie</div>
-    <div class="sb-item" data-section="fin-budgets" onclick="goToSection('fin-budgets')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Budgets</div>
-    <div class="sb-item" data-section="fin-impots" onclick="goToSection('fin-impots')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>Impôts</div>
-    <div class="sb-item" data-section="fin-impots" onclick="goToSection('fin-impots')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>Impôts</div>
-  </nav>
+  <!-- Items générés au démarrage depuis le registre unique NAV_PLAN (App.nav.construire) -->
+  <nav class="sb-nav" id="drawer-nav"></nav>
   <div class="sb-footer" id="drawer-version"></div>
 </nav>
 
@@ -632,58 +595,8 @@ input,select,button{touch-action:manipulation}
     <div class="sb-logo">KF Apps</div>
     <div class="sb-sub">Kévin FOMO</div>
   </div>
-  <nav class="sb-nav">
-    <div class="sb-item" data-section="hub" onclick="goToSection('hub')">
-      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg>
-      Accueil
-    </div>
-    <div class="sb-section-lbl">Module Fitness</div>
-    <div class="sb-item" data-section="home" onclick="goToSection('home')">
-      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      Accueil Fitness
-    </div>
-    <div class="sb-section-lbl">Plans</div>
-    <div class="sb-item" data-section="sport" onclick="goToSection('sport')">
-      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/></svg>
-      Plan Sportif
-    </div>
-    <div class="sb-item" data-section="nutrition" onclick="goToSection('nutrition')">
-      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2l1.5 14.5a2 2 0 002 1.5h11a2 2 0 002-1.5L21 2"/><path d="M7 2v4a2 2 0 004 0V2M13 2v4a2 2 0 004 0V2"/></svg>
-      Plan Nutritionnel
-    </div>
-    <div class="sb-item" data-section="courses" onclick="goToSection('courses')">
-      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-      Liste de Courses
-    </div>
-    <div class="sb-section-lbl">Suivi</div>
-    <div class="sb-item" data-section="suivi-sport" onclick="goToSection('suivi-sport')">
-      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      Suivi Sportif
-    </div>
-    <div class="sb-item" data-section="suivi-nutrition" onclick="goToSection('suivi-nutrition')">
-      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      Suivi Nutritionnel
-    </div>
-    <div class="sb-item" data-section="mesures" onclick="goToSection('mesures')">
-      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-      Mesures &amp; Objectifs
-    </div>
-    <div class="sb-section-lbl">Outils</div>
-    <div class="sb-item" data-section="frigo" onclick="goToSection('frigo')">
-      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="5" y1="10" x2="19" y2="10"/><line x1="9" y1="5" x2="9" y2="7"/><line x1="9" y1="13" x2="9" y2="16"/></svg>
-      Idées Frigo
-    </div>
-    <div class="sb-section-lbl">Module Finance</div>
-    <div class="sb-item" data-section="fin-dash" onclick="goToSection('fin-dash')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Tableau de bord</div>
-    <div class="sb-item" data-section="fin-saisie" onclick="goToSection('fin-saisie')">
-      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.8 2.8 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
-      Saisie
-    </div>
-    <div class="sb-item" data-section="fin-budgets" onclick="goToSection('fin-budgets')">
-      <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
-      Budgets
-    </div>
-  </nav>
+  <!-- Items générés au démarrage depuis le registre unique NAV_PLAN (App.nav.construire) -->
+  <nav class="sb-nav" id="sidebar-nav"></nav>
   <div class="sb-footer" id="sidebar-version"></div>
 </aside>
 
@@ -691,17 +604,9 @@ input,select,button{touch-action:manipulation}
 <!-- Barre contextuelle : un groupe d'items par module, la navigation affiche le bon groupe.
      Pas de bouton « Menu » ici : le tiroir s'ouvre uniquement via le hamburger de la barre du haut. -->
 <nav class="bnav" id="bottom-nav" style="display:none" aria-label="Navigation principale">
-  <div class="bnav-inner" id="bnav-grp-fitness">
-    <button class="bnav-item" data-section="home" onclick="goToSection('home')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Fitness</button>
-    <button class="bnav-item" data-section="mesures" onclick="goToSection('mesures')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Mesures</button>
-    <button class="bnav-item" data-section="suivi-sport" onclick="goToSection('suivi-sport')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Sport</button>
-    <button class="bnav-item" data-section="suivi-nutrition" onclick="goToSection('suivi-nutrition')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Nutrition</button>
-  </div>
-  <div class="bnav-inner fin" id="bnav-grp-finance" style="display:none">
-    <button class="bnav-item" data-section="fin-dash" onclick="goToSection('fin-dash')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Tableau</button><button class="bnav-item" data-section="fin-saisie" onclick="goToSection('fin-saisie')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Saisie</button>
-    <button class="bnav-item" data-section="fin-budgets" onclick="goToSection('fin-budgets')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Budgets</button>
-    <button class="bnav-item" data-section="fin-impots" onclick="goToSection('fin-impots')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>Impôts</button>
-  </div>
+  <!-- Items générés au démarrage depuis App.modules[m].bnav (App.nav.construire) -->
+  <div class="bnav-inner" id="bnav-grp-fitness"></div>
+  <div class="bnav-inner fin" id="bnav-grp-finance" style="display:none"></div>
 </nav>
 
 <!-- ══ MAIN ══ -->
@@ -733,6 +638,7 @@ input,select,button{touch-action:manipulation}
       <span style="font-size:12px;color:var(--tx2)">heures</span>
       <span style="font-size:11.5px;flex:1" id="hab-sommeil-lbl"></span>
     </div>
+    <div style="font-size:11px;color:var(--tx3);margin-top:10px;line-height:1.5" id="hab-resume"></div>
   </div>
 
   <!-- Modules -->
@@ -777,6 +683,7 @@ input,select,button{touch-action:manipulation}
   <!-- Données (transversal) -->
   <div class="hub-bloc hub-carte">
     <div class="section-label">Mes données</div>
+    <div id="hub-vierge" class="warn" style="display:none">Aucune donnée locale détectée : première utilisation, ou données effacées par iOS (site non visité 7 jours). Si tu avais une sauvegarde, clique <strong>Restaurer</strong> ci-dessous pour tout retrouver.</div>
     <div style="font-size:11.5px;color:var(--tx2);line-height:1.5;margin-bottom:4px">iOS peut effacer les données locales d'un site non visité pendant 7 jours : exporte une sauvegarde chaque semaine (fichier JSON à ranger dans Fichiers/iCloud).</div>
     <div style="font-size:11.5px;color:var(--tx2);margin-bottom:8px" id="hub-export-info"></div>
     <div style="display:flex;gap:8px">
@@ -1338,6 +1245,10 @@ input,select,button{touch-action:manipulation}
 <div class="card">
   <div class="section-label">Courbe de poids</div>
   <div id="ms-chart"></div>
+</div>
+<div class="card">
+  <div class="section-label">R&eacute;cup&eacute;ration &middot; 30 derniers jours</div>
+  <div id="ms-recup"></div>
 </div>
 <div class="card">
   <div class="section-label">Jalons</div>
@@ -2518,6 +2429,10 @@ function ico(name, size, cls) {
     minus:    '<line x1="5" y1="12" x2="19" y2="12"/>',
     flame:    '<path d="M12 22c4.4 0 7-2.8 7-6.7 0-3.3-2.2-5.6-3.8-7.3-.9-1-1.7-2.4-2.2-4-.3-1-.5-1.7-1-2 0 2.5-1 4.6-2.6 6.2C7.7 9.9 5 12 5 15.3 5 19.2 7.6 22 12 22z"/>',
     clock:    '<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 13.5"/>',
+    soleil:   '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/>',
+    plat:     '<path d="M3 2l1.5 14.5a2 2 0 002 1.5h11a2 2 0 002-1.5L21 2"/><path d="M7 2v4a2 2 0 004 0V2M13 2v4a2 2 0 004 0V2"/>',
+    pct:      '<line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>',
+    barres:   '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
     settings: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.9-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1-1.6 1.7 1.7 0 00-1.9.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.9 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.6-1 1.7 1.7 0 00-.3-1.9l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.9.3h0a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5h0a1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9v0a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/>'
   };
   return '<svg class="' + (cls || 'ic') + '" width="' + (size || 18) + '" height="' + (size || 18) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + (paths[name] || '') + '</svg>';
@@ -2528,7 +2443,7 @@ function ico(name, size, cls) {
 // (le module Fitness regroupe : dash, sport, nutrition, mesures,
 //  frigo, habits — clés localStorage préfixées kf_fit_*)
 // ════════════════════════════════════════════════════════════
-const APP_VERSION = '12.0';
+const APP_VERSION = '12.1';
 
 // ── Migration du schéma v8 → v9 : renommage des clés vers kf_fit_* + kf_meta.
 //    Règle : l'ancienne clé n'écrase jamais une nouvelle clé déjà présente,
@@ -2565,6 +2480,62 @@ function migrerSchemaV9() {
   } catch(e) { console.warn('Migration v9 incomplète', e); }
 }
 
+// ── Migration v12.1 : habitudes journalières kf_fit_hab_AAAA-MM-JJ → objet unique kf_fit_hab
+//    { 'AAAA-MM-JJ': { eau, sommeil } }. En cas de conflit (restauration d'une vieille
+//    sauvegarde), la clé journalière gagne — on conserve la sémantique « restaurer remplace ».
+//    Idempotente, exécutée à chaque démarrage (absorbe aussi les imports JSON anciens formats).
+function migrerHabitudesV12() {
+  try {
+    const anciennes = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && /^kf_fit_hab_\d{4}-\d{2}-\d{2}$/.test(k)) anciennes.push(k);
+    }
+    if (!anciennes.length) return;
+    let all = {};
+    try { all = JSON.parse(localStorage.getItem('kf_fit_hab')) || {}; } catch(e) {}
+    if (typeof all !== 'object' || Array.isArray(all)) all = {};
+    anciennes.forEach(k => {
+      try {
+        const j = JSON.parse(localStorage.getItem(k));
+        if (j && typeof j === 'object') all[k.slice(11)] = { eau: j.eau || 0, sommeil: (typeof j.sommeil === 'number') ? j.sommeil : null };
+      } catch(e) {}
+      localStorage.removeItem(k);
+    });
+    localStorage.setItem('kf_fit_hab', JSON.stringify(all));
+  } catch(e) { console.warn('Migration habitudes v12.1 incomplète', e); }
+}
+
+// ── SOURCE UNIQUE DE NAVIGATION (v12.1) ──
+// Tiroir mobile, sidebar desktop, barre du bas, titres de la barre du haut et liste des
+// sections sont TOUS générés depuis ces deux registres (App.nav.construire au démarrage).
+// Ajouter une page = 1 entrée dans NAV_SECTIONS + sa place dans NAV_PLAN + App.modules.
+//  · titre = barre du haut · menu = libellé tiroir/sidebar (défaut : titre) · court = libellé barre du bas
+const NAV_SECTIONS = {
+  hub:               { titre:'Accueil',                   icone:'home' },
+  home:              { titre:'Fitness',                   icone:'zap',    menu:'Accueil Fitness', court:'Fitness' },
+  sport:             { titre:'Plan Sportif',              icone:'soleil' },
+  nutrition:         { titre:'Plan Nutritionnel',         icone:'plat' },
+  courses:           { titre:'Liste de Courses',          icone:'cart' },
+  'suivi-sport':     { titre:'Suivi Sportif',             icone:'chart',  court:'Sport' },
+  'suivi-nutrition': { titre:'Suivi Nutritionnel',        icone:'grid',   court:'Nutrition' },
+  mesures:           { titre:'Mesures & Objectifs',       icone:'scale',  court:'Mesures' },
+  frigo:             { titre:'Idées Frigo',               icone:'fridge' },
+  'fin-dash':        { titre:'Finance · Tableau de bord', icone:'barres', menu:'Tableau de bord', court:'Tableau' },
+  'fin-saisie':      { titre:'Finance · Saisie',          icone:'edit',   menu:'Saisie',          court:'Saisie' },
+  'fin-budgets':     { titre:'Finance · Budgets',         icone:'target', menu:'Budgets',         court:'Budgets' },
+  'fin-impots':      { titre:'Finance · Impôts',          icone:'pct',    menu:'Impôts',          court:'Impôts' }
+};
+// Ordre et intertitres du tiroir/sidebar
+const NAV_PLAN = [
+  { item:'hub' },
+  { lbl:'Module Fitness' }, { item:'home' },
+  { lbl:'Plans' },  { item:'sport' }, { item:'nutrition' }, { item:'courses' },
+  { lbl:'Suivi' },  { item:'suivi-sport' }, { item:'suivi-nutrition' }, { item:'mesures' },
+  { lbl:'Outils' }, { item:'frigo' },
+  { lbl:'Module Finance' }, { item:'fin-dash' }, { item:'fin-saisie' }, { item:'fin-budgets' }, { item:'fin-impots' }
+];
+
 const App = {
 
   data: {
@@ -2583,7 +2554,12 @@ const App = {
   // ── Stockage sécurisé
   storage: {
     save(key, data) {
-      try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) { console.warn('Storage save failed', e); }
+      try { localStorage.setItem(key, JSON.stringify(data)); }
+      catch(e) {
+        // Jamais d'échec silencieux : l'utilisateur doit savoir que rien n'a été enregistré
+        console.warn('Storage save failed', e);
+        try { App.ui.toast('Enregistrement impossible — stockage plein ou indisponible', 'err'); } catch(e2) {}
+      }
     },
     load(key) {
       try { const d = localStorage.getItem(key); return d ? JSON.parse(d) : null; } catch(e) { return null; }
@@ -2637,10 +2613,11 @@ const App = {
     }
   },
 
-  // ── Registre des modules de l'app-mère (le hub s'en sert pour l'affichage)
+  // ── Registre des modules de l'app-mère (hub + barre du bas contextuelle s'en servent)
+  //    bnav = items du groupe de la barre du bas (4-5 max), dans l'ordre d'affichage
   modules: {
-    fitness: { nom: 'Fitness', actif: true, sections: ['home','sport','nutrition','mesures','frigo','suivi-sport','suivi-nutrition','courses'] },
-    finance: { nom: 'Finance', actif: true, sections: ['fin-dash','fin-saisie','fin-budgets','fin-impots'] }
+    fitness: { nom: 'Fitness', actif: true, sections: ['home','sport','nutrition','mesures','frigo','suivi-sport','suivi-nutrition','courses'], bnav: ['home','mesures','suivi-sport','suivi-nutrition'] },
+    finance: { nom: 'Finance', actif: true, sections: ['fin-dash','fin-saisie','fin-budgets','fin-impots'], bnav: ['fin-dash','fin-saisie','fin-budgets','fin-impots'] }
   },
 
   // Module propriétaire d'une section (sert à la barre du bas contextuelle)
@@ -2649,11 +2626,31 @@ const App = {
     return null;
   },
 
-  // ── Navigation + tiroir
+  // ── Navigation + tiroir (ALL et TITRES dérivés du registre unique NAV_SECTIONS)
   nav: {
-    ALL: ['hub','home','sport','nutrition','mesures','frigo','suivi-sport','suivi-nutrition','courses','fin-dash','fin-saisie','fin-budgets','fin-impots'],
-    TITRES: { hub:'Accueil', home:'Fitness', sport:'Plan Sportif', nutrition:'Plan Nutritionnel', mesures:'Mesures & Objectifs', frigo:'Idées Frigo', 'suivi-sport':'Suivi Sportif', 'suivi-nutrition':'Suivi Nutritionnel', courses:'Liste de Courses', 'fin-dash':'Finance · Tableau de bord', 'fin-saisie':'Finance · Saisie', 'fin-budgets':'Finance · Budgets', 'fin-impots':'Finance · Impôts' },
+    ALL: Object.keys(NAV_SECTIONS),
+    TITRES: Object.fromEntries(Object.keys(NAV_SECTIONS).map(k => [k, NAV_SECTIONS[k].titre])),
     current: 'hub',
+
+    // Génère tiroir mobile, sidebar desktop et groupes de la barre du bas depuis le registre.
+    // Appelée une fois au démarrage (App.init) — rend impossibles les doublons/oublis d'items.
+    construire() {
+      const S = NAV_SECTIONS;
+      const item = id => {
+        const s = S[id];
+        return '<div class="sb-item" data-section="' + id + '" onclick="goToSection(\'' + id + '\')">' + ico(s.icone, 18, 'sb-icon') + (s.menu || s.titre) + '</div>';
+      };
+      const menu = NAV_PLAN.map(e => e.lbl ? '<div class="sb-section-lbl">' + e.lbl + '</div>' : item(e.item)).join('');
+      App.ui.setHTML('drawer-nav', menu);
+      App.ui.setHTML('sidebar-nav', menu);
+      for (const m in App.modules) {
+        const grp = document.getElementById('bnav-grp-' + m);
+        if (grp) grp.innerHTML = (App.modules[m].bnav || []).map(id => {
+          const s = S[id];
+          return '<button class="bnav-item" data-section="' + id + '" onclick="goToSection(\'' + id + '\')">' + ico(s.icone, 20, 'bnav-icon') + (s.court || s.titre) + '</button>';
+        }).join('');
+      }
+    },
 
     goTo(section) {
       App.nav.current = section;
@@ -2859,6 +2856,15 @@ const App = {
       // Widgets quotidiens + info dernière sauvegarde
       App.habits.render();
       App.hub.renderExportInfo();
+
+      // Filet anti-purge iOS : stockage entièrement vide = première visite OU données effacées.
+      // Dans les deux cas, le bon réflexe est le même : restaurer la dernière sauvegarde si elle existe.
+      const vg = document.getElementById('hub-vierge');
+      if (vg) {
+        const vide = !App.data.mesures.length && !App.data.sportSessions.length && !App.data.nutritionData.length
+          && !(App.finance.tx && App.finance.tx.length) && !Object.keys(App.habits.all()).length;
+        vg.style.display = vide ? 'block' : 'none';
+      }
     },
     renderExportInfo() {
       const meta = App.storage.load('kf_meta') || {};
@@ -2875,36 +2881,109 @@ const App = {
   // MODULE HABITUDES (eau · sommeil) — affiché sur le hub
   // ════════════════════════════════════════════
   habits: {
-    key() { return 'kf_fit_hab_' + App.ui.todayStr(); },
-    get() {
-      const h = App.storage.load(App.habits.key());
-      return (h && typeof h === 'object') ? h : { eau: 0, sommeil: null };
+    // Historique en clé unique : kf_fit_hab = { 'AAAA-MM-JJ': { eau (verres de 0,25 L), sommeil (h) } }
+    CIBLE_EAU: 10,     // 10 verres × 0,25 L = objectif 2,5 L/jour
+    SEUIL_SOMMEIL: 7,  // heures — en dessous, la récupération en pâtit
+
+    all() {
+      const h = App.storage.load('kf_fit_hab');
+      return (h && typeof h === 'object' && !Array.isArray(h)) ? h : {};
+    },
+    get(dateStr) {
+      const j = App.habits.all()[dateStr || App.ui.todayStr()];
+      return (j && typeof j === 'object') ? { eau: j.eau || 0, sommeil: (typeof j.sommeil === 'number') ? j.sommeil : null } : { eau: 0, sommeil: null };
+    },
+    set(jour) {
+      const all = App.habits.all();
+      all[App.ui.todayStr()] = jour;
+      App.storage.save('kf_fit_hab', all);
     },
     eau(delta) {
       const h = App.habits.get();
       h.eau = Math.max(0, Math.min(16, (h.eau || 0) + delta));
-      App.storage.save(App.habits.key(), h);
+      App.habits.set(h);
       App.habits.render();
     },
     setSommeil(v) {
       const h = App.habits.get();
       const n = parseFloat(v);
       h.sommeil = (!isNaN(n) && n > 0 && n <= 14) ? n : null;
-      App.storage.save(App.habits.key(), h);
+      App.habits.set(h);
       App.habits.render();
     },
     render() {
       const h = App.habits.get();
       App.ui.setEl('hab-eau-val', (h.eau * 0.25).toFixed(2).replace('.', ',').replace(/,?0+$/, '') + ' L');
-      App.ui.setW('hab-eau-bar', h.eau / 10 * 100);
+      App.ui.setW('hab-eau-bar', h.eau / App.habits.CIBLE_EAU * 100);
       const si = document.getElementById('hab-sommeil');
       if (si && document.activeElement !== si) si.value = h.sommeil || '';
       const sl = document.getElementById('hab-sommeil-lbl');
       if (sl) {
         if (h.sommeil === null) sl.textContent = 'Non renseigné';
-        else sl.textContent = h.sommeil >= 7 ? 'Bien — récupération assurée' : 'Court — la récupération musculaire en pâtit';
-        sl.style.color = h.sommeil === null ? 'var(--tx3)' : (h.sommeil >= 7 ? 'var(--greenTx)' : 'var(--amberTx)');
+        else sl.textContent = h.sommeil >= App.habits.SEUIL_SOMMEIL ? 'Bien — récupération assurée' : 'Court — la récupération musculaire en pâtit';
+        sl.style.color = h.sommeil === null ? 'var(--tx3)' : (h.sommeil >= App.habits.SEUIL_SOMMEIL ? 'var(--greenTx)' : 'var(--amberTx)');
       }
+      App.habits.renderResume();
+    },
+
+    // Série des n derniers jours (aujourd'hui inclus), du plus ancien au plus récent.
+    // eau = null quand le jour n'a aucune entrée (≠ 0 saisi), sommeil = null si non renseigné.
+    serie(n) {
+      const all = App.habits.all(), out = [];
+      for (let i = n - 1; i >= 0; i--) {
+        const d = new Date(); d.setDate(d.getDate() - i);
+        const ds = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        const j = all[ds];
+        out.push(j && typeof j === 'object'
+          ? { date: ds, eau: (j.eau > 0 ? j.eau : null), sommeil: (typeof j.sommeil === 'number') ? j.sommeil : null }
+          : { date: ds, eau: null, sommeil: null });
+      }
+      return out;
+    },
+
+    // Ligne résumé 7 jours sur le hub — discrète, uniquement s'il existe un passé à résumer
+    renderResume() {
+      const el = document.getElementById('hab-resume');
+      if (!el) return;
+      const s = App.habits.serie(7);
+      const passe = s.slice(0, 6).some(j => j.eau !== null || j.sommeil !== null);
+      if (!passe) { el.textContent = ''; return; }
+      const okEau = s.filter(j => j.eau !== null && j.eau >= App.habits.CIBLE_EAU).length;
+      const nuits = s.filter(j => j.sommeil !== null);
+      const moy = nuits.length ? (nuits.reduce((a, j) => a + j.sommeil, 0) / nuits.length) : null;
+      el.textContent = '7 derniers jours · Eau : objectif atteint ' + okEau + ' j/7 · Sommeil : '
+        + (moy !== null ? 'moy. ' + moy.toFixed(1).replace('.', ',') + ' h' : '—')
+        + ' — détail dans Mesures & Objectifs';
+    },
+
+    // Carte « Récupération · 30 derniers jours » de la page Mesures & Objectifs
+    renderRecup() {
+      const el = document.getElementById('ms-recup');
+      if (!el) return;
+      const s = App.habits.serie(30);
+      if (!s.some(j => j.eau !== null || j.sommeil !== null)) {
+        el.innerHTML = '<div class="ss-empty-hist">Renseigne l\'eau et le sommeil chaque jour sur l\'accueil : leur historique sur 30 jours apparaîtra ici (objectif 2,5 L · seuil 7 h).</div>';
+        return;
+      }
+      const CE = App.habits.CIBLE_EAU, SS = App.habits.SEUIL_SOMMEIL;
+      const eauJ = s.filter(j => j.eau !== null);
+      const okEau = eauJ.filter(j => j.eau >= CE).length;
+      const moyEau = eauJ.length ? eauJ.reduce((a, j) => a + j.eau, 0) / eauJ.length * 0.25 : 0;
+      const nuits = s.filter(j => j.sommeil !== null);
+      const moySom = nuits.length ? nuits.reduce((a, j) => a + j.sommeil, 0) / nuits.length : null;
+      const courtes = nuits.filter(j => j.sommeil < SS).length;
+      const fmtL = v => v.toFixed(2).replace('.', ',').replace(/,?0+$/, '');
+      let html = '<div style="font-size:11px;color:var(--tx2);margin-bottom:4px">Hydratation — pointillés : objectif 2,5 L</div>'
+        + App.charts.barresSeuil(s.map(j => j.eau === null ? null : j.eau * 0.25), 2.5, 340, 64)
+        + '<div style="font-size:11.5px;color:var(--tx2);margin:4px 0 12px">Objectif atteint <strong style="color:var(--tx1)">' + okEau + ' j</strong> sur ' + eauJ.length + ' renseigné' + (eauJ.length > 1 ? 's' : '') + ' · moyenne <strong style="color:var(--tx1)">' + fmtL(moyEau) + ' L</strong>/j</div>';
+      if (nuits.length) {
+        html += '<div style="font-size:11px;color:var(--tx2);margin-bottom:4px">Sommeil — pointillés : seuil 7 h · points ambre : nuits courtes</div>'
+          + App.charts.ligneSeuil(s.map(j => j.sommeil), SS, 340, 64, 'var(--acc)')
+          + '<div style="font-size:11.5px;color:var(--tx2);margin-top:4px">Moyenne <strong style="color:var(--tx1)">' + moySom.toFixed(1).replace('.', ',') + ' h</strong> sur ' + nuits.length + ' nuit' + (nuits.length > 1 ? 's' : '') + ' · ' + (courtes ? '<strong style="color:var(--amberTx)">' + courtes + ' nuit' + (courtes > 1 ? 's' : '') + ' &lt; 7 h</strong>' : 'aucune nuit sous 7 h — bravo') + '</div>';
+      } else {
+        html += '<div class="ss-empty-hist">Aucune nuit renseignée sur 30 jours — le champ sommeil t\'attend sur l\'accueil.</div>';
+      }
+      el.innerHTML = html;
     }
   },
 
@@ -3018,6 +3097,9 @@ const App = {
       App.ui.setHTML('ms-chart', App.data.mesures.length
         ? App.mesures.chart(340, 150)
         : '<div class="ss-empty-hist">Enregistre ta première pesée pour voir la courbe face à la trajectoire cible (pointillés : −0,5 kg/sem jusqu\'à 77 kg).</div>');
+
+      // Carte Récupération (eau + sommeil 30 jours, données saisies sur le hub)
+      App.habits.renderRecup();
 
       // Plateau
       const pl = App.mesures.plateau();
@@ -4158,6 +4240,53 @@ const App = {
       out += '<text x="' + cx + '" y="' + (cx - 5) + '" text-anchor="middle" font-size="9.5" fill="var(--tx3)">' + App.finance.esc(l1.length > 14 ? l1.slice(0, 13) + '…' : l1) + '</text>';
       out += '<text x="' + cx + '" y="' + (cx + 10) + '" text-anchor="middle" font-size="12" font-weight="700" fill="var(--tx1)">' + App.finance.fmtEUR(p ? p.val : tot) + '</text>';
       return '<svg viewBox="0 0 ' + size + ' ' + size + '" style="width:100%;height:auto;display:block">' + out + '</svg>';
+    },
+
+    // Barres journalières face à un seuil (ex. eau vs objectif 2,5 L) — vals en unités réelles,
+    // null = jour non renseigné (pas de barre). Vert si seuil atteint, ambre sinon.
+    barresSeuil(vals, seuil, w, h) {
+      if (!Array.isArray(vals) || !vals.length) return '';
+      const max = Math.max(seuil * 1.25, ...vals.filter(v => v != null), 0.1);
+      const hB = h - 4;
+      const y = v => hB - v / max * (hB - 6);
+      const gw = w / vals.length, bw = Math.max(2, Math.min(8, gw * 0.55));
+      const ys = y(seuil);
+      let out = '<line x1="0" y1="' + hB + '" x2="' + w + '" y2="' + hB + '" stroke="var(--bdr)" stroke-width="1"/>'
+        + '<line x1="0" y1="' + ys.toFixed(1) + '" x2="' + w + '" y2="' + ys.toFixed(1) + '" stroke="var(--tx3)" stroke-width="1" stroke-dasharray="3 3" opacity=".55"/>';
+      vals.forEach((v, i) => {
+        if (v == null || v <= 0) return;
+        const x = i * gw + (gw - bw) / 2, yv = y(v);
+        out += '<rect x="' + x.toFixed(1) + '" y="' + yv.toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + Math.max(1.5, hB - yv).toFixed(1) + '" rx="1.5" fill="' + (v >= seuil ? 'var(--acc)' : 'var(--amber)') + '"' + (v >= seuil ? '' : ' opacity=".8"') + '/>';
+      });
+      return '<svg viewBox="0 0 ' + w + ' ' + h + '" style="width:100%;height:auto;display:block">' + out + '</svg>';
+    },
+
+    // Ligne journalière face à un seuil (ex. sommeil vs 7 h) — trous aux jours non renseignés
+    // (null), points isolés dessinés, valeurs sous le seuil marquées d'un point ambre.
+    ligneSeuil(vals, seuil, w, h, couleur) {
+      if (!Array.isArray(vals)) return '';
+      const nums = vals.filter(v => v != null);
+      if (!nums.length) return '';
+      const max = Math.max(seuil * 1.25, ...nums);
+      const hB = h - 4;
+      const y = v => hB - v / max * (hB - 6);
+      const dx = vals.length > 1 ? w / (vals.length - 1) : 0;
+      const ys = y(seuil);
+      let out = '<line x1="0" y1="' + ys.toFixed(1) + '" x2="' + w + '" y2="' + ys.toFixed(1) + '" stroke="var(--tx3)" stroke-width="1" stroke-dasharray="3 3" opacity=".55"/>';
+      let d = '', enCours = false;
+      vals.forEach((v, i) => {
+        if (v == null) { enCours = false; return; }
+        d += (enCours ? 'L' : 'M') + (i * dx).toFixed(1) + ',' + y(v).toFixed(1);
+        enCours = true;
+      });
+      out += '<path d="' + d + '" fill="none" stroke="' + couleur + '" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>';
+      vals.forEach((v, i) => {
+        if (v == null) return;
+        const isole = (i === 0 || vals[i - 1] == null) && (i === vals.length - 1 || vals[i + 1] == null);
+        if (v < seuil) out += '<circle cx="' + (i * dx).toFixed(1) + '" cy="' + y(v).toFixed(1) + '" r="2.4" fill="var(--amber)"/>';
+        else if (isole) out += '<circle cx="' + (i * dx).toFixed(1) + '" cy="' + y(v).toFixed(1) + '" r="2.2" fill="' + couleur + '"/>';
+      });
+      return '<svg viewBox="0 0 ' + w + ' ' + h + '" style="width:100%;height:auto;display:block">' + out + '</svg>';
     },
 
     // Jauge en demi-cercle : pct sur une échelle 0–100, repère visuel au seuil donné
@@ -5341,10 +5470,6 @@ const App = {
 
     // Export complet de toutes les données (tous modules : préfixe kf_)
     exportJSON() {
-      // Horodatage AVANT le dump, pour que la sauvegarde le contienne
-      const meta = App.storage.load('kf_meta') || {};
-      meta.dernierExport = App.ui.todayStr();
-      App.storage.save('kf_meta', meta);
       const dump = { app: 'KF-Apps', version: 10, exporte: new Date().toISOString(), donnees: {} };
       try {
         for (let i = 0; i < localStorage.length; i++) {
@@ -5352,7 +5477,16 @@ const App = {
           if (k && k.startsWith('kf_')) dump.donnees[k] = localStorage.getItem(k);
         }
       } catch(e) {}
+      // Le fichier embarque sa propre date d'export (injectée dans SA copie de kf_meta)…
+      let meta = {};
+      try { meta = JSON.parse(dump.donnees['kf_meta']) || {}; } catch(e) {}
+      meta.dernierExport = App.ui.todayStr();
+      dump.donnees['kf_meta'] = JSON.stringify(meta);
       App.dataio.download('kf-sauvegarde-' + App.ui.todayStr() + '.json', JSON.stringify(dump, null, 1), 'application/json');
+      // …mais localement, la date n'est posée qu'APRÈS le déclenchement du téléchargement :
+      // si celui-ci échoue avant, le rappel hebdomadaire reste actif. (L'annulation de la
+      // feuille de partage iOS reste indétectable depuis le web — limite connue.)
+      App.storage.save('kf_meta', meta);
       App.ui.toast('Sauvegarde téléchargée — range-la dans Fichiers ou iCloud');
       App.hub.renderExportInfo();
     },
@@ -5410,7 +5544,9 @@ const App = {
   // INITIALISATION
   // ════════════════════════════════════════════
   init() {
-    migrerSchemaV9(); // renommage des clés v8 → kf_fit_* / kf_meta (idempotent)
+    migrerSchemaV9();       // renommage des clés v8 → kf_fit_* / kf_meta (idempotent)
+    migrerHabitudesV12();   // habitudes journalières → clé unique kf_fit_hab (idempotent)
+    App.nav.construire();   // tiroir, sidebar et barre du bas générés depuis le registre unique
     App.data.sportSessions = safeLoad('kf_fit_ss'); if (!Array.isArray(App.data.sportSessions)) App.data.sportSessions = [];
     App.data.sportSessions.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
     App.data.nutritionData = safeLoad('kf_fit_sn_hist'); if (!Array.isArray(App.data.nutritionData)) App.data.nutritionData = [];
