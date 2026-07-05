@@ -250,15 +250,15 @@ select{font-size:12px;padding:5px 10px;border:1px solid var(--bdr2);border-radiu
 
 /* ══ HOME ══ */
 #sec-home{min-height:100vh}
-.home-hero{background:linear-gradient(160deg,rgba(15,23,42,.88),rgba(20,35,60,.82)),var(--halo1);color:#fff;padding:1.6rem 1.5rem 1.4rem;border-radius:var(--r);margin:1rem 1.5rem 0;border:1px solid rgba(255,255,255,.12);box-shadow:var(--ombre)}
-.home-hero-title{font-family:var(--font-head);font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.2}
-.home-hero-name{font-family:var(--font-head);font-size:14px;font-weight:600;color:#93c5fd;margin-top:3px}
-.home-hero-sub{font-size:12px;color:var(--sbt);margin-top:6px}
+.home-hero{background:var(--reflet),var(--card);color:var(--tx1);padding:1.6rem 1.5rem 1.4rem;border-radius:var(--r);margin:1rem 1.5rem 0;border:1px solid var(--verre-bdr);box-shadow:0 2px 12px rgba(15,23,42,.06)}
+.home-hero-title{font-family:var(--font-head);font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.2;color:var(--tx1)}
+.home-hero-name{font-family:var(--font-head);font-size:14px;font-weight:600;color:var(--acc2);margin-top:3px}
+.home-hero-sub{font-size:12px;color:var(--tx2);margin-top:6px}
 .home-stats{display:flex;gap:8px;margin-top:1.25rem;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch}
-.home-stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:var(--rs);padding:9px 14px;flex-shrink:0}
-.home-stat-l{font-size:10px;color:var(--sbt);margin-bottom:3px}
-.home-stat-v{font-size:15px;font-weight:700;font-family:var(--font-head);color:#fff}
-.home-stat-u{font-size:10px;color:var(--sbt)}
+.home-stat{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rs);padding:9px 14px;flex-shrink:0}
+.home-stat-l{font-size:10px;color:var(--tx3);margin-bottom:3px}
+.home-stat-v{font-size:15px;font-weight:700;font-family:var(--font-head);color:var(--tx1)}
+.home-stat-u{font-size:10px;color:var(--tx3)}
 .home-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:1.25rem 1.5rem 2rem}
 .home-card{background:var(--reflet),var(--card);border:1px solid var(--verre-bdr);border-radius:var(--r);padding:1.1rem 1rem 1rem;cursor:pointer;transition:transform .18s var(--anim),box-shadow .18s var(--anim);box-shadow:0 2px 12px rgba(15,23,42,.06)}
 .home-card:hover{transform:translateY(-2px);box-shadow:0 5px 14px rgba(0,0,0,.1)}
@@ -510,6 +510,43 @@ input,select,button{touch-action:manipulation}
 .fin-fld input:focus,.fin-fld select:focus{outline:none;border-color:var(--acc-fin);background:var(--card)}
 .fin-frow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
 .action-btn.fin{background:var(--acc-fin)}
+
+/* ── Tableau de bord Finance ── */
+.fin-kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.fin-kpi{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rs);padding:10px 12px 6px;overflow:hidden}
+.fin-kpi.large{grid-column:1/-1}
+.fin-kpi-l{font-size:11px;color:var(--tx2);margin-bottom:2px}
+.fin-kpi-v{font-size:20px;font-weight:700;font-family:var(--font-head);color:var(--tx1);letter-spacing:-.02em}
+.fin-kpi .bdg{margin-top:4px;font-size:10.5px}
+.fin-kpi-spark{display:block;width:100%;height:30px;margin-top:5px}
+@media(min-width:769px){.fin-kpi-grid{grid-template-columns:repeat(3,1fr)}.fin-kpi.large{grid-column:auto}}
+.fin-seg-mini{display:flex;gap:4px;background:var(--bg);border:1px solid var(--bdr);border-radius:20px;padding:3px;width:max-content}
+.fin-seg-mini button{border:none;background:none;font-size:11.5px;font-weight:600;color:var(--tx2);padding:5px 13px;border-radius:16px;cursor:pointer;font-family:var(--font-body);min-height:30px;touch-action:manipulation;transition:background .15s,color .15s}
+.fin-seg-mini button.on{background:var(--acc-fin);color:#fff}
+.fin-leg{display:flex;gap:14px;font-size:11px;color:var(--tx2);margin-top:8px}
+.fin-leg span{display:inline-flex;align-items:center;gap:5px}
+.fin-leg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.fin-top-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--bdr);font-size:12.5px}
+.fin-top-row:last-child{border-bottom:none}
+.fin-top-nom{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--tx1);font-weight:500}
+.fin-top-bar{position:relative;flex:0 0 74px;height:16px;border-radius:5px;background:var(--bg);border:1px solid var(--bdr);overflow:hidden}
+.fin-top-bar i{position:absolute;top:0;bottom:0;left:0;background:var(--acc-fin);opacity:.3;border-radius:4px}
+.fin-top-val{flex:0 0 78px;text-align:right;font-weight:600;color:var(--tx1);font-variant-numeric:tabular-nums}
+.fin-top-delta{flex:0 0 50px;text-align:right;font-size:10.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.fin-donut-wrap{display:flex;align-items:center;gap:16px}
+.fin-donut-leg{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.fin-donut-leg button{display:flex;align-items:center;gap:7px;border:none;background:none;font-size:11.5px;color:var(--tx2);cursor:pointer;font-family:var(--font-body);padding:4px 0;min-height:26px;text-align:left;touch-action:manipulation}
+.fin-donut-leg button.on{color:var(--tx1);font-weight:700}
+.fin-donut-leg i{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.fin-donut-leg .val{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:600;color:var(--tx1)}
+.fin-rec-chip{display:inline-flex;align-items:center;font-size:11.5px;padding:6px 13px;border-radius:20px;border:1.5px solid var(--bdr2);background:var(--bg);color:var(--tx2);cursor:pointer;font-family:var(--font-body);margin:0 6px 6px 0;min-height:34px;touch-action:manipulation;transition:border-color .15s,color .15s}
+.fin-rec-chip.on{border-color:var(--acc-fin);background:rgba(14,165,233,.1);color:var(--acc-fin);font-weight:600}
+.fin-obs{display:flex;gap:9px;padding:9px 11px;border-radius:var(--rs);font-size:12px;line-height:1.55;margin-bottom:8px}
+.fin-obs:last-child{margin-bottom:0}
+.fin-obs svg{flex-shrink:0;margin-top:2px}
+.fin-obs.i{background:var(--blueBg);color:var(--blueTx)}
+.fin-obs.v{background:var(--amberBg);color:var(--amberTx)}
+.fin-obs.p{background:var(--greenBg);color:var(--greenTx)}
 /* Ligne de transaction */
 .fin-tx{display:flex;align-items:center;gap:9px;padding:9px 2px;border-bottom:1px solid var(--bdr)}
 .fin-tx:last-child{border-bottom:none}
@@ -577,8 +614,11 @@ input,select,button{touch-action:manipulation}
     <div class="sb-section-lbl">Outils</div>
     <div class="sb-item" data-section="frigo" onclick="goToSection('frigo')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="5" y1="10" x2="19" y2="10"/><line x1="9" y1="5" x2="9" y2="7"/><line x1="9" y1="13" x2="9" y2="16"/></svg>Idées Frigo</div>
     <div class="sb-section-lbl">Module Finance</div>
+    <div class="sb-item" data-section="fin-dash" onclick="goToSection('fin-dash')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Tableau de bord</div>
     <div class="sb-item" data-section="fin-saisie" onclick="goToSection('fin-saisie')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.8 2.8 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Saisie</div>
     <div class="sb-item" data-section="fin-budgets" onclick="goToSection('fin-budgets')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Budgets</div>
+    <div class="sb-item" data-section="fin-impots" onclick="goToSection('fin-impots')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>Impôts</div>
+    <div class="sb-item" data-section="fin-impots" onclick="goToSection('fin-impots')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>Impôts</div>
   </nav>
   <div class="sb-footer" id="drawer-version"></div>
 </nav>
@@ -634,6 +674,7 @@ input,select,button{touch-action:manipulation}
       Idées Frigo
     </div>
     <div class="sb-section-lbl">Module Finance</div>
+    <div class="sb-item" data-section="fin-dash" onclick="goToSection('fin-dash')"><svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Tableau de bord</div>
     <div class="sb-item" data-section="fin-saisie" onclick="goToSection('fin-saisie')">
       <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.8 2.8 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
       Saisie
@@ -657,8 +698,9 @@ input,select,button{touch-action:manipulation}
     <button class="bnav-item" data-section="suivi-nutrition" onclick="goToSection('suivi-nutrition')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Nutrition</button>
   </div>
   <div class="bnav-inner fin" id="bnav-grp-finance" style="display:none">
-    <button class="bnav-item" data-section="fin-saisie" onclick="goToSection('fin-saisie')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Saisie</button>
+    <button class="bnav-item" data-section="fin-dash" onclick="goToSection('fin-dash')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Tableau</button><button class="bnav-item" data-section="fin-saisie" onclick="goToSection('fin-saisie')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Saisie</button>
     <button class="bnav-item" data-section="fin-budgets" onclick="goToSection('fin-budgets')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Budgets</button>
+    <button class="bnav-item" data-section="fin-impots" onclick="goToSection('fin-impots')"><svg class="bnav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>Impôts</button>
   </div>
 </nav>
 
@@ -713,13 +755,13 @@ input,select,button{touch-action:manipulation}
       <div class="hub-rappel" id="hub-fit-rappel"></div>
     </div>
   </div>
-  <div class="hub-carte hub-module" onclick="goToSection('fin-saisie')" role="button" aria-label="Ouvrir le module Finance">
+  <div class="hub-carte hub-module" onclick="goToSection('fin-dash')" role="button" aria-label="Ouvrir le module Finance">
     <div style="flex:1">
       <div style="display:flex;align-items:center;gap:14px">
         <div class="hub-module-ic fin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
         <div>
           <div class="hub-module-nom">Finance</div>
-          <div class="hub-module-desc">Saisie &middot; Budgets · Tableau de bord et Impôts à venir</div>
+          <div class="hub-module-desc">Tableau de bord &middot; Saisie &middot; Budgets &middot; Imp&ocirc;ts</div>
         </div>
         <div class="hub-module-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></div>
       </div>
@@ -749,7 +791,7 @@ input,select,button{touch-action:manipulation}
 <div class="home-hero">
   <div class="home-hero-title">Fitness</div>
   <div class="home-hero-name">Plan Nutritionnel &amp; Sportif</div>
-  <div class="home-hero-sub"><span id="dh-age">28 ans</span> · 1,74 m · objectif 77 kg puis 15–18 % de masse grasse</div>
+  <div class="home-hero-sub"><span id="dh-age">28 ans</span> · 1,76 m · objectif 77 kg puis 15–18 % de masse grasse</div>
   <div class="home-stats">
     <div class="home-stat"><div class="home-stat-l">Poids actuel</div><div class="home-stat-v" id="dh-poids">85,6 kg</div></div>
     <div class="home-stat"><div class="home-stat-l">Masse grasse</div><div class="home-stat-v" id="dh-bf">&mdash;</div></div>
@@ -1523,6 +1565,83 @@ input,select,button{touch-action:manipulation}
 </div>
 </div>
 
+<!-- ══ MODULE FINANCE — TABLEAU DE BORD (accueil du module) ══ -->
+<div id="sec-fin-dash" class="section" style="display:none">
+<div class="page-head">
+  <div class="page-title">Tableau de bord</div>
+  <div class="page-sub">Vue d'ensemble du mois &middot; tendances &middot; observations sans jugement</div>
+</div>
+
+<!-- État vide : aucune transaction saisie -->
+<div id="fin-dash-vide" class="card" style="display:none">
+  <div class="section-label">Premiers pas</div>
+  <div style="font-size:13px;color:var(--tx2);line-height:1.6">Le tableau de bord se remplira tout seul d&egrave;s tes premi&egrave;res saisies : d&eacute;penses, revenus, budgets&hellip; Commence par enregistrer les mouvements du mois.</div>
+  <button class="action-btn fin" style="margin-top:12px" onclick="goToSection('fin-saisie')">Aller &agrave; la saisie</button>
+</div>
+
+<div id="fin-dash-corps" style="display:none">
+
+<!-- KPI du mois : revenus / dépenses / taux d'épargne, avec sparklines 6 mois -->
+<div class="card">
+  <div class="fin-mois">
+    <button onclick="finDashMoisNav(-1)" aria-label="Mois précédent"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <div class="fin-mois-lbl" id="fin-dash-mois-lbl"></div>
+    <button id="fin-dash-mois-next" onclick="finDashMoisNav(1)" aria-label="Mois suivant"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+  </div>
+  <div class="fin-kpi-grid" id="fin-dash-kpis"></div>
+  <div id="fin-dash-kpi-note" style="font-size:11px;color:var(--tx3);line-height:1.5"></div>
+</div>
+
+<!-- Tendance : revenus vs dépenses par mois, période 3/6/12 mois -->
+<div class="card">
+  <div class="section-label">Revenus vs d&eacute;penses</div>
+  <div class="fin-seg-mini" id="fin-dash-seg" role="group" aria-label="Période affichée">
+    <button data-n="3" onclick="finDashPeriode(3)">3 m</button>
+    <button data-n="6" class="on" onclick="finDashPeriode(6)">6 m</button>
+    <button data-n="12" onclick="finDashPeriode(12)">12 m</button>
+  </div>
+  <div id="fin-dash-tendance" style="margin-top:12px"></div>
+  <div class="fin-leg"><span><i style="background:var(--acc)"></i>Revenus</span><span><i style="background:var(--acc-fin)"></i>D&eacute;penses (hors &Eacute;pargne)</span></div>
+</div>
+
+<!-- Répartition des dépenses : donut top 5 + tableau conditionnel -->
+<div class="card">
+  <div class="section-label">R&eacute;partition des d&eacute;penses du mois</div>
+  <div style="font-size:11px;color:var(--tx3);margin-bottom:10px">Hors &Eacute;pargne, trait&eacute;e comme un transfert et non comme une d&eacute;pense. Touche une cat&eacute;gorie pour voir son montant au centre.</div>
+  <div class="fin-donut-wrap">
+    <div id="fin-dash-donut" style="flex:0 0 138px"></div>
+    <div class="fin-donut-leg" id="fin-dash-donut-leg"></div>
+  </div>
+  <div id="fin-dash-top" style="margin-top:12px"></div>
+</div>
+
+<!-- Charges récurrentes / capacité d'endettement indicative -->
+<div class="card">
+  <div class="section-label">Charges r&eacute;currentes</div>
+  <div id="fin-dash-jauge"></div>
+  <div class="acc-item" style="margin:12px 0 0;border:none">
+    <div class="acc-head" style="border-radius:var(--rs)" onclick="toggleAcc(this)">
+      <div><div class="acc-title">R&eacute;gler les cat&eacute;gories r&eacute;currentes</div><div class="acc-meta">Loyer, abonnements&hellip; ce qui revient chaque mois</div></div>
+      <span class="acc-chev">&#9660;</span>
+    </div>
+    <div class="acc-body">
+      <div id="fin-dash-rec-chips"></div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:4px;line-height:1.5">La capacit&eacute; d'endettement indicative compare la somme de ces charges &agrave; tes revenus du mois. Rep&egrave;re usuel des banques : rester sous ~35&nbsp;%.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Observations bienveillantes calculées sur les données réelles -->
+<div class="card">
+  <div class="section-label">Observations</div>
+  <div id="fin-dash-obs"></div>
+</div>
+
+<div style="font-size:10.5px;color:var(--tx3);text-align:center;margin:2px 0 10px;line-height:1.5">Analyses indicatives calcul&eacute;es localement sur tes saisies &mdash; l'app n'est pas un conseiller financier.</div>
+
+</div><!-- /fin-dash-corps -->
+</div>
+
 <!-- ══ MODULE FINANCE — SAISIE ══ -->
 <div id="sec-fin-saisie" class="section" style="display:none">
 <div class="page-head">
@@ -1658,6 +1777,140 @@ input,select,button{touch-action:manipulation}
   <div style="font-size:11px;color:var(--tx3);margin-bottom:6px">D&eacute;penses du mois dans des cat&eacute;gories sans budget d&eacute;fini — rien ne passe sous le radar.</div>
   <div id="fin-hb-liste"></div>
 </div>
+</div>
+
+<!-- ══ MODULE FINANCE — IMPÔTS (copilote fiscal français) ══ -->
+<div id="sec-fin-impots" class="section" style="display:none">
+<div class="page-head">
+  <div class="page-title">Imp&ocirc;ts</div>
+  <div class="page-sub">Copilote de d&eacute;claration &middot; estimation, fiche de report 2042, optimisations l&eacute;gales</div>
+</div>
+
+<!-- Année des revenus + profil -->
+<div class="card">
+  <div class="section-label">Ann&eacute;e des revenus</div>
+  <div class="fin-seg" id="imp-annee-seg" role="tablist" aria-label="Ann&eacute;e des revenus"></div>
+  <div class="hub-rappel" id="imp-millesime-note" style="margin-top:4px;font-size:11.5px;line-height:1.55"></div>
+  <div class="fin-frow" style="margin-top:10px">
+    <div class="fin-fld">
+      <label for="imp-dept">D&eacute;partement</label>
+      <input type="text" id="imp-dept" inputmode="numeric" maxlength="3" placeholder="75" onchange="impProfil()">
+    </div>
+    <div class="fin-fld">
+      <label for="imp-parts">Parts fiscales</label>
+      <input type="number" id="imp-parts" inputmode="decimal" min="1" max="4" step="0.5" value="1" onchange="impProfil()">
+    </div>
+    <div class="fin-fld">
+      <label for="imp-statut">Statut</label>
+      <select id="imp-statut" onchange="impProfil()"><option value="salarie">Salari&eacute;</option><option value="etudiant">&Eacute;tudiant</option></select>
+    </div>
+  </div>
+  <div id="imp-parts-note" style="display:none;font-size:11px;color:var(--amberTx);background:var(--amberBg);border-radius:var(--rs);padding:7px 10px;margin-top:8px;line-height:1.5">Au-del&agrave; d'une part, le plafonnement du quotient familial n'est pas mod&eacute;lis&eacute; ici : l'estimation peut &ecirc;tre l&eacute;g&egrave;rement optimiste. V&eacute;rifie sur le simulateur DGFiP.</div>
+</div>
+
+<!-- Revenus de l'année -->
+<div class="card">
+  <div class="section-label">Revenus de l'ann&eacute;e</div>
+  <button class="data-btn" style="margin-bottom:10px" onclick="impPrefill()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg> Pr&eacute;-remplir depuis mes saisies</button>
+  <div class="fin-frow">
+    <div class="fin-fld">
+      <label for="imp-sal">Salaires nets imposables (&euro;)</label>
+      <input type="number" id="imp-sal" inputmode="decimal" min="0" step="0.01" placeholder="0" onchange="impCalc()">
+    </div>
+    <div class="fin-fld">
+      <label for="imp-grat">Gratification de stage (&euro;)</label>
+      <input type="number" id="imp-grat" inputmode="decimal" min="0" step="0.01" placeholder="0" onchange="impCalc()">
+    </div>
+  </div>
+  <div class="fin-frow">
+    <div class="fin-fld">
+      <label for="imp-plat">Plateformes &mdash; recettes brutes (&euro;)</label>
+      <input type="number" id="imp-plat" inputmode="decimal" min="0" step="0.01" placeholder="0" onchange="impCalc()">
+    </div>
+    <div class="fin-fld">
+      <label for="imp-pas">D&eacute;j&agrave; pr&eacute;lev&eacute; &agrave; la source (&euro;)</label>
+      <input type="number" id="imp-pas" inputmode="decimal" min="0" step="0.01" placeholder="0" onchange="impCalc()">
+    </div>
+  </div>
+  <div class="fin-frow">
+    <div class="fin-fld">
+      <label for="imp-don66">Dons 66 % &mdash; int&eacute;r&ecirc;t g&eacute;n&eacute;ral (&euro;)</label>
+      <input type="number" id="imp-don66" inputmode="decimal" min="0" step="0.01" placeholder="0" onchange="impCalc()">
+    </div>
+    <div class="fin-fld">
+      <label for="imp-don75">Dons 75 % &mdash; aide aux personnes (&euro;)</label>
+      <input type="number" id="imp-don75" inputmode="decimal" min="0" step="0.01" placeholder="0" onchange="impCalc()">
+    </div>
+  </div>
+  <div id="imp-prefill-note" style="font-size:11px;color:var(--tx3);margin-top:6px;line-height:1.55"></div>
+</div>
+
+<!-- Frais professionnels : 10 % vs frais réels -->
+<div class="card">
+  <div class="section-label">Frais professionnels</div>
+  <div class="fin-seg" id="imp-frais-seg" role="tablist" aria-label="Mode de d&eacute;duction">
+    <button id="imp-frais-auto" class="on" onclick="impFraisMode('auto')">Auto (le meilleur)</button>
+    <button id="imp-frais-10" onclick="impFraisMode('10')">Forfait 10 %</button>
+    <button id="imp-frais-reel" onclick="impFraisMode('reel')">Frais r&eacute;els</button>
+  </div>
+  <div style="font-size:11px;color:var(--tx3);line-height:1.5;margin-bottom:10px">Les frais r&eacute;els se calculent au bar&egrave;me kilom&eacute;trique officiel. Utile d&egrave;s l'acquisition d'une voiture ou si le trajet domicile-travail est long.</div>
+  <div class="fin-frow">
+    <div class="fin-fld">
+      <label for="imp-km">Domicile &rarr; travail (km aller)</label>
+      <input type="number" id="imp-km" inputmode="decimal" min="0" step="0.1" placeholder="0" onchange="impCalc()">
+    </div>
+    <div class="fin-fld">
+      <label for="imp-jours">Jours travaill&eacute;s / an</label>
+      <input type="number" id="imp-jours" inputmode="numeric" min="0" max="366" step="1" placeholder="215" onchange="impCalc()">
+    </div>
+  </div>
+  <div class="fin-frow">
+    <div class="fin-fld">
+      <label for="imp-cv">Puissance fiscale</label>
+      <select id="imp-cv" onchange="impCalc()"><option value="3">3 CV</option><option value="4">4 CV</option><option value="5" selected>5 CV</option><option value="6">6 CV</option><option value="7">7 CV et +</option></select>
+    </div>
+    <div class="fin-fld">
+      <label for="imp-frais-autres">Autres frais r&eacute;els (&euro;)</label>
+      <input type="number" id="imp-frais-autres" inputmode="decimal" min="0" step="0.01" placeholder="repas, p&eacute;ages&hellip;" onchange="impCalc()">
+    </div>
+  </div>
+  <div id="imp-frais-verdict" style="font-size:12px;line-height:1.55;margin-top:8px"></div>
+</div>
+
+<!-- Résultat -->
+<div class="card">
+  <div class="section-label">Estimation de l'imp&ocirc;t</div>
+  <div class="mg3" style="margin-bottom:10px">
+    <div class="met"><div class="met-l">Imp&ocirc;t estim&eacute;</div><div class="met-v" id="imp-r-net" style="font-size:15px">&mdash;</div></div>
+    <div class="met"><div class="met-l">Taux moyen</div><div class="met-v" id="imp-r-moyen" style="font-size:15px">&mdash;</div></div>
+    <div class="met"><div class="met-l">TMI</div><div class="met-v" id="imp-r-tmi" style="font-size:15px">&mdash;</div></div>
+  </div>
+  <div id="imp-r-detail" style="font-size:12px;color:var(--tx2);line-height:1.7"></div>
+  <div class="hub-rappel" id="imp-r-solde" style="margin-top:10px"></div>
+</div>
+
+<!-- Fiche de report 2042 -->
+<div class="card">
+  <div class="section-label">Fiche de report &mdash; formulaire 2042</div>
+  <div style="font-size:11px;color:var(--tx3);margin-bottom:8px;line-height:1.5">Case par case, dans l'ordre du formulaire, &agrave; recopier sur impots.gouv.fr. Touche une ligne pour comprendre &agrave; quoi elle sert.</div>
+  <div id="imp-fiche"></div>
+</div>
+
+<!-- Optimisations légales -->
+<div class="card">
+  <div class="section-label">Optimisations l&eacute;gales &mdash; sur tes chiffres</div>
+  <div id="imp-optims"></div>
+</div>
+
+<!-- Échéances -->
+<div class="card">
+  <div class="section-label">&Eacute;ch&eacute;ances fiscales</div>
+  <div id="imp-dates" style="font-size:12.5px;color:var(--tx1);line-height:1.8;margin-bottom:10px"></div>
+  <button class="data-btn primary" onclick="impICS()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Calendrier .ics des &eacute;ch&eacute;ances</button>
+  <div style="font-size:11px;color:var(--tx3);margin-top:8px;line-height:1.5">Inclut un rappel annuel r&eacute;current fin f&eacute;vrier : &laquo;&nbsp;Mettre &agrave; jour le mill&eacute;sime fiscal dans KF Apps&nbsp;&raquo; (la loi de finances est promulgu&eacute;e d&eacute;but d'ann&eacute;e).</div>
+</div>
+
+<div style="font-size:10.5px;color:var(--tx3);text-align:center;margin:2px 0 10px;line-height:1.5;padding:0 12px">Estimation indicative calcul&eacute;e localement &mdash; l'app n'est pas un conseiller fiscal. Validation finale : simulateur officiel DGFiP sur impots.gouv.fr.</div>
 </div>
 
 </div><!-- /content -->
@@ -2217,7 +2470,7 @@ function resetList(li) {
 // ════════════════════════════════════════════════════════════
 const PROFIL = {
   naissance: '1997-06-19',
-  tailleCm:  174,
+  tailleCm:  176,
   sexe:      'M',
   poidsDepart: 85.6,
   poidsCible:  77
@@ -2275,7 +2528,7 @@ function ico(name, size, cls) {
 // (le module Fitness regroupe : dash, sport, nutrition, mesures,
 //  frigo, habits — clés localStorage préfixées kf_fit_*)
 // ════════════════════════════════════════════════════════════
-const APP_VERSION = '10.0';
+const APP_VERSION = '12.0';
 
 // ── Migration du schéma v8 → v9 : renommage des clés vers kf_fit_* + kf_meta.
 //    Règle : l'ancienne clé n'écrase jamais une nouvelle clé déjà présente,
@@ -2387,7 +2640,7 @@ const App = {
   // ── Registre des modules de l'app-mère (le hub s'en sert pour l'affichage)
   modules: {
     fitness: { nom: 'Fitness', actif: true, sections: ['home','sport','nutrition','mesures','frigo','suivi-sport','suivi-nutrition','courses'] },
-    finance: { nom: 'Finance', actif: true, sections: ['fin-saisie','fin-budgets'] } // Tableau de bord + Impôts : v11
+    finance: { nom: 'Finance', actif: true, sections: ['fin-dash','fin-saisie','fin-budgets','fin-impots'] }
   },
 
   // Module propriétaire d'une section (sert à la barre du bas contextuelle)
@@ -2398,8 +2651,8 @@ const App = {
 
   // ── Navigation + tiroir
   nav: {
-    ALL: ['hub','home','sport','nutrition','mesures','frigo','suivi-sport','suivi-nutrition','courses','fin-saisie','fin-budgets'],
-    TITRES: { hub:'Accueil', home:'Fitness', sport:'Plan Sportif', nutrition:'Plan Nutritionnel', mesures:'Mesures & Objectifs', frigo:'Idées Frigo', 'suivi-sport':'Suivi Sportif', 'suivi-nutrition':'Suivi Nutritionnel', courses:'Liste de Courses', 'fin-saisie':'Finance · Saisie', 'fin-budgets':'Finance · Budgets' },
+    ALL: ['hub','home','sport','nutrition','mesures','frigo','suivi-sport','suivi-nutrition','courses','fin-dash','fin-saisie','fin-budgets','fin-impots'],
+    TITRES: { hub:'Accueil', home:'Fitness', sport:'Plan Sportif', nutrition:'Plan Nutritionnel', mesures:'Mesures & Objectifs', frigo:'Idées Frigo', 'suivi-sport':'Suivi Sportif', 'suivi-nutrition':'Suivi Nutritionnel', courses:'Liste de Courses', 'fin-dash':'Finance · Tableau de bord', 'fin-saisie':'Finance · Saisie', 'fin-budgets':'Finance · Budgets', 'fin-impots':'Finance · Impôts' },
     current: 'hub',
 
     goTo(section) {
@@ -2449,8 +2702,10 @@ const App = {
       if (section === 'frigo')           App.frigo.init();
       if (section === 'suivi-sport')     App.sport.init();
       if (section === 'suivi-nutrition') App.nutrition.init();
+      if (section === 'fin-dash')        App.finance.initDash();
       if (section === 'fin-saisie')      App.finance.initSaisie();
       if (section === 'fin-budgets')     App.finance.initBudgets();
+      if (section === 'fin-impots')      App.impots.init();
 
       window.scrollTo(0, 0);
     },
@@ -2551,6 +2806,9 @@ const App = {
       document.getElementById('modal-cancel').onclick = () => ov.classList.remove('show');
     },
     setEl(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; },
+    // Lecture / écriture de la valeur d'un champ (helpers du noyau, tolérants si l'élément manque)
+    val(id) { const el = document.getElementById(id); return el ? el.value : ''; },
+    setVal(id, v) { const el = document.getElementById(id); if (el) el.value = v; },
     setHTML(id, val) { const el = document.getElementById(id); if (el) el.innerHTML = val; },
     setW(id, pct) { const el = document.getElementById(id); if (el) el.style.width = Math.min(100, Math.max(0, pct)) + '%'; },
     setBarColor(id, pct) {
@@ -3844,7 +4102,83 @@ const App = {
   // ════════════════════════════════════════════
   // MODULE DONNÉES — export / import / calendrier
   // ════════════════════════════════════════════
-  // MODULE FINANCE — Saisie & Budgets (clés kf_fin_*)
+  // UTILITAIRE GRAPHIQUES — SVG maison, zéro dépendance, léger pour iPhone 11
+  // Chaque fonction retourne une chaîne SVG ; les couleurs passent par les tokens CSS.
+  // ════════════════════════════════════════════
+  charts: {
+    // Sparkline : mini-courbe avec aplat translucide sous la ligne (base à zéro)
+    spark(vals, w, h, couleur) {
+      if (!Array.isArray(vals) || vals.length < 2) return '';
+      const max = Math.max(1, ...vals);
+      const dx = w / (vals.length - 1);
+      const y = v => (h - 2 - Math.max(0, v) / max * (h - 4)).toFixed(1);
+      let ligne = '';
+      vals.forEach((v, i) => { ligne += (i ? 'L' : 'M') + (i * dx).toFixed(1) + ',' + y(v); });
+      return '<svg class="fin-kpi-spark" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" aria-hidden="true">'
+        + '<path d="' + ligne + 'L' + w + ',' + h + 'L0,' + h + 'Z" fill="' + couleur + '" fill-opacity=".13" stroke="none"/>'
+        + '<path d="' + ligne + '" fill="none" stroke="' + couleur + '" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+    },
+
+    // Barres groupées revenus/dépenses par mois — serie = [{lbl, rev, dep}]
+    barres(serie, w, h) {
+      if (!serie.length) return '';
+      const hB = h - 15;
+      const max = Math.max(1, ...serie.map(s => Math.max(s.rev, s.dep)));
+      const gw = w / serie.length, bw = Math.min(13, gw * 0.3), gap = 3;
+      let out = '<line x1="0" y1="' + hB + '" x2="' + w + '" y2="' + hB + '" stroke="var(--bdr)" stroke-width="1"/>';
+      serie.forEach((s, i) => {
+        const cx = i * gw + gw / 2;
+        const hr = s.rev / max * (hB - 8), hd = s.dep / max * (hB - 8);
+        if (s.rev > 0) out += '<rect x="' + (cx - bw - gap / 2).toFixed(1) + '" y="' + (hB - hr).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + Math.max(hr, 1.5).toFixed(1) + '" rx="2.5" fill="var(--acc)"/>';
+        if (s.dep > 0) out += '<rect x="' + (cx + gap / 2).toFixed(1) + '" y="' + (hB - hd).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + Math.max(hd, 1.5).toFixed(1) + '" rx="2.5" fill="var(--acc-fin)"/>';
+        if (serie.length <= 6 || i % 2 === (serie.length - 1) % 2)
+          out += '<text x="' + cx.toFixed(1) + '" y="' + (h - 3) + '" font-size="8.5" fill="var(--tx3)" text-anchor="middle">' + s.lbl + '</text>';
+      });
+      return '<svg viewBox="0 0 ' + w + ' ' + h + '" style="width:100%;height:auto;display:block">' + out + '</svg>';
+    },
+
+    // Donut : parts = [{nom, val, c}] ; sel = index mis en évidence (null = total au centre)
+    donut(parts, size, sel) {
+      const tot = parts.reduce((s, p) => s + p.val, 0);
+      if (!tot) return '';
+      const sw = 15, r = (size - sw - 6) / 2, cx = size / 2, C = 2 * Math.PI * r;
+      let off = 0, out = '';
+      parts.forEach((p, i) => {
+        const frac = p.val / tot, dash = Math.max(0.1, frac * C - 1.5);
+        out += '<circle cx="' + cx + '" cy="' + cx + '" r="' + r.toFixed(1) + '" fill="none" stroke="' + p.c + '"'
+          + ' stroke-width="' + (i === sel ? sw + 5 : sw) + '"'
+          + ' stroke-dasharray="' + dash.toFixed(2) + ' ' + Math.max(0, C - dash).toFixed(2) + '"'
+          + ' stroke-dashoffset="' + (-off * C).toFixed(2) + '"'
+          + (sel != null && i !== sel ? ' opacity=".3"' : '')
+          + ' transform="rotate(-90 ' + cx + ' ' + cx + ')"/>';
+        off += frac;
+      });
+      const p = (sel != null && parts[sel]) ? parts[sel] : null;
+      const l1 = p ? p.nom : 'Total';
+      out += '<text x="' + cx + '" y="' + (cx - 5) + '" text-anchor="middle" font-size="9.5" fill="var(--tx3)">' + App.finance.esc(l1.length > 14 ? l1.slice(0, 13) + '…' : l1) + '</text>';
+      out += '<text x="' + cx + '" y="' + (cx + 10) + '" text-anchor="middle" font-size="12" font-weight="700" fill="var(--tx1)">' + App.finance.fmtEUR(p ? p.val : tot) + '</text>';
+      return '<svg viewBox="0 0 ' + size + ' ' + size + '" style="width:100%;height:auto;display:block">' + out + '</svg>';
+    },
+
+    // Jauge en demi-cercle : pct sur une échelle 0–100, repère visuel au seuil donné
+    jauge(pct, w, seuil) {
+      const sw = 13, r = (w - sw) / 2 - 4, cx = w / 2, cy = r + sw / 2 + 4, h = cy + 6;
+      const pt = f => { const a = Math.PI * (1 - f); return { x: cx + r * Math.cos(a), y: cy - r * Math.sin(a) }; };
+      const P = f => pt(f).x.toFixed(1) + ' ' + pt(f).y.toFixed(1);
+      const p = Math.max(0, Math.min(1, pct / 100));
+      const c = pct > seuil ? 'var(--red)' : pct >= seuil - 5 ? 'var(--amber)' : 'var(--acc)';
+      let out = '<path d="M ' + P(0) + ' A ' + r.toFixed(1) + ' ' + r.toFixed(1) + ' 0 0 1 ' + P(1) + '" fill="none" stroke="var(--bdr)" stroke-width="' + sw + '" stroke-linecap="round"/>';
+      if (p > 0.01) out += '<path d="M ' + P(0) + ' A ' + r.toFixed(1) + ' ' + r.toFixed(1) + ' 0 ' + (p > .5 ? 1 : 0) + ' 1 ' + P(p) + '" fill="none" stroke="' + c + '" stroke-width="' + sw + '" stroke-linecap="round"/>';
+      const s = pt(seuil / 100);
+      out += '<circle cx="' + s.x.toFixed(1) + '" cy="' + s.y.toFixed(1) + '" r="2.6" fill="var(--card)" stroke="var(--tx3)" stroke-width="1.5"/>';
+      out += '<text x="' + cx + '" y="' + (cy - 8) + '" text-anchor="middle" font-size="19" font-weight="700" fill="var(--tx1)">' + (pct > 100 ? '100+' : String(Math.round(pct)).replace('.', ',')) + '&#8202;%</text>';
+      out += '<text x="' + cx + '" y="' + (cy + 5) + '" text-anchor="middle" font-size="8.5" fill="var(--tx3)">des revenus du mois</text>';
+      return '<svg viewBox="0 0 ' + w + ' ' + h + '" style="width:min(220px,70%);height:auto;display:block;margin:0 auto">' + out + '</svg>';
+    }
+  },
+
+  // ════════════════════════════════════════════
+  // MODULE FINANCE — Saisie, Budgets & Tableau de bord (clés kf_fin_*)
   // Transaction : { id, date:'AAAA-MM-JJ', montant, type:'dep'|'rev', cat, note, agg?, du?, au? }
   //  · type 'dep' → cat = catégorie de dépense ; type 'rev' → cat = nature fiscale du revenu
   //  · agg:true = montant agrégé sur une période [du, au], daté du dernier jour (au) et compté dans ce mois
@@ -4226,6 +4560,274 @@ const App = {
         + '</div>';
     },
 
+    // ══ TABLEAU DE BORD (accueil du module) ══
+    // Conventions d'analyse : la catégorie Épargne est un TRANSFERT — exclue des
+    // dépenses de consommation et donc comptée positivement dans le taux d'épargne
+    // (taux = (revenus − dépenses hors Épargne) / revenus).
+    CAT_TRANSFERT: 'Épargne',
+    REC_DEFAUT: ['Logement', 'Abonnements', 'Transport'], // charges récurrentes par défaut (réglables)
+    DONUT_C: ['#0ea5e9', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#94a3b8'],
+    SEUIL_ENDETTEMENT: 35, // repère usuel des banques (%)
+    moisDash: null,        // curseur mois du tableau de bord
+    periodeDash: 6,        // période du graphique de tendance (3/6/12 mois)
+    donutSel: null,        // segment du donut mis en évidence
+
+    // Catégories réputées récurrentes (kf_fin_rec) — option B validée
+    recCats() {
+      const r = App.storage.load('kf_fin_rec');
+      return Array.isArray(r) ? r : App.finance.REC_DEFAUT.slice();
+    },
+    recToggle(cat) {
+      const f = App.finance;
+      const r = f.recCats();
+      App.storage.save('kf_fin_rec', r.includes(cat) ? r.filter(c => c !== cat) : r.concat(cat));
+      f.renderJauge();
+      f.renderObs();
+    },
+
+    // Bilan d'un mois : revenus, conso (hors Épargne), Épargne, charges récurrentes, taux
+    bilan(m) {
+      const f = App.finance;
+      const recs = f.recCats();
+      let rev = 0, conso = 0, ep = 0, rec = 0, n = 0;
+      f.duMois(m).forEach(t => {
+        n++;
+        if (t.type === 'rev') rev += t.montant;
+        else if (t.cat === f.CAT_TRANSFERT) ep += t.montant;
+        else { conso += t.montant; if (recs.includes(t.cat)) rec += t.montant; }
+      });
+      return { rev, conso, ep, rec, n, taux: rev > 0 ? (rev - conso) / rev * 100 : null };
+    },
+    // Série des `nb` derniers mois se terminant au mois `fin` (ordre chronologique)
+    serieBilan(nb, fin) {
+      const f = App.finance, out = [];
+      for (let i = nb - 1; i >= 0; i--) {
+        const m = f.decaleMois(fin, -i), b = f.bilan(m);
+        b.mois = m;
+        out.push(b);
+      }
+      return out;
+    },
+    // Dépenses de consommation du mois par catégorie (hors Épargne), triées décroissant
+    consoParCat(m) {
+      const f = App.finance, par = {};
+      f.duMois(m).forEach(t => {
+        if (t.type !== 'rev' && t.cat !== f.CAT_TRANSFERT) par[t.cat] = (par[t.cat] || 0) + t.montant;
+      });
+      return Object.keys(par).map(cat => ({ cat, val: par[cat] })).sort((a, b) => b.val - a.val);
+    },
+    lblMoisCourt(m) {
+      const noms = ['jan', 'fév', 'mar', 'avr', 'mai', 'jun', 'jul', 'aoû', 'sep', 'oct', 'nov', 'déc'];
+      return noms[+m.slice(5) - 1] + ' ' + m.slice(2, 4);
+    },
+    fmtPct(v) { return v.toFixed(1).replace('.', ','); },
+
+    initDash() {
+      const f = App.finance;
+      f.charger();
+      if (!f.moisDash) f.moisDash = f.moisCourant();
+      f.renderDash();
+    },
+    dashMoisNav(d) {
+      const f = App.finance, cible = f.decaleMois(f.moisDash, d);
+      if (cible > f.moisCourant()) return; // pas de futur
+      f.moisDash = cible;
+      f.donutSel = null;
+      f.renderDash();
+    },
+    setPeriode(n) {
+      App.finance.periodeDash = n;
+      document.querySelectorAll('#fin-dash-seg button').forEach(b => b.classList.toggle('on', +b.dataset.n === n));
+      App.finance.renderTendance();
+    },
+    donutTap(i) {
+      const f = App.finance;
+      f.donutSel = (f.donutSel === i) ? null : i;
+      f.renderDonut();
+    },
+
+    renderDash() {
+      const f = App.finance;
+      const vide = document.getElementById('fin-dash-vide');
+      const corps = document.getElementById('fin-dash-corps');
+      if (!vide || !corps) return;
+      if (!f.tx.length) { vide.style.display = 'block'; corps.style.display = 'none'; return; }
+      vide.style.display = 'none';
+      corps.style.display = 'block';
+      App.ui.setEl('fin-dash-mois-lbl', f.fmtMois(f.moisDash));
+      const next = document.getElementById('fin-dash-mois-next');
+      if (next) next.disabled = f.moisDash >= f.moisCourant();
+      f.renderKpis();
+      f.renderTendance();
+      f.renderDonut();
+      f.renderTop();
+      f.renderJauge();
+      f.renderObs();
+    },
+
+    // ── KPI : revenus / dépenses / taux d'épargne, sparklines 6 mois + delta vs mois précédent
+    renderKpis() {
+      const f = App.finance, m = f.moisDash;
+      const cur = f.bilan(m), prev = f.bilan(f.decaleMois(m, -1));
+      const s6 = f.serieBilan(6, m);
+      const badge = (a, b, inverse) => {
+        if (!(b > 0)) return '<span class="bdg bdg-n">&mdash; vs mois pr&eacute;c.</span>';
+        const d = (a - b) / b * 100;
+        const bien = inverse ? d <= 0 : d >= 0;
+        return '<span class="bdg ' + (bien ? 'bdg-g' : 'bdg-r') + '">' + (d >= 0 ? '+' : '&minus;') + f.fmtPct(Math.abs(d)) + '&nbsp;% vs mois pr&eacute;c.</span>';
+      };
+      // Taux d'épargne : mise en forme conditionnelle validée (vert > 15 %, ambre 5–15, rouge < 5)
+      let tauxV = '&mdash;', tauxC = 'var(--tx3)', tauxB = '<span class="bdg bdg-n">pas de revenus ce mois</span>';
+      if (cur.taux != null) {
+        tauxV = f.fmtPct(cur.taux) + '&#8202;%';
+        tauxC = cur.taux > 15 ? 'var(--greenTx)' : cur.taux >= 5 ? 'var(--amberTx)' : 'var(--redTx)';
+        if (prev.taux != null) {
+          const d = cur.taux - prev.taux;
+          tauxB = '<span class="bdg ' + (d >= 0 ? 'bdg-g' : 'bdg-r') + '">' + (d >= 0 ? '+' : '&minus;') + f.fmtPct(Math.abs(d)) + '&nbsp;pt vs mois pr&eacute;c.</span>';
+        } else tauxB = '<span class="bdg bdg-n">&mdash; vs mois pr&eacute;c.</span>';
+      }
+      App.ui.setHTML('fin-dash-kpis',
+        '<div class="fin-kpi"><div class="fin-kpi-l">Revenus</div><div class="fin-kpi-v">' + f.fmtEUR(cur.rev) + '</div>'
+          + badge(cur.rev, prev.rev, false) + App.charts.spark(s6.map(s => s.rev), 100, 30, 'var(--acc)') + '</div>'
+        + '<div class="fin-kpi"><div class="fin-kpi-l">D&eacute;penses</div><div class="fin-kpi-v">' + f.fmtEUR(cur.conso) + '</div>'
+          + badge(cur.conso, prev.conso, true) + App.charts.spark(s6.map(s => s.conso), 100, 30, 'var(--acc-fin)') + '</div>'
+        + '<div class="fin-kpi large"><div class="fin-kpi-l">Taux d\'&eacute;pargne <span style="font-weight:400">(&Eacute;pargne comprise : ' + f.fmtEUR(cur.ep) + ' mis de c&ocirc;t&eacute;)</span></div>'
+          + '<div class="fin-kpi-v" style="color:' + tauxC + '">' + tauxV + '</div>' + tauxB
+          + App.charts.spark(s6.map(s => s.taux == null ? 0 : Math.max(0, s.taux)), 100, 30, 'var(--acc-fin)') + '</div>');
+      App.ui.setHTML('fin-dash-kpi-note', prev.n === 0
+        ? 'Pas encore de donn&eacute;es sur le mois pr&eacute;c&eacute;dent : encore un mois de saisie et je pourrai te montrer les comparaisons et tendances compl&egrave;tes.'
+        : '');
+    },
+
+    // ── Tendance : barres revenus vs dépenses sur 3/6/12 mois
+    renderTendance() {
+      const f = App.finance;
+      const serie = f.serieBilan(f.periodeDash, f.moisDash)
+        .map(s => ({ lbl: f.lblMoisCourt(s.mois), rev: s.rev, dep: s.conso }));
+      App.ui.setHTML('fin-dash-tendance',
+        serie.some(s => s.rev > 0 || s.dep > 0)
+          ? App.charts.barres(serie, 340, 130)
+          : '<div style="font-size:12px;color:var(--tx3);text-align:center;padding:14px 0">Aucun mouvement sur la p&eacute;riode.</div>');
+    },
+
+    // ── Donut top 5 catégories + Autres, légende tapable
+    donutParts() {
+      const f = App.finance, cats = f.consoParCat(f.moisDash);
+      const parts = cats.slice(0, 5).map((c, i) => ({ nom: c.cat, val: c.val, c: f.DONUT_C[i] }));
+      const autres = cats.slice(5).reduce((s, c) => s + c.val, 0);
+      if (autres > 0) parts.push({ nom: 'Autres', val: autres, c: f.DONUT_C[5] });
+      return parts;
+    },
+    renderDonut() {
+      const f = App.finance, parts = f.donutParts();
+      if (f.donutSel != null && f.donutSel >= parts.length) f.donutSel = null;
+      App.ui.setHTML('fin-dash-donut', parts.length
+        ? App.charts.donut(parts, 138, f.donutSel)
+        : '<div style="font-size:12px;color:var(--tx3);text-align:center;padding:20px 0">Aucune d&eacute;pense ce mois.</div>');
+      App.ui.setHTML('fin-dash-donut-leg', parts.map((p, i) =>
+        '<button class="' + (f.donutSel === i ? 'on' : '') + '" onclick="finDashDonutTap(' + i + ')" aria-label="Mettre en &eacute;vidence ' + f.esc(p.nom) + '">'
+        + '<i style="background:' + p.c + '"></i><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + f.esc(p.nom) + '</span>'
+        + '<span class="val">' + f.fmtEUR(p.val) + '</span></button>').join(''));
+    },
+
+    // ── Tableau conditionnel : barres de données + écart vs moyenne des 3 mois précédents
+    renderTop() {
+      const f = App.finance, m = f.moisDash, cats = f.consoParCat(m);
+      if (!cats.length) { App.ui.setHTML('fin-dash-top', ''); return; }
+      const max = cats[0].val;
+      // Moyenne des 3 mois précédents par catégorie (uniquement les mois où elle apparaît)
+      const hist = {};
+      for (let i = 1; i <= 3; i++) {
+        f.consoParCat(f.decaleMois(m, -i)).forEach(c => {
+          (hist[c.cat] = hist[c.cat] || []).push(c.val);
+        });
+      }
+      const rows = cats.map(c => {
+        const h = hist[c.cat];
+        let delta = '<span style="color:var(--tx3)">&mdash;</span>';
+        if (h && h.length >= 2) { // au moins 2 mois d'historique pour une moyenne honnête
+          const moy = h.reduce((a, b) => a + b, 0) / h.length;
+          if (moy > 0) {
+            const d = (c.val - moy) / moy * 100;
+            const col = d > 15 ? 'var(--redTx)' : d < -5 ? 'var(--greenTx)' : 'var(--tx3)';
+            delta = '<span style="color:' + col + '">' + (d >= 0 ? '+' : '&minus;') + Math.round(Math.abs(d)) + '&#8202;%</span>';
+          }
+        }
+        return '<div class="fin-top-row"><div class="fin-top-nom">' + f.esc(c.cat) + '</div>'
+          + '<div class="fin-top-bar"><i style="width:' + Math.max(3, c.val / max * 100).toFixed(1) + '%"></i></div>'
+          + '<div class="fin-top-val">' + f.fmtEUR(c.val) + '</div>'
+          + '<div class="fin-top-delta">' + delta + '</div></div>';
+      }).join('');
+      App.ui.setHTML('fin-dash-top', rows
+        + '<div style="font-size:10.5px;color:var(--tx3);margin-top:8px">L\'&eacute;cart compare le mois affich&eacute; &agrave; ta moyenne des 3 mois pr&eacute;c&eacute;dents (au moins 2 mois d\'historique requis).</div>');
+    },
+
+    // ── Jauge charges récurrentes / revenus + réglage des catégories
+    renderJauge() {
+      const f = App.finance, cur = f.bilan(f.moisDash);
+      let html;
+      if (!(cur.rev > 0)) {
+        html = '<div style="font-size:12px;color:var(--tx3);text-align:center;padding:10px 0">La jauge s\'affichera d&egrave;s qu\'un revenu sera saisi sur ce mois.</div>';
+      } else {
+        const pct = cur.rec / cur.rev * 100;
+        const msg = pct > f.SEUIL_ENDETTEMENT
+          ? '<span style="color:var(--redTx)">Au-dessus du rep&egrave;re de ' + f.SEUIL_ENDETTEMENT + '&#8202;% — &agrave; surveiller, sans panique : un mois ne fait pas une tendance.</span>'
+          : pct >= f.SEUIL_ENDETTEMENT - 5
+            ? '<span style="color:var(--amberTx)">Proche du rep&egrave;re de ' + f.SEUIL_ENDETTEMENT + '&#8202;% — zone de vigilance.</span>'
+            : '<span style="color:var(--greenTx)">Confortablement sous le rep&egrave;re de ' + f.SEUIL_ENDETTEMENT + '&#8202;% — belle marge de manœuvre.</span>';
+        html = App.charts.jauge(pct, 220, f.SEUIL_ENDETTEMENT)
+          + '<div style="font-size:12px;color:var(--tx2);text-align:center;margin-top:8px">Charges r&eacute;currentes : <strong>' + f.fmtEUR(cur.rec) + '</strong></div>'
+          + '<div style="font-size:11.5px;text-align:center;margin-top:4px;line-height:1.5">' + msg + '</div>';
+      }
+      App.ui.setHTML('fin-dash-jauge', html);
+      // Chips de réglage : toutes les catégories de dépenses sauf Épargne (un transfert n'est pas une charge)
+      const recs = f.recCats();
+      App.ui.setHTML('fin-dash-rec-chips', f.cats().filter(c => c !== f.CAT_TRANSFERT).map(c =>
+        '<button class="fin-rec-chip' + (recs.includes(c) ? ' on' : '') + '" onclick="finDashRecToggle(\'' + f.esc(c).replace(/'/g, '&#39;') + '\')" aria-pressed="' + recs.includes(c) + '">' + f.esc(c) + '</button>').join(''));
+    },
+
+    // ── Observations : règles calculées localement, formulées avec bienveillance
+    renderObs() {
+      const f = App.finance, m = f.moisDash;
+      const cur = f.bilan(m), prev = f.bilan(f.decaleMois(m, -1));
+      const obs = [];
+      const bloc = (type, icone, txt) => '<div class="fin-obs ' + type + '">' + ico(icone, 15) + '<span>' + txt + '</span></div>';
+
+      if (prev.n === 0) {
+        App.ui.setHTML('fin-dash-obs', bloc('i', 'target',
+          'Les observations arrivent avec l\'historique : d&egrave;s deux mois de saisie, je comparerai tes habitudes d\'un mois &agrave; l\'autre, toujours sans jugement.'));
+        return;
+      }
+      // 1. Catégories qui dérapent vs moyenne 3 mois (max 2, seuils : ≥ 30 € et +15 %)
+      const hist = {};
+      for (let i = 1; i <= 3; i++) f.consoParCat(f.decaleMois(m, -i)).forEach(c => (hist[c.cat] = hist[c.cat] || []).push(c.val));
+      let nCat = 0;
+      f.consoParCat(m).forEach(c => {
+        if (nCat >= 2 || c.val < 30) return;
+        const h = hist[c.cat];
+        if (!h || h.length < 2) return;
+        const moy = h.reduce((a, b) => a + b, 0) / h.length;
+        if (moy > 0 && c.val > moy * 1.15) {
+          nCat++;
+          obs.push(bloc('v', 'trend', 'Le budget <strong>' + f.esc(c.cat) + '</strong> est &agrave; +' + Math.round((c.val - moy) / moy * 100)
+            + '&#8202;% par rapport &agrave; ta moyenne des derniers mois (' + f.fmtEUR(moy) + '). Rien de grave — juste un rep&egrave;re pour d&eacute;cider en connaissance de cause.'));
+        }
+      });
+      // 2. Charges récurrentes en hausse deux mois de suite
+      const b2 = f.bilan(f.decaleMois(m, -2));
+      if (b2.rec > 0 && prev.rec > b2.rec && cur.rec > prev.rec) {
+        obs.push(bloc('v', 'clock', 'Tes charges r&eacute;currentes augmentent depuis deux mois (' + f.fmtEUR(b2.rec) + ' &rarr; ' + f.fmtEUR(prev.rec) + ' &rarr; ' + f.fmtEUR(cur.rec)
+          + '). Un abonnement oubli&eacute; ou une r&eacute;vision de loyer ? Un coup d\'&oelig;il &agrave; la liste peut valoir le coup.'));
+      }
+      // 3. Renfort positif sur le taux d'épargne
+      if (cur.taux != null) {
+        if (cur.taux > 15) obs.push(bloc('p', 'check', 'Taux d\'&eacute;pargne &agrave; ' + f.fmtPct(cur.taux) + '&#8202;% ce mois : solide. Tu mets de c&ocirc;t&eacute; sans te priver — exactement le bon rythme.'));
+        else if (cur.taux < 5 && cur.rev > 0) obs.push(bloc('i', 'target', 'Le taux d\'&eacute;pargne est sous les 5&#8202;% ce mois. Pas d\'alarme : regarde le tableau des cat&eacute;gories ci-dessus, il y a peut-&ecirc;tre un poste facile &agrave; all&eacute;ger le mois prochain.'));
+      }
+      if (!obs.length) obs.push(bloc('p', 'check', 'Rien d\'inhabituel ce mois-ci : tes habitudes sont stables. C\'est exactement ce qu\'on veut voir.'));
+      App.ui.setHTML('fin-dash-obs', obs.slice(0, 3).join(''));
+    },
+
     // ══ APERÇU HUB ══
     hubStats() {
       App.finance.charger();
@@ -4329,6 +4931,380 @@ const App = {
         } catch (e) { App.ui.toast('Fichier CSV invalide — utilise le format de l\'export', 'err'); }
       };
       reader.readAsText(file);
+    }
+  },
+
+
+  // ════════════════════════════════════════════
+  // MODULE IMPÔTS — copilote fiscal français (clé kf_fin_impots)
+  // Estimation IR pour une situation simple (célibataire, salaires + stage + plateforme).
+  // kf_fin_impots = { profil:{dept,parts,statut}, annees:{ '2025':{sal,grat,plat,pas,don66,don75,fraisMode,km,jours,cv,fraisAutres} } }
+  // ════════════════════════════════════════════
+  impots: {
+    // ── MILLÉSIME FISCAL — un bloc de constantes par année de revenus.
+    // RITUEL ANNUEL : chaque début d'année (rappel .ics fin février), ajouter le millésime
+    // de l'année écoulée après vérification sur sources officielles, puis basculer ANNEE_DEFAUT.
+    //
+    // Millésime « 2025 » = revenus 2025, déclarés en 2026 (loi de finances 2026 du 19/02/2026, indexation +0,9 %).
+    // Sources vérifiées (juillet 2026) :
+    //  · Barème & exemples : service-public.gouv.fr fiche F1419 + actualité A18045
+    //  · Décote & plafonds : economie.gouv.fr « Comment calculer votre impôt d'après le barème »
+    //  · Abattement 10 % (min 509 / max 14 555) : impots.gouv.fr FAQ déduction forfaitaire, BOFiP 17/02/2026
+    //  · Stage exonéré ≤ SMIC annuel 21 622 € ; jobs étudiants < 26 ans ≤ 5 405 € : service-public.gouv.fr F1228, economie.gouv.fr
+    //  · Barème kilométrique : arrêté du 27/03/2023, non revalorisé depuis (brochure IR 2026 p.25, LégiFiscal)
+    //  · Micro-BIC prestations (Shopopop = livraison, imposable, déclaré via DAC7) : abattement 50 %, min 305 €,
+    //    seuil 77 700 €, case 5NP « BIC non professionnels » : impots.gouv.fr FAQ micro-entrepreneur & éco. collaborative
+    //  · Dons : 66 % plafond 20 % du revenu imposable (7UF) ; 75 % « Coluche » plafond doublé à 2 000 € (7UD) : info.gouv.fr
+    //  · Calendrier 2026 : ouverture 09/04, limites 21/05 (dép. 01-19), 28/05 (20-54), 04/06 (55-976) : info.gouv.fr
+    MILLESIMES: {
+      2025: {
+        declaration: 2026,
+        tranches: [[11600, 0], [29579, .11], [84577, .30], [181917, .41], [Infinity, .45]],
+        decote: { seuil1: 1982, forfait1: 897, seuil2: 3277, forfait2: 1483, taux: .4525 },
+        abt10: { min: 509, max: 14555 },
+        stageExo: 21622,          // gratification de stage exonérée dans la limite du SMIC annuel
+        jobEtuExo: 5405,          // jobs étudiants : exonération 3 SMIC mensuels si < 26 ans au 1er janvier
+        jobEtuAgeMax: 26,
+        microBic: { seuil: 77700, abattement: .50, abtMin: 305 },
+        dons: { taux66: .66, plafond66PctRNI: .20, taux75: .75, plafond75: 2000 },
+        seuilRecouvrement: 61,    // impôt < 61 € : non mis en recouvrement
+        // Barème kilométrique voitures (d = km/an) : [tarif ≤5000 ; coef 5001-20000 ; forfait ; tarif >20000]
+        km: { 3: [.529, .316, 1065, .370], 4: [.606, .340, 1330, .407], 5: [.636, .357, 1395, .427], 6: [.665, .374, 1457, .447], 7: [.697, .394, 1515, .470] },
+        dates: { ouverture: '2026-04-09', papier: '2026-05-19', z1: '2026-05-21', z2: '2026-05-28', z3: '2026-06-04', solde: '2026-09-25' }
+      }
+    },
+    ANNEE_DEFAUT: 2025,
+    ANNEES: [2025, 2026],   // 2026 : estimation avec le dernier millésime connu, en attendant la LF 2027
+
+    annee: null,
+    fraisMode: 'auto',
+    _init: false,
+
+    // ── Stockage
+    data() {
+      const d = App.storage.load('kf_fin_impots');
+      return (d && d.profil) ? d : { profil: { dept: '75', parts: 1, statut: 'salarie' }, annees: {} };
+    },
+    sauver(d) { App.storage.save('kf_fin_impots', d); },
+    mill() { return App.impots.MILLESIMES[App.impots.annee] || App.impots.MILLESIMES[App.impots.ANNEE_DEFAUT]; },
+    millExact() { return !!App.impots.MILLESIMES[App.impots.annee]; },
+
+    // ── Init (appelé paresseusement à la première navigation)
+    init() {
+      const I = App.impots;
+      App.finance.charger();
+      if (!I.annee) I.annee = I.ANNEE_DEFAUT;
+      if (!I._init) {
+        const d = I.data();
+        App.ui.setVal('imp-dept', d.profil.dept);
+        App.ui.setVal('imp-parts', d.profil.parts);
+        App.ui.setVal('imp-statut', d.profil.statut);
+        I._init = true;
+      }
+      I.renderAnnees();
+      I.chargerChamps();
+      I.calc();
+    },
+
+    renderAnnees() {
+      const I = App.impots;
+      const seg = document.getElementById('imp-annee-seg');
+      if (!seg) return;
+      seg.innerHTML = I.ANNEES.map(a =>
+        '<button class="' + (a === I.annee ? 'on' : '') + '" onclick="impAnnee(' + a + ')">Revenus ' + a + '</button>').join('');
+      const note = document.getElementById('imp-millesime-note');
+      if (note) {
+        if (I.millExact()) {
+          note.innerHTML = '<strong>Mill&eacute;sime ' + I.mill().declaration + '</strong> (loi de finances ' + I.mill().declaration + ') &mdash; pour une situation simple, le r&eacute;sultat est quasi exact.';
+          note.style.color = 'var(--greenTx)'; note.style.background = 'var(--greenBg)';
+        } else {
+          note.innerHTML = '<strong>Estimation</strong> avec le dernier bar&egrave;me connu (revenus ' + I.ANNEE_DEFAUT + '). Le mill&eacute;sime des revenus ' + I.annee + ' sera fix&eacute; par la loi de finances ' + (I.annee + 1) + ' d&eacute;but ' + (I.annee + 1) + ' &mdash; le rappel .ics est l&agrave; pour &ccedil;a.';
+          note.style.color = 'var(--amberTx)'; note.style.background = 'var(--amberBg)';
+        }
+        note.style.borderRadius = 'var(--rs)'; note.style.padding = '8px 11px';
+      }
+    },
+
+    setAnnee(a) {
+      const I = App.impots;
+      I.enregistrerChamps();
+      I.annee = a;
+      I.renderAnnees();
+      I.chargerChamps();
+      I.calc();
+    },
+
+    // ── Profil + champs de l'année (persistés à chaque modification)
+    saveProfil() {
+      const I = App.impots, d = I.data();
+      d.profil.dept = (App.ui.val('imp-dept') || '75').trim();
+      d.profil.parts = Math.max(1, parseFloat(App.ui.val('imp-parts')) || 1);
+      d.profil.statut = App.ui.val('imp-statut') || 'salarie';
+      I.sauver(d);
+      I.calc();
+    },
+    champsIds: { sal: 'imp-sal', grat: 'imp-grat', plat: 'imp-plat', pas: 'imp-pas', don66: 'imp-don66', don75: 'imp-don75', km: 'imp-km', jours: 'imp-jours', fraisAutres: 'imp-frais-autres' },
+    enregistrerChamps() {
+      const I = App.impots, d = I.data();
+      const o = { fraisMode: I.fraisMode, cv: App.ui.val('imp-cv') || '5' };
+      for (const k in I.champsIds) o[k] = parseFloat(App.ui.val(I.champsIds[k])) || 0;
+      d.annees[String(I.annee)] = o;
+      I.sauver(d);
+    },
+    chargerChamps() {
+      const I = App.impots, d = I.data();
+      const o = d.annees[String(I.annee)] || {};
+      for (const k in I.champsIds) App.ui.setVal(I.champsIds[k], o[k] || '');
+      App.ui.setVal('imp-cv', o.cv || '5');
+      I.fraisMode = o.fraisMode || 'auto';
+      I.renderFraisSeg();
+    },
+
+    // ── Pré-remplissage depuis les transactions (natures fiscales des revenus)
+    prefill() {
+      const I = App.impots, a = String(I.annee);
+      App.finance.charger();
+      const rev = App.finance.tx.filter(t => t.type === 'rev' && t.date.slice(0, 4) === a);
+      if (!rev.length) { App.ui.toast('Aucun revenu saisi pour ' + a + ' — commence par la page Saisie', 'err'); return; }
+      const somme = nat => Math.round(rev.filter(t => t.cat === nat).reduce((x, t) => x + t.montant, 0) * 100) / 100;
+      const sal = somme('Salaire'), grat = somme('Gratification de stage'), plat = somme('Plateforme (Shopopop…)');
+      const dons = somme("Don familial / présent d'usage"), tont = somme('Tontine'), autre = somme('Autre');
+      App.ui.setVal('imp-sal', sal || '');
+      App.ui.setVal('imp-grat', grat || '');
+      App.ui.setVal('imp-plat', plat || '');
+      const notes = [];
+      if (dons > 0) notes.push('Dons familiaux (' + App.finance.fmtEUR(dons) + ') : pr&eacute;sents d\u2019usage non imposables s\u2019ils restent occasionnels et proportionn&eacute;s aux moyens du donateur \u2014 rien &agrave; d&eacute;clarer.');
+      if (tont > 0) notes.push('Tontine (' + App.finance.fmtEUR(tont) + ') : &eacute;pargne rotative entre proches, en principe hors champ de l\u2019IR (pas un revenu) \u2014 non report&eacute;e ici.');
+      if (autre > 0) notes.push('Nature &laquo; Autre &raquo; (' + App.finance.fmtEUR(autre) + ') : &agrave; qualifier manuellement \u2014 non report&eacute;e automatiquement.');
+      const n = document.getElementById('imp-prefill-note');
+      if (n) n.innerHTML = notes.join('<br>');
+      App.ui.toast('Champs pr&eacute;-remplis depuis tes saisies ' + a);
+      I.calc();
+    },
+
+    // ── Frais : barème kilométrique + arbitrage
+    setFraisMode(m) { App.impots.fraisMode = m; App.impots.renderFraisSeg(); App.impots.calc(); },
+    renderFraisSeg() {
+      const I = App.impots;
+      ['auto', '10', 'reel'].forEach(m => {
+        const b = document.getElementById('imp-frais-' + m);
+        if (b) b.classList.toggle('on', I.fraisMode === m);
+      });
+    },
+    fraisKm(kmAller, jours, cv) {
+      const M = App.impots.mill();
+      const kmJour = Math.min(kmAller, 40) * 2;      // règle des 40 km aller sauf circonstances particulières
+      const d = Math.round(kmJour * jours);
+      const b = M.km[Math.min(7, Math.max(3, parseInt(cv) || 5))];
+      let mnt;
+      if (d <= 5000) mnt = d * b[0];
+      else if (d <= 20000) mnt = d * b[1] + b[2];
+      else mnt = d * b[3];
+      return { km: d, montant: Math.round(mnt * 100) / 100, plafonne: kmAller > 40 };
+    },
+
+    // ── Calcul complet (barème → décote → réductions), toutes valeurs du millésime
+    calcul() {
+      const I = App.impots, M = I.mill(), d = I.data();
+      const v = id => Math.max(0, parseFloat(App.ui.val(id)) || 0);
+      const parts = Math.max(1, parseFloat(d.profil.parts) || 1);
+      const sal = v('imp-sal'), grat = v('imp-grat'), plat = v('imp-plat'), pas = v('imp-pas');
+      const don66 = v('imp-don66'), don75 = v('imp-don75');
+
+      // Traitements & salaires : gratification exonérée jusqu'au SMIC annuel, l'excédent rejoint les salaires
+      const gratImposable = Math.max(0, grat - M.stageExo);
+      const salaires = sal + gratImposable;
+
+      // Frais professionnels : forfait 10 % (borné) vs frais réels (barème km + autres)
+      const fkm = I.fraisKm(v('imp-km'), v('imp-jours'), App.ui.val('imp-cv'));
+      const fraisReels = Math.round((fkm.montant + v('imp-frais-autres')) * 100) / 100;
+      const forfait = salaires > 0 ? Math.min(Math.max(salaires * .10, Math.min(M.abt10.min, salaires)), M.abt10.max) : 0;
+      let mode = I.fraisMode;
+      if (mode === 'auto') mode = fraisReels > forfait ? 'reel' : '10';
+      const deduction = mode === 'reel' ? Math.min(fraisReels, salaires) : forfait;
+      const tsNet = Math.max(0, salaires - deduction);
+
+      // Micro-BIC prestations (livraison plateforme) : abattement 50 %, minimum 305 €
+      const abtBic = plat > 0 ? Math.max(plat * M.microBic.abattement, Math.min(M.microBic.abtMin, plat)) : 0;
+      const bicNet = Math.max(0, Math.round((plat - abtBic) * 100) / 100);
+
+      const rni = Math.round((tsNet + bicNet) * 100) / 100;
+
+      // Barème progressif sur le quotient familial
+      const qf = rni / parts;
+      let brutPart = 0, bas = 0, tmi = 0;
+      for (const [haut, taux] of M.tranches) {
+        if (qf > bas) { brutPart += (Math.min(qf, haut) - bas) * taux; if (taux > 0 && qf > bas) tmi = taux; }
+        bas = haut;
+      }
+      const brut = brutPart * parts;
+
+      // Décote (célibataire = imposition individuelle ; parts ≥ 2 assimilé couple pour le seuil)
+      const seuil = parts >= 2 ? M.decote.seuil2 : M.decote.seuil1;
+      const forfaitD = parts >= 2 ? M.decote.forfait2 : M.decote.forfait1;
+      const decote = brut > 0 && brut < seuil ? Math.max(0, forfaitD - brut * M.decote.taux) : 0;
+      const apresDecote = Math.max(0, brut - decote);
+
+      // Réductions dons : 75 % plafonné, l'excédent bascule en 66 % (lui-même plafonné à 20 % du RNI)
+      const base75 = Math.min(don75, M.dons.plafond75);
+      const exc75 = Math.max(0, don75 - M.dons.plafond75);
+      const base66 = Math.min(don66 + exc75, rni * M.dons.plafond66PctRNI);
+      const report66 = Math.max(0, don66 + exc75 - base66);
+      const reducDons = Math.min(apresDecote, base75 * M.dons.taux75 + base66 * M.dons.taux66);
+
+      let net = Math.max(0, Math.round(apresDecote - reducDons));
+      const sousSeuil = net > 0 && net < M.seuilRecouvrement;
+      if (sousSeuil) net = 0;
+
+      return { sal, grat, gratImposable, salaires, mode, forfait: Math.round(forfait), fraisReels, fkm, deduction: Math.round(deduction), tsNet: Math.round(tsNet), plat, bicNet: Math.round(bicNet), rni: Math.round(rni), brut: Math.round(brut), decote: Math.round(decote), base75, base66, report66, reducDons: Math.round(reducDons), net, sousSeuil, tmi, pas, parts, don66, don75 };
+    },
+
+    // ── Rendu global
+    calc() {
+      const I = App.impots;
+      I.enregistrerChamps();
+      const d = I.data();
+      const pn = document.getElementById('imp-parts-note');
+      if (pn) pn.style.display = (parseFloat(d.profil.parts) || 1) > 1 ? 'block' : 'none';
+      const r = I.calcul();
+      const f = App.finance.fmtEUR;
+
+      // Verdict frais
+      const fv = document.getElementById('imp-frais-verdict');
+      if (fv) {
+        if (r.salaires <= 0) fv.innerHTML = '<span style="color:var(--tx3)">Saisis d\u2019abord tes salaires pour comparer les deux options.</span>';
+        else {
+          const gain = Math.round(Math.abs(r.fraisReels - r.forfait));
+          let h = 'Forfait 10 % : <strong>' + f(r.forfait) + '</strong> &middot; Frais r&eacute;els : <strong>' + f(r.fraisReels) + '</strong>' + (r.fkm.km ? ' (dont ' + r.fkm.km.toLocaleString('fr-FR') + ' km au bar&egrave;me)' : '') + '.<br>';
+          h += r.fraisReels > r.forfait
+            ? '<span style="color:var(--greenTx)">Les frais r&eacute;els sont plus avantageux de ' + f(gain) + ' de d&eacute;duction.</span>'
+            : '<span style="color:var(--blueTx)">Le forfait 10 % reste le plus avantageux' + (gain ? ' (&eacute;cart ' + f(gain) + ')' : '') + '.</span>';
+          h += ' Mode appliqu&eacute; : <strong>' + (r.mode === 'reel' ? 'frais r&eacute;els' : 'forfait 10 %') + '</strong>.';
+          if (r.fkm.plafonne) h += '<br><span style="color:var(--amberTx)">Trajet plafonn&eacute; &agrave; 40 km aller (r&egrave;gle fiscale, sauf circonstances particuli&egrave;res justifi&eacute;es).</span>';
+          fv.innerHTML = h;
+        }
+      }
+
+      // Résultat
+      App.ui.setEl('imp-r-net', r.rni > 0 || r.net > 0 ? f(r.net) : '—');
+      App.ui.setEl('imp-r-moyen', r.rni > 0 ? (100 * r.net / r.rni).toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' %' : '—');
+      App.ui.setEl('imp-r-tmi', r.rni > 0 ? Math.round(r.tmi * 100) + ' %' : '—');
+      const det = document.getElementById('imp-r-detail');
+      if (det) {
+        if (r.rni <= 0 && r.salaires <= 0 && r.plat <= 0) det.innerHTML = 'Renseigne tes revenus ci-dessus (ou pr&eacute;-remplis depuis tes saisies) : l\u2019estimation se met &agrave; jour instantan&eacute;ment.';
+        else {
+          const l = [];
+          l.push('Salaires imposables : ' + f(r.salaires) + (r.gratImposable > 0 ? ' (dont ' + f(r.gratImposable) + ' de gratification au-del&agrave; du plafond exon&eacute;r&eacute;)' : r.grat > 0 ? ' — gratification enti&egrave;rement exon&eacute;r&eacute;e (&le; ' + f(I.mill().stageExo) + ')' : ''));
+          l.push('D&eacute;duction frais (' + (r.mode === 'reel' ? 'r&eacute;els' : '10 %') + ') : &minus;' + f(r.deduction));
+          if (r.plat > 0) l.push('Plateforme micro-BIC : ' + f(r.plat) + ' &minus; 50 % &rarr; ' + f(r.bicNet) + ' imposables');
+          l.push('<strong>Revenu net imposable : ' + f(r.rni) + '</strong>');
+          l.push('Imp&ocirc;t au bar&egrave;me : ' + f(r.brut) + (r.decote > 0 ? ' &minus; d&eacute;cote ' + f(r.decote) : ''));
+          if (r.reducDons > 0) l.push('R&eacute;duction dons : &minus;' + f(r.reducDons) + (r.report66 > 0 ? ' (exc&eacute;dent ' + f(r.report66) + ' reportable 5 ans)' : ''));
+          if (r.sousSeuil) l.push('<span style="color:var(--greenTx)">Montant sous le seuil de recouvrement (' + I.mill().seuilRecouvrement + ' €) : rien &agrave; payer.</span>');
+          det.innerHTML = l.join('<br>');
+        }
+      }
+      const sd = document.getElementById('imp-r-solde');
+      if (sd) {
+        if (r.pas > 0 || r.net > 0) {
+          const solde = Math.round(r.net - r.pas);
+          sd.style.display = 'flex';
+          if (solde > 0) { sd.innerHTML = '<span>Solde estim&eacute; &agrave; payer : <strong>' + f(solde) + '</strong> (pr&eacute;lev&eacute; en septembre, ou en 4 fois si &gt; 300 €)</span>'; sd.style.color = 'var(--amberTx)'; }
+          else if (solde < 0) { sd.innerHTML = '<span>Remboursement estim&eacute; : <strong>' + f(-solde) + '</strong> (vers&eacute; en &eacute;t&eacute; apr&egrave;s la d&eacute;claration)</span>'; sd.style.color = 'var(--greenTx)'; }
+          else { sd.innerHTML = '<span>Pr&eacute;l&egrave;vement &agrave; la source pile au niveau de l\u2019imp&ocirc;t estim&eacute;.</span>'; sd.style.color = 'var(--greenTx)'; }
+        } else sd.style.display = 'none';
+      }
+      I.renderFiche(r);
+      I.renderOptims(r);
+      I.renderDates();
+    },
+
+    // ── Fiche de report 2042, case par case, explications dépliables
+    renderFiche(r) {
+      const I = App.impots, f = App.finance.fmtEUR, M = I.mill();
+      const el = document.getElementById('imp-fiche');
+      if (!el) return;
+      const lignes = [];
+      if (r.salaires > 0) lignes.push(['1AJ', f(Math.round(r.salaires)), 'Salaires', 'Total de tes salaires nets imposables' + (r.grat > 0 ? ' + la part de gratification de stage au-del&agrave; de ' + f(M.stageExo) + '. Dans la d&eacute;claration en ligne, la case &laquo; stagiaire &raquo; applique l\u2019exon&eacute;ration automatiquement : v&eacute;rifie que le montant final correspond.' : '. Normalement pr&eacute;-rempli : v&eacute;rifie avec ton cumul net imposable de d&eacute;cembre.')]);
+      if (r.mode === 'reel' && r.fraisReels > 0) lignes.push(['1AK', f(Math.round(r.fraisReels)), 'Frais r&eacute;els', 'Option frais r&eacute;els : montant total (bar&egrave;me kilom&eacute;trique + autres frais justifi&eacute;s). Ne d&eacute;duis rien toi-m&ecirc;me de la case 1AJ, le fisc s\u2019en charge. Garde les justificatifs 3 ans.']);
+      if (r.plat > 0) lignes.push(['5NP', f(Math.round(r.plat)), 'Micro-BIC non professionnel — prestations', 'Recettes BRUTES de plateforme (Shopopop&hellip;), formulaire 2042 C PRO. Le fisc applique lui-m&ecirc;me l\u2019abattement de 50 % (min 305 €). La plateforme d&eacute;clare d&eacute;j&agrave; ces montants via DAC7 : la coh&eacute;rence est obligatoire.']);
+      if (r.don75 > 0) lignes.push(['7UD', f(Math.round(Math.min(r.don75, M.dons.plafond75))), 'Dons aux personnes en difficult&eacute; (75 %)', 'R&eacute;duction de 75 % dans la limite de ' + f(M.dons.plafond75) + '. L\u2019exc&eacute;dent bascule automatiquement dans les dons &agrave; 66 %.']);
+      if (r.don66 > 0 || r.base66 > Math.min(r.don66, r.base66)) {
+        const v7uf = Math.round(r.don66 + Math.max(0, r.don75 - M.dons.plafond75));
+        if (v7uf > 0) lignes.push(['7UF', f(v7uf), 'Dons d\u2019int&eacute;r&ecirc;t g&eacute;n&eacute;ral (66 %)', 'R&eacute;duction de 66 % dans la limite de 20 % du revenu imposable ; l\u2019exc&eacute;dent est reportable 5 ans. Re&ccedil;us fiscaux &agrave; conserver.']);
+      }
+      if (!lignes.length) { el.innerHTML = '<div style="font-size:12px;color:var(--tx3)">La fiche se g&eacute;n&egrave;re d&egrave;s que des revenus sont renseign&eacute;s.</div>'; return; }
+      el.innerHTML = lignes.map((L, i) =>
+        '<div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div><div class="acc-title">' + L[0] + ' : ' + L[1] + '</div><div class="acc-meta">' + L[2] + '</div></div><span class="acc-chev">&#9660;</span></div><div class="acc-body" style="font-size:12px;color:var(--tx2);line-height:1.6">' + L[3] + '</div></div>').join('');
+    },
+
+    // ── Optimisations légales calculées sur les données réelles (max 5, ton sobre)
+    renderOptims(r) {
+      const I = App.impots, f = App.finance.fmtEUR, M = I.mill();
+      const el = document.getElementById('imp-optims');
+      if (!el) return;
+      const o = [];
+      if (r.salaires > 0) {
+        if (r.fraisReels > r.forfait && I.fraisMode !== 'reel' && I.fraisMode !== 'auto')
+          o.push('Passer aux <strong>frais r&eacute;els</strong> augmenterait ta d&eacute;duction de ' + f(Math.round(r.fraisReels - r.forfait)) + '.');
+        else if (r.fraisReels <= r.forfait && (parseFloat(App.ui.val('imp-km')) || 0) === 0)
+          o.push('D&egrave;s l\u2019acquisition d\u2019une <strong>voiture</strong> pour les trajets travail, renseigne km/jours/CV ci-dessus : l\u2019arbitrage frais r&eacute;els vs 10 % se recalcule tout seul.');
+      }
+      if (r.tmi > 0) {
+        o.push('Chaque euro de <strong>don</strong> ne te co&ucirc;te r&eacute;ellement que 34 centimes (66 %) voire 25 centimes (75 %, plafond ' + f(M.dons.plafond75) + ') gr&acirc;ce &agrave; la r&eacute;duction d\u2019imp&ocirc;t.');
+        o.push('Les <strong>heures suppl&eacute;mentaires</strong> sont exon&eacute;r&eacute;es d\u2019IR jusqu\u2019&agrave; 7 500 €/an : v&eacute;rifie qu\u2019elles apparaissent bien en case 1GH, pas dans le salaire imposable.');
+        o.push('Plus tard, un <strong>PER</strong> d&eacute;duit chaque versement du revenu imposable — int&eacute;ressant surtout quand la TMI atteint 30 %' + (r.tmi >= .30 ? ' (c\u2019est ton cas cette ann&eacute;e)' : ' (tu es &agrave; ' + Math.round(r.tmi * 100) + ' % aujourd\u2019hui)') + '.');
+      }
+      const age = I.annee - 1997 - 1; // âge au 1er janvier de l'année des revenus (né le 19/06/1997)
+      if (age >= M.jobEtuAgeMax) o.push('L\u2019exon&eacute;ration <strong>jobs &eacute;tudiants</strong> (' + f(M.jobEtuExo) + ') exige d\u2019avoir moins de ' + M.jobEtuAgeMax + ' ans au 1er janvier : &agrave; ' + age + ' ans, elle ne s\u2019applique pas &mdash; ne coche pas la case &laquo; &eacute;tudiant &raquo; par erreur.');
+      o.push('Les <strong>dons familiaux</strong> re&ccedil;us restent des pr&eacute;sents d\u2019usage non imposables tant qu\u2019ils sont li&eacute;s &agrave; une occasion et proportionn&eacute;s aux moyens du donateur : rien &agrave; d&eacute;clarer, mais garde une trace.');
+      el.innerHTML = o.slice(0, 5).map(t => '<div class="fin-obs i"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>' + t + '</span></div>').join('')
+        + '<div style="font-size:10.5px;color:var(--tx3);margin-top:6px;line-height:1.5">Pistes purement l&eacute;gales et indicatives — jamais de montage. Validation finale sur le simulateur DGFiP.</div>';
+    },
+
+    // ── Échéances : zone selon le département
+    zone(dept) {
+      const n = parseInt(String(dept).replace(/[AB]/i, '0'), 10);
+      if (!n || n <= 19) return 'z1';
+      if (n <= 54) return 'z2';
+      return 'z3';
+    },
+    renderDates() {
+      const I = App.impots, M = I.mill(), d = I.data();
+      const el = document.getElementById('imp-dates');
+      if (!el) return;
+      const fd = iso => new Date(iso + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      const z = I.zone(d.profil.dept);
+      const indicatif = I.millExact() ? '' : ' <span style="color:var(--amberTx)">(dates indicatives, calqu&eacute;es sur ' + M.declaration + ' — &agrave; confirmer d&eacute;but avril)</span>';
+      const dec = date => I.millExact() ? date : date.replace(String(M.declaration), String(I.annee + 1));
+      el.innerHTML =
+        '&bull; Ouverture de la d&eacute;claration en ligne : <strong>' + fd(dec(M.dates.ouverture)) + '</strong>' + indicatif + '<br>' +
+        '&bull; Date limite (d&eacute;partement ' + d.profil.dept + ') : <strong>' + fd(dec(M.dates[z])) + ' &agrave; 23 h 59</strong><br>' +
+        '&bull; Solde &eacute;ventuel pr&eacute;lev&eacute; &agrave; partir de fin septembre ' + (I.millExact() ? M.declaration : I.annee + 1) + ' (4 mensualit&eacute;s si &gt; 300 €)';
+    },
+    exportICS() {
+      const I = App.impots, M = I.mill(), d = I.data();
+      const an = I.millExact() ? M.declaration : I.annee + 1;
+      const dec = iso => I.millExact() ? iso : iso.replace(String(M.declaration), String(an));
+      const z = I.zone(d.profil.dept);
+      const pad = n => String(n).padStart(2, '0');
+      const now = new Date();
+      const stamp = now.getFullYear() + pad(now.getMonth() + 1) + pad(now.getDate()) + 'T' + pad(now.getHours()) + pad(now.getMinutes()) + '00';
+      const jour = iso => iso.replace(/-/g, '');
+      const ev = (iso, titre, desc, rrule) =>
+        'BEGIN:VEVENT\r\nUID:kf-imp-' + jour(iso) + '-' + titre.length + '@kf-suivi\r\nDTSTAMP:' + stamp +
+        '\r\nDTSTART;VALUE=DATE:' + jour(iso) + '\r\nDTEND;VALUE=DATE:' + jour(iso) +
+        (rrule ? '\r\nRRULE:' + rrule : '') +
+        '\r\nSUMMARY:' + titre + '\r\nDESCRIPTION:' + desc +
+        '\r\nBEGIN:VALARM\r\nTRIGGER:-PT15H\r\nACTION:DISPLAY\r\nDESCRIPTION:' + titre + '\r\nEND:VALARM\r\nEND:VEVENT\r\n';
+      let ics = 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//KF Suivi//FR\r\nCALSCALE:GREGORIAN\r\n';
+      ics += ev(dec(M.dates.ouverture), 'Impôts : ouverture de la déclaration en ligne', 'Déclaration des revenus ' + I.annee + ' sur impots.gouv.fr — la fiche de report est prête dans KF Apps.');
+      ics += ev(dec(M.dates[z]), 'Impôts : DATE LIMITE de déclaration (dépt ' + d.profil.dept + ')', 'Dernier jour à 23h59 pour déclarer les revenus ' + I.annee + ' en ligne.');
+      ics += ev(dec(M.dates.solde), 'Impôts : prélèvement du solde éventuel', 'Si un solde reste dû\\, il est prélevé à partir de fin septembre (4 fois si > 300 €).');
+      ics += ev(String(an) + '-02-25', 'KF Apps : mettre à jour le millésime fiscal', 'Rituel annuel : demander la mise à jour du bloc MILLESIME (loi de finances promulguée) et vérifier les chiffres sur sources officielles.', 'FREQ=YEARLY');
+      ics += 'END:VCALENDAR\r\n';
+      App.dataio.download('impots-kf-' + an + '.ics', ics, 'text/calendar');
+      App.ui.toast('Calendrier fiscal g&eacute;n&eacute;r&eacute; — ouvre le fichier pour l\u2019ajouter &agrave; Calendrier iOS');
     }
   },
 
@@ -4504,6 +5480,17 @@ function finBudEdit(cat)        { App.finance.budEdit(cat); }
 function finBudSave(cat)        { App.finance.budSave(cat); }
 function finCsvExport()         { App.finance.csvExport(); }
 function finCsvImport(input)    { App.finance.csvImport(input); }
+function finDashMoisNav(d)      { App.finance.dashMoisNav(d); }
+function finDashPeriode(n)      { App.finance.setPeriode(n); }
+function finDashDonutTap(i)     { App.finance.donutTap(i); }
+function finDashRecToggle(cat)  { App.finance.recToggle(cat); }
+
+function impAnnee(a)            { App.impots.setAnnee(a); }
+function impProfil()            { App.impots.saveProfil(); }
+function impPrefill()           { App.impots.prefill(); }
+function impCalc()              { App.impots.calc(); }
+function impFraisMode(m)        { App.impots.setFraisMode(m); }
+function impICS()               { App.impots.exportICS(); }
 
 function kfExport()             { App.dataio.exportJSON(); }
 function kfImport(input)        { App.dataio.importJSON(input); }
