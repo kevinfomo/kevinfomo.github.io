@@ -72,7 +72,7 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:var(--halo1
 @supports not (backdrop-filter: blur(1px)){
   .verre{background:var(--verre-fort)}
   .sidebar,#topbar,.bnav,#drawer,.g-toast{background:#101a2e}
-  .modal-box{background:var(--verre-fort)}
+  .modal-box,.fiche-box{background:var(--verre-fort)}
 }
 
 /* ── APP SHELL ── */
@@ -257,7 +257,8 @@ select{font-size:12px;padding:5px 10px;border:1px solid var(--bdr2);border-radiu
 /* ══ SIDEBAR extra ══ */
 .sb-section-lbl{padding:.5rem 1.25rem .15rem;font-size:10px;color:var(--sbt);text-transform:uppercase;letter-spacing:.08em;margin-top:.4rem}
 /* ══ SUIVI SPORTIF ══ */
-.ss-seance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem}
+.ss-seance-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:1rem}
+@media(min-width:600px){.ss-seance-grid{grid-template-columns:repeat(4,1fr)}}
 .ss-btn{padding:10px 6px;border:1.5px solid var(--bdr);border-radius:var(--rs);font-size:12px;font-weight:500;cursor:pointer;background:var(--card);color:var(--tx2);text-align:center;transition:all .15s;font-family:var(--font-body)}
 .ss-btn.active{background:var(--sb);color:#fff;border-color:var(--sb)}
 .ss-exo-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:.9rem 1rem;margin-bottom:8px}
@@ -274,6 +275,7 @@ select{font-size:12px;padding:5px 10px;border:1px solid var(--bdr2);border-radiu
 .sn-food-list{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;max-height:140px;overflow-y:auto}
 .sn-food-chip{padding:4px 10px;border:1px solid var(--bdr);border-radius:16px;font-size:11.5px;cursor:pointer;background:var(--card);color:var(--tx2);transition:all .12s;font-family:var(--font-body)}
 .sn-food-chip.selected{background:var(--sb);color:#fff;border-color:var(--sb)}
+.sn-food-chip:active{transform:scale(.94)}
 .sn-added-row{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--card);border:1px solid var(--bdr);border-radius:var(--rs);margin-bottom:5px}
 .sn-added-name{flex:1;font-size:12px;font-weight:500;color:var(--tx1)}
 .sn-added-qty{width:65px;padding:5px 7px;border:1px solid var(--bdr);border-radius:6px;font-size:12px;font-family:var(--font-body);background:var(--bg);color:var(--tx1);text-align:center}
@@ -402,6 +404,61 @@ select{font-size:12px;padding:5px 10px;border:1px solid var(--bdr2);border-radiu
 .modal-btns button{flex:1;padding:11px;border-radius:10px;font-size:13px;font-weight:600;font-family:var(--font-body);cursor:pointer;min-height:44px}
 #modal-cancel{background:var(--bg);border:1.5px solid var(--bdr2);color:var(--tx2)}
 #modal-ok{background:var(--red);border:none;color:#fff}
+
+/* ── FICHE — feuille de détail réutilisable (recettes, contenus riches) — v12.2 ──
+   Surface flottante exclusive : backdrop-filter autorisé (garde-fou ≤ 6 respecté). */
+.fiche-ov{position:fixed;inset:0;background:rgba(2,6,23,.55);z-index:1250;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .18s}
+.fiche-ov.show{opacity:1;pointer-events:auto}
+.fiche-box{background:var(--verre);-webkit-backdrop-filter:var(--flou);backdrop-filter:var(--flou);border:1px solid var(--verre-bdr);border-radius:20px 20px 0 0;box-shadow:var(--ombre-haute);width:100%;max-width:560px;max-height:85vh;display:flex;flex-direction:column;transform:translateY(14px);transition:transform .22s var(--anim);padding-bottom:env(safe-area-inset-bottom)}
+.fiche-ov.show .fiche-box{transform:translateY(0)}
+.fiche-grip{width:38px;height:4px;border-radius:2px;background:var(--bdr2);margin:9px auto 0;flex:none}
+.fiche-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:8px 8px 6px 18px;flex:none}
+.fiche-titre{font-size:17px;font-weight:700;color:var(--tx1);line-height:1.3;padding-top:8px}
+.fiche-close{width:44px;height:44px;min-width:44px;border:none;background:none;color:var(--tx2);display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;border-radius:50%}
+.fiche-close:active{transform:scale(.92)}
+.fiche-body{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:2px 18px 18px}
+@media(min-width:600px){.fiche-ov{align-items:center;padding:20px}.fiche-box{border-radius:20px}}
+
+/* Carte tapable (ouvre une fiche) — retour visuel transform pur */
+.card-tap{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s var(--anim)}
+.card-tap:active{transform:scale(.985)}
+
+/* ── PICTOGRAMMES ANIMÉS (v13.0) — 3 poses en boucle par bascule d'opacité.
+   Une seule animation visible à la fois (fiche ouverte) : garde-fou GPU iPhone 11. */
+.kfa g{opacity:0}
+.kfa .kfa1{animation:kfa1 2.4s infinite}
+.kfa .kfa2{animation:kfa2 2.4s infinite}
+.kfa .kfa3{animation:kfa3 2.4s infinite}
+@keyframes kfa1{0%,18%{opacity:1}19%,79%{opacity:0}80%,100%{opacity:1}}
+@keyframes kfa2{0%,18%{opacity:0}19%,38%{opacity:1}39%,59%{opacity:0}60%,79%{opacity:1}80%,100%{opacity:0}}
+@keyframes kfa3{0%,38%{opacity:0}39%,59%{opacity:1}60%,100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){
+  .kfa g{opacity:0}.kfa .kfa1{opacity:1;animation:none}
+  .kfa .kfa2,.kfa .kfa3{animation:none}
+}
+.picto-fixe{flex:none;color:var(--tx1);opacity:.85}
+
+/* ── CHRONO DE REPOS (v13.0) — bandeau verre flottant au-dessus de la barre du bas */
+.chrono-band{position:fixed;left:50%;bottom:calc(74px + env(safe-area-inset-bottom));transform:translate(-50%,16px);
+  display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:20px;
+  background:var(--verre);-webkit-backdrop-filter:var(--flou);backdrop-filter:var(--flou);
+  border:1px solid var(--verre-bdr);box-shadow:var(--ombre-haute);z-index:1100;
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .22s var(--anim)}
+.chrono-band.show{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+.chrono-band.fini{border-color:var(--green)}
+.chrono-t{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--tx1);min-width:74px;text-align:center}
+.chrono-x{width:34px;height:34px;border-radius:50%;border:1px solid var(--bdr2);background:var(--bg);color:var(--tx2);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation}
+.chrono-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+.chrono-btn{flex:1;min-width:64px;min-height:44px;border-radius:12px;border:1px solid var(--bdr2);background:var(--bg);
+  color:var(--tx1);font-size:13px;font-weight:600;cursor:pointer;touch-action:manipulation;transition:transform .15s var(--anim)}
+.chrono-btn:active{transform:scale(.94)}
+
+/* Badge séance Maison + indicateur de récupération */
+.bdg-m{background:rgba(139,92,246,.14);color:#7c3aed}
+@media(prefers-color-scheme:dark){.bdg-m{background:rgba(139,92,246,.22);color:#c4b5fd}}
+.ss-recup{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--rs);font-size:12.5px;line-height:1.45;margin-bottom:1rem;border:1px solid var(--bdr)}
+.ss-recup .dot{width:10px;height:10px;border-radius:50%;flex:none}
 /* Tableau de bord */
 .dash-wrap{padding:1rem 1.5rem 0;display:flex;flex-direction:column;gap:12px}
 .rappel{display:flex;gap:9px;align-items:flex-start;padding:9px 12px;border-radius:var(--rs);font-size:12px;line-height:1.5;margin-bottom:6px}
@@ -570,6 +627,24 @@ input,select,button{touch-action:manipulation}
 
 <!-- ══ MODALE DE CONFIRMATION ══ -->
 <div id="modal-ov" class="modal-ov"><div class="modal-box"><div id="modal-msg"></div><div class="modal-btns"><button id="modal-cancel">Annuler</button><button id="modal-ok">Confirmer</button></div></div></div>
+
+<!-- Fiche — feuille de détail réutilisable (v12.2) : fermée par tap sur l'overlay ou le bouton -->
+<div id="fiche-ov" class="fiche-ov" onclick="if(event.target===this)App.ui.ficheFermer()">
+  <div class="fiche-box" role="dialog" aria-modal="true" aria-labelledby="fiche-titre">
+    <div class="fiche-grip"></div>
+    <div class="fiche-head">
+      <div class="fiche-titre" id="fiche-titre"></div>
+      <button class="fiche-close" onclick="App.ui.ficheFermer()" aria-label="Fermer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="fiche-body" id="fiche-body"></div>
+  </div>
+</div>
+
+<!-- Chrono de repos flottant (v13.0) -->
+<div id="chrono-band" class="chrono-band" role="timer">
+  <span class="chrono-t" id="chrono-t">0:00</span>
+  <button class="chrono-x" onclick="chronoStop()" aria-label="Arrêter le chrono"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+</div>
 
 <!-- ══ BOUTON MENU FLOTTANT (hub) ══ -->
 <button class="menu-flottant" id="menu-flottant" onclick="toggleDrawer()" aria-label="Menu"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
@@ -794,6 +869,7 @@ input,select,button{touch-action:manipulation}
     <button class="tab" onclick="sTab('sport','b',this)">Séance A</button>
     <button class="tab" onclick="sTab('sport','c',this)">Séance B</button>
     <button class="tab" onclick="sTab('sport','d',this)">Séance C</button>
+    <button class="tab" onclick="sTab('sport','g',this)">Maison</button>
     <button class="tab" onclick="sTab('sport','e',this)">Progression</button>
     <button class="tab" onclick="sTab('sport','f',this)">Cardio</button>
   </div>
@@ -815,9 +891,9 @@ input,select,button{touch-action:manipulation}
       <div class="row"><div class="num">4</div><div style="flex:1"><div class="row-name">Étirements — 5 min</div><div class="row-desc">Quadriceps, ischio, dos, pectoraux, épaules. 30s par étirement.</div></div><span class="bdg bdg-n">5 min</span></div>
     </div>
     <div class="card">
-      <div class="section-label">Planning semaine</div>
-      <div class="row"><div class="dot" style="background:#3b82f6"></div><div style="flex:1"><div class="row-name">Mardi + Jeudi (après le travail — 18h35)</div><div class="row-desc">48h entre séances. Séance A le mardi, B le jeudi. Alterner A/B à chaque venue.</div></div></div>
-      <div class="row"><div class="dot" style="background:#22c55e"></div><div style="flex:1"><div class="row-name">3e séance optionnelle: samedi ou dimanche matin</div><div class="row-desc">Séance C condensée 75 min. Une semaine sur deux seulement pour éviter le surentraînement.</div></div></div>
+      <div class="section-label">Rythme hebdomadaire</div>
+      <div class="row"><div class="dot" style="background:#3b82f6"></div><div style="flex:1"><div class="row-name">2 séances par semaine — 48 h minimum, 72 h idéalement entre deux</div><div class="row-desc">Alterner A/B à chaque venue (salle) ou basculer sur la Séance M à la maison. Ce sont les heures de récupération qui comptent, pas le jour du calendrier.</div></div></div>
+      <div class="row"><div class="dot" style="background:#22c55e"></div><div style="flex:1"><div class="row-name">3e séance optionnelle — Séance C condensée 75 min</div><div class="row-desc">Une semaine sur deux seulement, et jamais moins de 48 h après la précédente : le muscle se construit pendant la récupération.</div></div></div>
     </div>
     <div class="card">
       <div class="section-label">Règles de progression</div>
@@ -831,8 +907,8 @@ input,select,button{touch-action:manipulation}
   <!-- Pane B: Séance A -->
   <div id="sport-b" class="pane">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-      <div><div class="page-title" style="font-size:17px">Séance A — Pousser + Jambes avant</div><div class="page-sub">Mardi · Pectoraux, Épaules, Triceps, Quadriceps</div></div>
-      <span class="bdg bdg-b">Mardi</span>
+      <div><div class="page-title" style="font-size:17px">Séance A — Pousser + Jambes avant</div><div class="page-sub">Pectoraux, Épaules, Triceps, Quadriceps</div></div>
+      <span class="bdg bdg-b">Salle</span>
     </div>
     <div class="warn">Commence toujours par le cardio, jamais après la muscu. Glycogène plus disponible = cardio plus efficace pour brûler les graisses.</div>
     <div class="card" style="overflow-x:auto">
@@ -852,10 +928,10 @@ input,select,button{touch-action:manipulation}
   <!-- Pane C: Séance B -->
   <div id="sport-c" class="pane">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-      <div><div class="page-title" style="font-size:17px">Séance B — Tirer + Jambes arrière</div><div class="page-sub">Jeudi · Dos, Biceps, Ischio-jambiers, Fessiers</div></div>
-      <span class="bdg bdg-g">Jeudi</span>
+      <div><div class="page-title" style="font-size:17px">Séance B — Tirer + Jambes arrière</div><div class="page-sub">Dos, Biceps, Ischio-jambiers, Fessiers</div></div>
+      <span class="bdg bdg-g">Salle</span>
     </div>
-    <div class="ok">Séance B le jeudi = 48h après le mardi. Dos et biceps non travaillés en séance A → frais. Complémentarité parfaite.</div>
+    <div class="ok">Programmer B au moins 48 h (idéalement 72 h) après A. Dos et biceps non travaillés en séance A → frais. Complémentarité parfaite.</div>
     <div class="card" style="overflow-x:auto">
       <div class="tgrid tgrid-sport tgrid-head"><div></div><div>Exercice · Machine</div><div style="text-align:center">Séries×reps</div><div style="text-align:center">Repos</div><div class="col-last" style="text-align:center">Charge</div></div>
       <div class="tgrid tgrid-sport"><div style="width:22px;height:22px;border-radius:50%;background:var(--blueBg);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--blueTx)">C</div><div><div class="tc">Vélo elliptique ou tapis incliné</div><div class="ts">Zone cardio FitnessPark</div></div><div style="text-align:center;color:var(--tx2)">25 min</div><div style="text-align:center;color:var(--tx2)">—</div><div class="col-last" style="text-align:center;color:var(--tx2)">Onglet Cardio</div></div>
@@ -873,7 +949,7 @@ input,select,button{touch-action:manipulation}
   <!-- Pane D: Séance C -->
   <div id="sport-d" class="pane">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-      <div><div class="page-title" style="font-size:17px">Séance C — Condensée week-end</div><div class="page-sub">Samedi ou Dimanche · 75 min max · Optionnel</div></div>
+      <div><div class="page-title" style="font-size:17px">Séance C — Condensée week-end</div><div class="page-sub">Optionnelle · 75 min max · ≥ 48 h après la séance précédente</div></div>
       <span class="bdg bdg-a">Bonus</span>
     </div>
     <div class="warn">Séance C = bonus uniquement si tu te sens bien. Ne jamais forcer. Charges réduites de 20% — l'objectif est la stimulation, pas la performance.</div>
@@ -887,6 +963,46 @@ input,select,button{touch-action:manipulation}
       <div class="tgrid tgrid-sport"><div style="width:22px;height:22px;border-radius:50%;background:var(--bg);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">5</div><div><div class="tc">Superset: Curl biceps + Ext. triceps</div><div class="ts">Câble bas + câble haut enchaînés</div></div><div style="text-align:center"><span class="bdg bdg-a">3×12/12</span></div><div style="text-align:center;color:var(--tx2)">60s</div><div class="col-last" style="text-align:center;color:var(--tx2)">Léger</div></div>
       <div class="tgrid tgrid-sport"><div style="width:22px;height:22px;border-radius:50%;background:var(--bg);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">6</div><div><div class="tc">Planche + Crunch bicycle</div><div class="ts">Tapis sol</div></div><div style="text-align:center"><span class="bdg bdg-a">3×45s/20</span></div><div style="text-align:center;color:var(--tx2)">45s</div><div class="col-last" style="text-align:center;color:var(--tx2)">Poids corps</div></div>
     </div>
+  </div>
+
+  <!-- Pane G: Séance Maison (v13.0) -->
+  <div id="sport-g" class="pane">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div><div class="page-title" style="font-size:17px">Séance M — Full body maison</div><div class="page-sub">Callisthénie progressive + matériel disponible</div></div>
+      <span class="bdg bdg-m">Maison</span>
+    </div>
+    <div class="ok">Remplace une séance salle quand tu ne peux pas y aller — mêmes schémas moteurs, même règle : 48 h minimum, 72 h idéalement, avant la suivante. Elle compte dans ton suivi comme les autres.</div>
+
+    <div class="card">
+      <div class="section-label">Mon matériel</div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:8px">Coche ce que tu possèdes : la séance adapte ses variantes automatiquement.</div>
+      <div class="sn-food-grid" id="equip-chips"></div>
+      <div id="equip-note"></div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">La séance — 6 blocs, ~50 min hors échauffement</div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:8px">Échauffement : corde à sauter 3 min souple + rotations épaules/hanches. Les variantes ci-dessous suivent ton matériel coché.</div>
+      <div id="sm-table"></div>
+    </div>
+
+    <div class="section-label" style="margin:14px 0 8px">Fiches techniques — toucher pour ouvrir</div>
+    <div id="ex-m-list"></div>
+
+    <div class="card">
+      <div class="section-label">Progression abs roller — le chemin depuis tes 10 reps</div>
+      <div class="row"><div class="num">1</div><div style="flex:1"><div class="row-name">Semaines 1–3 · amplitude partielle à genoux</div><div class="row-desc">2×6 à 3×8 en t'arrêtant aux ¾ de l'extension, dos neutre. Galérer ici est normal : c'est l'un des exercices de gainage les plus durs qui existent.</div></div></div>
+      <div class="row"><div class="num">2</div><div style="flex:1"><div class="row-name">Semaines 4–6 · amplitude complète à genoux</div><div class="row-desc">3×8 nez proche du sol. Tes 10 reps pénibles actuelles te placent exactement ici — c'est la zone productive, pas un échec.</div></div></div>
+      <div class="row"><div class="num">3</div><div style="flex:1"><div class="row-name">Ensuite · ralentir puis surélever</div><div class="row-desc">Tempo 3 s à l'aller, puis départ pieds surélevés, et à très long terme départ debout. Ne jamais creuser le bas du dos : si le bassin lâche, raccourcir l'amplitude.</div></div></div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">Corde à sauter — cardio de remplacement du tapis</div>
+      <div class="row"><div class="dot" style="background:#3b82f6"></div><div style="flex:1"><div class="row-name">Protocole 15–20 min</div><div class="row-desc">45 s de saut / 30 s de marche sur place, 12 à 16 tours. Intensité comparable au HIIT tapis — à renseigner dans le champ Cardio du suivi.</div></div></div>
+    </div>
+
+    <div class="info">Électrostimulateur : utile en récupération et en activation, mais la recherche ne le valide pas comme substitut d'une charge réelle pour construire du muscle. Complément, pas remplacement — c'est dit honnêtement.</div>
+    <div class="warn">Câble élastique (4–14 kg) : trop léger pour ton tirage principal — la tension moyenne réelle est bien plus basse que le chiffre affiché. Réserve-le aux face pulls, rotations externes et finishers. Sécurité : inspecter avant chaque usage, jamais au-delà de 3× sa longueur au repos, ancrage franc, visage hors de l'axe de tension.</div>
   </div>
 
   <!-- Pane E: Progression -->
@@ -1027,7 +1143,7 @@ input,select,button{touch-action:manipulation}
 
   <!-- MENU SEMAINE 1 -->
   <div id="nutrition-b" class="pane">
-    <div class="ok">Semaine 1 — Focus: Poulet épicé + Haricots rouges + Lentilles. Sport mardi et jeudi.</div>
+    <div class="ok">Semaine 1 — Focus: Poulet épicé + Haricots rouges + Lentilles. Sport : 2 séances espacées de 48–72 h.</div>
     <div id="menu1-ctn"></div>
   </div>
 
@@ -1131,7 +1247,7 @@ input,select,button{touch-action:manipulation}
     </div>
     <div id="plan-sport" style="display:none">
       <div class="warn">Seul repas avant la salle = déjeuner 12h30. Il doit être plus chargé en glucides complexes les jours de sport.</div>
-      <div class="card"><div class="section-label">Mardi · Jeudi — Fin travail 18h, salle à 35 min</div>
+      <div class="card"><div class="section-label">Jour d'entraînement — Fin travail 18h, salle à 35 min</div>
         <div class="tl">
           <div class="tli"><div class="tldot" style="background:#8b5cf6;border-color:var(--bg)"></div><div class="tltime">7h00 → 12h30 — Jeûne</div><div class="tldesc">Eau, café noir. Normal.</div></div>
           <div class="tli"><div class="tldot" style="background:#3b82f6;border-color:var(--bg)"></div><div class="tltime">12h30 — Déjeuner renforcé (~1050 kcal)</div><div class="tldesc">Riz complet 200g OU Riz 130g + Patate douce 130g + Protéine 200g + Légumes copieux + Avocat ½. Yaourt grec 150g optionnel 30 min avant de partir au sport.</div></div>
@@ -1152,7 +1268,7 @@ input,select,button{touch-action:manipulation}
 
   <!-- Menu BIS 1 -->
   <div id="nutrition-g" class="pane">
-    <div class="ok" style="margin-bottom:10px">Menu alternatif semaine BIS 1 — Variété accrue avec les nouvelles recettes. Sport mardi et jeudi.</div>
+    <div class="ok" style="margin-bottom:10px">Menu alternatif semaine BIS 1 — Variété accrue avec les nouvelles recettes. Sport : 2 séances espacées de 48–72 h.</div>
     <div id="menu-bis1-ctn"></div>
   </div>
 
@@ -1290,10 +1406,19 @@ input,select,button{touch-action:manipulation}
 <!-- Sélecteur séance + date + cardio -->
 <div class="card">
   <div class="section-label">S&eacute;lectionner la s&eacute;ance</div>
+  <div id="ss-recup"></div>
   <div class="ss-seance-grid">
-    <button class="ss-btn active" id="ss-btn-1" onclick="selectSuiviSeance(1,this)">S&eacute;ance A<br><span style="font-size:10px;opacity:.7">Full body &mdash; jambes/pousse</span></button>
-    <button class="ss-btn" id="ss-btn-2" onclick="selectSuiviSeance(2,this)">S&eacute;ance B<br><span style="font-size:10px;opacity:.7">Full body &mdash; dos/tirage</span></button>
-    <button class="ss-btn" id="ss-btn-3" onclick="selectSuiviSeance(3,this)">S&eacute;ance C<br><span style="font-size:10px;opacity:.7">Condens&eacute;e &mdash; bonus</span></button>
+    <button class="ss-btn active" id="ss-btn-1" onclick="selectSuiviSeance(1,this)">S&eacute;ance A<br><span style="font-size:10px;opacity:.7">Salle &mdash; jambes/pousse</span></button>
+    <button class="ss-btn" id="ss-btn-2" onclick="selectSuiviSeance(2,this)">S&eacute;ance B<br><span style="font-size:10px;opacity:.7">Salle &mdash; dos/tirage</span></button>
+    <button class="ss-btn" id="ss-btn-3" onclick="selectSuiviSeance(3,this)">S&eacute;ance C<br><span style="font-size:10px;opacity:.7">Salle &mdash; bonus</span></button>
+    <button class="ss-btn" id="ss-btn-4" onclick="selectSuiviSeance(4,this)">S&eacute;ance M<br><span style="font-size:10px;opacity:.7">Maison &mdash; full body</span></button>
+  </div>
+  <div class="section-label">Chrono de repos</div>
+  <div class="chrono-btns">
+    <button class="chrono-btn" onclick="chronoStart(45)">45 s</button>
+    <button class="chrono-btn" onclick="chronoStart(60)">60 s</button>
+    <button class="chrono-btn" onclick="chronoStart(90)">90 s</button>
+    <button class="chrono-btn" onclick="chronoStart(120)">2 min</button>
   </div>
   <div style="display:flex;gap:8px;flex-wrap:wrap">
     <div style="flex:1;min-width:130px">
@@ -1915,51 +2040,150 @@ function buildMenus() {
 // DATA: EXERCISES
 // ══════════════════════════════════════════════
 const EA = [
-  { n: 'Presse à cuisses 45°', m: 'Machine presse inclinée', tg: ['Quadriceps 70%', 'Fessiers 20%', 'Ischio 10%', 'Exercice roi'],
+  { pic: 'presse', n: 'Presse à cuisses 45°', m: 'Machine presse inclinée', tg: ['Quadriceps 70%', 'Fessiers 20%', 'Ischio 10%', 'Exercice roi'],
     ex: ['Régler le dossier à 45° — quand tu t\'assieds, les genoux doivent être à 90°, pieds à plat sur la plateforme.', 'Charge de départ: 40–60 kg. Test: si tu fais 15 reps facilement = trop léger, augmenter.', 'Descendre lentement (2–3s) jusqu\'à ce que les genoux arrivent près de la poitrine. Amplitude complète.', 'Pousser explosive (1s) sans verrouiller les genoux — garder une légère flexion en fin de mouvement.', 'Respiration: inspirer en descendant, expirer en poussant. Ne jamais retenir le souffle.', 'Erreur fréquente: genoux qui rentrent vers l\'intérieur → les pousser vers l\'extérieur.'],
     nu: [['Calories/4 séries', '~70 kcal'], ['Progression', '+5 kg quand 4×12 réussis 2 séances de suite'], ['Impact glycémie', 'Très élevé — les jambes = 50% de la masse musculaire']] },
-  { n: 'Développé couché machine (chest press)', m: 'Machine pectoraux assis', tg: ['Pectoraux 60%', 'Triceps 25%', 'Épaules ant. 15%'],
+  { pic: 'devcouche', n: 'Développé couché machine (chest press)', m: 'Machine pectoraux assis', tg: ['Pectoraux 60%', 'Triceps 25%', 'Épaules ant. 15%'],
     ex: ['Régler le siège: poignées à hauteur des pectoraux.', 'Dos bien plaqué contre le dossier — ne pas cambrer.', 'Pousser en expirant. Retour contrôlé 2–3s.', 'Bras presque tendus en extension — garder tension sur les pectoraux.'],
     nu: [['Avantage', 'Trajectoire guidée = idéal pour débuter'], ['Évolution sem 8+', 'Passer à haltères pour plus d\'amplitude']] },
-  { n: 'Presse épaules machine (shoulder press)', m: 'Machine élévation épaules assise', tg: ['Deltoïdes médians 50%', 'Antérieurs 30%', 'Trapèzes 20%'],
+  { pic: 'presseep', n: 'Presse épaules machine (shoulder press)', m: 'Machine élévation épaules assise', tg: ['Deltoïdes médians 50%', 'Antérieurs 30%', 'Trapèzes 20%'],
     ex: ['Régler le siège: poignées au niveau des épaules.', 'Pousser verticalement sans camber ni sortir le cou.', 'Amplitude: bras presque tendus → redescendre à hauteur des oreilles.', 'Charge légère au début — les épaules sont une articulation fragile.'],
     nu: [['Effet visuel', 'Épaules larges = silhouette en V'], ['Prudence', 'Douleur aiguë = arrêt immédiat']] },
-  { n: 'Leg extension (quadriceps isolé)', m: 'Machine extension jambes assise', tg: ['Quadriceps 100% isolé'],
+  { pic: 'legext', n: 'Leg extension (quadriceps isolé)', m: 'Machine extension jambes assise', tg: ['Quadriceps 100% isolé'],
     ex: ['Régler le rembourrage sur le bas des tibias (pas les chevilles).', 'Dos plaqué, mains sur les poignées latérales.', 'Étendre les jambes complètement en expirant. Tenir 1s en haut.', 'Redescendre lentement sur 3s — la phase excentrique = croissance maximale.'],
     nu: [['Combinaison', 'Toujours après la presse cuisses'], ['Reps élevées', '15 reps = définition et brûlage de graisses']] },
-  { n: 'Extension triceps poulie haute (corde)', m: 'Station câbles — accessoire corde', tg: ['Triceps 100% isolé', 'Chef long et latéral'],
+  { pic: 'triceps', n: 'Extension triceps poulie haute (corde)', m: 'Station câbles — accessoire corde', tg: ['Triceps 100% isolé', 'Chef long et latéral'],
     ex: ['Attacher la corde à la poulie haute.', 'Se pencher légèrement (10–15°), coudes collés au corps.', 'Étirer les bras vers le bas en écartant la corde en fin (supination).', 'Remonter à 90° de flexion. Ne pas dépasser pour garder la tension.'],
     nu: [['Effet', 'Triceps = 2/3 du volume du bras'], ['Astuce', 'L\'écartement en fin active davantage le chef long']] },
-  { n: 'Mollets machine', m: 'Machine mollets (debout ou assis)', tg: ['Gastrocnémien (debout)', 'Soléaire (assis)'],
+  { pic: 'mollets', n: 'Mollets machine', m: 'Machine mollets (debout ou assis)', tg: ['Gastrocnémien (debout)', 'Soléaire (assis)'],
     ex: ['Debout: épaules sous les coussins, avant des pieds sur la plateforme, talons dans le vide.', 'Monter sur la pointe des pieds complètement. Tenir 1s.', 'Descendre à l\'étirement maximum — amplitude complète obligatoire.'],
     nu: [['Volume élevé', '4×20 car les mollets récupèrent vite'], ['Progression', 'Les mollets sont résistants — monter les charges rapidement']] },
-  { n: 'Crunch machine + Planche sol', m: 'Machine abdominaux + tapis', tg: ['Grand droit', 'Transverse (planche)', 'Obliques'],
+  { pic: 'crunch', n: 'Crunch machine + Planche sol', m: 'Machine abdominaux + tapis', tg: ['Grand droit', 'Transverse (planche)', 'Obliques'],
     ex: ['Machine crunch: coussinet à hauteur de la poitrine. Fléchir le tronc vers l\'avant — mouvement court.', 'Ne pas tirer avec les bras — ils guident seulement.', 'Planche: coudes sous les épaules, corps en ligne droite, contracter abdos + fessiers.', 'Respirer normalement pendant la planche.'],
     nu: [['Progression planche', 'Sem 1–4: 30s · Sem 5–8: 45s · Sem 9+: 60s']] }
 ];
 
 const EB = [
-  { n: 'Tirage horizontal machine (row assis)', m: 'Rowing assis / câble bas', tg: ['Grand dorsal 50%', 'Rhomboïdes 25%', 'Biceps 25%', 'Exercice prioritaire'],
+  { pic: 'tirageh', n: 'Tirage horizontal machine (row assis)', m: 'Rowing assis / câble bas', tg: ['Grand dorsal 50%', 'Rhomboïdes 25%', 'Biceps 25%', 'Exercice prioritaire'],
     ex: ['Machine rowing: saisir les poignées, poitrine contre le pad, dos droit.', 'Tirer les coudes vers l\'arrière et le bas — dépasser le plan du corps.', 'Serrer les omoplates ensemble 1s en fin de mouvement.', 'Retour lent 3s — ne pas laisser les épaules partir en avant.'],
     nu: [['Règle', 'Ne jamais sauter cet exercice'], ['Charge', '+5 kg dès que 4×12 réussis facilement']] },
-  { n: 'Tirage vertical poulie (lat pulldown)', m: 'Machine tirage barre poitrine', tg: ['Grand dorsal 60%', 'Biceps 25%', 'Teres major 15%'],
+  { pic: 'tiragev', n: 'Tirage vertical poulie (lat pulldown)', m: 'Machine tirage barre poitrine', tg: ['Grand dorsal 60%', 'Biceps 25%', 'Teres major 15%'],
     ex: ['Barre large en prise pronation, écartement > largeur épaules.', 'Genoux sous le rembourrage. Légère inclinaison arrière (15°).', 'Tirer vers la poitrine — JAMAIS derrière la nuque (dangereux).', 'Remonter lentement 3s en contrôlant.'],
     nu: [['Effet visuel', 'Crée la forme en V — priorité silhouette'], ['Alternative', 'Poulie assistée si traction impossible encore']] },
-  { n: 'Leg curl couché (ischio-jambiers)', m: 'Machine leg curl allongée', tg: ['Biceps fémoral 70%', 'Demi-tendineux 20%', 'Soléaire 10%'],
+  { pic: 'legcurl', n: 'Leg curl couché (ischio-jambiers)', m: 'Machine leg curl allongée', tg: ['Biceps fémoral 70%', 'Demi-tendineux 20%', 'Soléaire 10%'],
     ex: ['S\'allonger face vers le bas, chevilles sous le rembourrage supérieur.', 'Hanche bien à plat — ne pas soulever les fesses.', 'Fléchir les genoux vers les fessiers. Amplitude complète.', 'Redescendre lentement 3s.'],
     nu: [['Importance', 'Équilibre quadriceps/ischio = prévention blessures genou']] },
-  { n: 'Curl biceps machine ou barre', m: 'Banc Larry Scott ou câble bas', tg: ['Biceps brachial 70%', 'Brachial antérieur 20%'],
+  { pic: 'curl', n: 'Curl biceps machine ou barre', m: 'Banc Larry Scott ou câble bas', tg: ['Biceps brachial 70%', 'Brachial antérieur 20%'],
     ex: ['Larry Scott: bras appuyés sur le plan incliné, barre courte.', 'Fléchir les avant-bras vers les épaules en supination.', 'Ne jamais balancer le buste — signe que la charge est trop lourde.'],
     nu: [['Note', 'Biceps déjà pré-fatigués après les tirages — charges normalement réduites']] },
-  { n: 'Hip thrust machine ou glute press', m: 'Machine fessiers ou câble bas cheville', tg: ['Grand fessier 80%', 'Moyen fessier 20%'],
+  { pic: 'hipthrust', n: 'Hip thrust machine ou glute press', m: 'Machine fessiers ou câble bas cheville', tg: ['Grand fessier 80%', 'Moyen fessier 20%'],
     ex: ['Machine: coussinet sur les hanches, pieds à largeur de hanches.', 'Pousser les hanches vers le haut en contractant fort les fessiers. Tenir 2s.', 'Redescendre sans toucher complètement (tension constante).'],
     nu: [['Importance', 'Fessiers forts = meilleure posture + moins de douleurs lombaires']] },
-  { n: 'Face pull poulie haute (corde)', m: 'Station câbles — poulie haute + corde', tg: ['Deltoïdes postérieurs 60%', 'Trapèzes moyens 25%', 'Rotateurs ext. 15%'],
+  { pic: 'facepull', n: 'Face pull poulie haute (corde)', m: 'Station câbles — poulie haute + corde', tg: ['Deltoïdes postérieurs 60%', 'Trapèzes moyens 25%', 'Rotateurs ext. 15%'],
     ex: ['Corde à la poulie haute. Pouces vers l\'arrière.', 'Tirer vers le visage. Les coudes partent vers l\'extérieur et le haut.', 'Position finale: poignets forment un W de chaque côté du visage.', 'Poids très léger — technique absolue.'],
     nu: [['Santé épaules', 'Compense l\'excès de poussée. À faire à CHAQUE séance B.']] },
-  { n: 'Relevés de jambes suspendu + Planche', m: 'Barre traction / dips + tapis sol', tg: ['Droit abdominal bas 50%', 'Iliopsoas 30%', 'Obliques 20%'],
+  { pic: 'releves', n: 'Relevés de jambes suspendu + Planche', m: 'Barre traction / dips + tapis sol', tg: ['Droit abdominal bas 50%', 'Iliopsoas 30%', 'Obliques 20%'],
     ex: ['Se suspendre à la barre. Fléchir les hanches pour remonter les genoux.', 'Redescendre lentement — ne pas se balancer.', 'Enchaîner directement avec la planche au sol (superset core).'],
     nu: [['Progression', 'Sem 1: genoux fléchis · Sem 5+: jambes semi-tendues · Sem 9+: jambes tendues']] }
+];
+
+// ════════════════════════════════════════════
+// PICTOGRAMMES D'EXERCICES (v13.0) — silhouettes trait 2 px, 3 poses par exercice.
+// b = parties fixes (machine, sol, barre) · p = 3 poses de la figure · t = pose vignette.
+// Vignette fixe dans les listes ; animation UNIQUEMENT dans la fiche ouverte (garde-fou GPU).
+// ════════════════════════════════════════════
+const PICTOS = {
+  presse: { t: 2, b: "<path d=\"M46 18 L30 42\"/><path d=\"M30 42 L42 50\"/><path d=\"M36 50 L36 57 M46 50 L46 57\"/>",
+    p: ["<circle cx=\"49\" cy=\"15\" r=\"4\"/><path d=\"M45 19 L32 40\"/><path d=\"M33 38 L23 33 L20 25\"/><path d=\"M14 32 L26 14\"/>","<circle cx=\"49\" cy=\"15\" r=\"4\"/><path d=\"M45 19 L32 40\"/><path d=\"M33 38 L22 31 L17 22\"/><path d=\"M11 29 L23 11\"/>","<circle cx=\"49\" cy=\"15\" r=\"4\"/><path d=\"M45 19 L32 40\"/><path d=\"M33 38 L22 29 L14 18\"/><path d=\"M8 25 L20 7\"/>"] },
+  devcouche: { t: 2, b: "<path d=\"M40 30 L40 44\"/><path d=\"M32 44 L48 44\"/><path d=\"M34 44 L34 57 M46 44 L46 57\"/>",
+    p: ["<circle cx=\"40\" cy=\"12\" r=\"4\"/><path d=\"M40 16 L40 38\"/><path d=\"M40 38 L30 44 L30 52\"/><path d=\"M40 20 L31 24 L23 22\"/><path d=\"M20 17 L20 27\"/>","<circle cx=\"40\" cy=\"12\" r=\"4\"/><path d=\"M40 16 L40 38\"/><path d=\"M40 38 L30 44 L30 52\"/><path d=\"M40 20 L29 21 L18 21\"/><path d=\"M15 16 L15 26\"/>","<circle cx=\"40\" cy=\"12\" r=\"4\"/><path d=\"M40 16 L40 38\"/><path d=\"M40 38 L30 44 L30 52\"/><path d=\"M40 20 L27 20 L13 20\"/><path d=\"M10 15 L10 25\"/>"] },
+  presseep: { t: 2, b: "<path d=\"M42 26 L42 46\"/><path d=\"M22 46 L42 46\"/><path d=\"M26 46 L26 57 M40 46 L40 57\"/>",
+    p: ["<circle cx=\"32\" cy=\"16\" r=\"4\"/><path d=\"M32 20 L32 46\"/><path d=\"M32 24 L25 20 M32 24 L39 20\"/><path d=\"M22 14 L28 14 M36 14 L42 14\"/>","<circle cx=\"32\" cy=\"18\" r=\"4\"/><path d=\"M32 22 L32 46\"/><path d=\"M32 25 L25 15 M32 25 L39 15\"/><path d=\"M22 9 L28 9 M36 9 L42 9\"/>","<circle cx=\"32\" cy=\"20\" r=\"4\"/><path d=\"M32 24 L32 46\"/><path d=\"M27 11 L32 24 M37 11 L32 24\"/><path d=\"M24 5 L30 5 M34 5 L40 5\"/>"] },
+  legext: { t: 2, b: "<path d=\"M38 22 L38 44\"/><path d=\"M26 44 L46 44\"/><path d=\"M30 44 L30 57 M42 44 L42 57\"/>",
+    p: ["<circle cx=\"38\" cy=\"14\" r=\"4\"/><path d=\"M38 18 L37 40\"/><path d=\"M37 40 L26 42 L26 54\"/><path d=\"M23 55 L29 55\"/>","<circle cx=\"38\" cy=\"14\" r=\"4\"/><path d=\"M38 18 L37 40\"/><path d=\"M37 40 L26 42 L20 50\"/><path d=\"M17 52 L22 48\"/>","<circle cx=\"38\" cy=\"14\" r=\"4\"/><path d=\"M38 18 L37 40\"/><path d=\"M37 40 L26 42 L14 42\"/><path d=\"M11 39 L11 45\"/>"] },
+  triceps: { t: 2, b: "<path d=\"M46 6 L46 58\"/><path d=\"M46 8 L38 8\"/><path d=\"M38 8 L38 14\"/>",
+    p: ["<circle cx=\"27\" cy=\"13\" r=\"4.5\"/><path d=\"M27 17.5 L28 37 M28 37 L24 49 L24 57 M28 37 L32 49 L32 57\"/><path d=\"M28 21 L34 26 L37 17\"/><path d=\"M38 14 L37 17 M37 17 L40 20\"/>","<circle cx=\"27\" cy=\"13\" r=\"4.5\"/><path d=\"M27 17.5 L28 37 M28 37 L24 49 L24 57 M28 37 L32 49 L32 57\"/><path d=\"M28 21 L34 26 L38 28\"/><path d=\"M38 14 L38 28 M38 28 L41 31\"/>","<circle cx=\"27\" cy=\"13\" r=\"4.5\"/><path d=\"M27 17.5 L28 37 M28 37 L24 49 L24 57 M28 37 L32 49 L32 57\"/><path d=\"M28 21 L34 26 L37 38\"/><path d=\"M38 14 L37 38 M37 38 L40 41\"/>"] },
+  mollets: { t: 2, b: "<path d=\"M14 58 L50 58\"/><path d=\"M22 52 L38 52 L38 58 M22 52 L22 58\"/>",
+    p: ["<circle cx=\"30\" cy=\"10\" r=\"4.5\"/><path d=\"M30 14.5 L30 34\"/><path d=\"M30 18 L36 24 L36 32\"/><path d=\"M30 34 L28 44 L28 52\"/><path d=\"M28 52 L33 52\"/>","<circle cx=\"30\" cy=\"8\" r=\"4.5\"/><path d=\"M30 12.5 L30 32\"/><path d=\"M30 16 L36 22 L36 30\"/><path d=\"M30 32 L28 42 L28 50\"/><path d=\"M28 50 L33 51\"/>","<circle cx=\"30\" cy=\"6\" r=\"4.5\"/><path d=\"M30 10.5 L30 30\"/><path d=\"M30 14 L36 20 L36 28\"/><path d=\"M30 30 L28 40 L28 47\"/><path d=\"M28 47 L33 50\"/>"] },
+  crunch: { t: 2, b: "<path d=\"M6 58 L58 58\"/>",
+    p: ["<circle cx=\"14\" cy=\"51\" r=\"4.5\"/><path d=\"M18 53 L34 54\"/><path d=\"M34 54 L40 44 L46 54\"/><path d=\"M17 47 L24 44\"/>","<circle cx=\"16\" cy=\"46\" r=\"4.5\"/><path d=\"M19 49 L34 54\"/><path d=\"M34 54 L40 44 L46 54\"/><path d=\"M19 42 L26 41\"/>","<circle cx=\"20\" cy=\"41\" r=\"4.5\"/><path d=\"M22 45 L34 54\"/><path d=\"M34 54 L40 44 L46 54\"/><path d=\"M23 38 L30 38\"/>"] },
+  tirageh: { t: 2, b: "<path d=\"M10 34 L10 44\"/><path d=\"M20 50 L44 50\"/><path d=\"M24 50 L24 57 M40 50 L40 57\"/>",
+    p: ["<circle cx=\"35\" cy=\"18\" r=\"4\"/><path d=\"M36 22 L38 42\"/><path d=\"M38 42 L27 46 L18 44\"/><path d=\"M36 26 L26 32 L17 37\"/><path d=\"M10 38 L17 37\"/>","<circle cx=\"37\" cy=\"16\" r=\"4\"/><path d=\"M38 20 L39 42\"/><path d=\"M39 42 L28 46 L19 44\"/><path d=\"M38 24 L30 30 L24 36\"/><path d=\"M10 38 L24 36\"/>","<circle cx=\"39\" cy=\"15\" r=\"4\"/><path d=\"M40 19 L40 42\"/><path d=\"M40 42 L29 46 L20 44\"/><path d=\"M40 23 L36 31 L33 37\"/><path d=\"M10 38 L33 37\"/>"] },
+  tiragev: { t: 2, b: "<path d=\"M52 58 L52 8 L26 8\"/><path d=\"M34 8 L34 13\"/><path d=\"M34 46 L28 51 L28 57\"/><path d=\"M34 46 L40 51 L40 57\"/><path d=\"M22 52 L44 52\"/>",
+    p: ["<path d=\"M34 13 L34 16\"/><path d=\"M22 18 L46 18\"/><circle cx=\"34\" cy=\"34\" r=\"4.5\"/><path d=\"M34 38.5 L34 46\"/><path d=\"M34 39 L25 20\"/><path d=\"M34 39 L43 20\"/>","<path d=\"M34 13 L34 20\"/><path d=\"M22 22 L46 22\"/><circle cx=\"34\" cy=\"32\" r=\"4.5\"/><path d=\"M34 36.5 L34 46\"/><path d=\"M34 37 L26 24\"/><path d=\"M34 37 L42 24\"/>","<path d=\"M34 13 L34 24\"/><path d=\"M22 26 L46 26\"/><circle cx=\"34\" cy=\"30\" r=\"4.5\"/><path d=\"M34 34.5 L34 46\"/><path d=\"M34 35 L27 27\"/><path d=\"M34 35 L41 27\"/>"] },
+  legcurl: { t: 2, b: "<path d=\"M10 46 L46 46\"/><path d=\"M14 46 L14 57 M42 46 L42 57\"/>",
+    p: ["<circle cx=\"13\" cy=\"40\" r=\"4\"/><path d=\"M17 42 L34 43\"/><path d=\"M34 43 L44 44 L54 47\"/><path d=\"M20 46 L20 40\"/>","<circle cx=\"13\" cy=\"40\" r=\"4\"/><path d=\"M17 42 L34 43\"/><path d=\"M34 43 L44 44 L52 36\"/><path d=\"M20 46 L20 40\"/>","<circle cx=\"13\" cy=\"40\" r=\"4\"/><path d=\"M17 42 L34 43\"/><path d=\"M34 43 L44 44 L46 30\"/><path d=\"M20 46 L20 40\"/>"] },
+  curl: { t: 2, b: "<circle cx=\"29\" cy=\"11\" r=\"4.5\"/><path d=\"M29 15.5 L29 36 M29 36 L25 49 L25 57 M29 36 L33 49 L33 57\"/>",
+    p: ["<path d=\"M29 19 L33 29 L35 39\"/><path d=\"M31 35.5 L31 42.5 M39 35.5 L39 42.5 M31 39 L39 39\"/>","<path d=\"M29 19 L34 28 L41 30\"/><path d=\"M37 26.5 L37 33.5 M45 26.5 L45 33.5 M37 30 L45 30\"/>","<path d=\"M29 19 L36 27 L39 17\"/><path d=\"M35 12.5 L35 19.5 M43 12.5 L43 19.5 M35 16 L43 16\"/>"] },
+  hipthrust: { t: 2, b: "<path d=\"M6 58 L58 58\"/><path d=\"M40 46 L54 46 L54 58 M40 46 L40 58\"/>",
+    p: ["<circle cx=\"47\" cy=\"38\" r=\"4\"/><path d=\"M45 42 L32 50\"/><path d=\"M32 50 L22 48 L20 56\"/><path d=\"M30 46 L34 52\"/>","<circle cx=\"47\" cy=\"37\" r=\"4\"/><path d=\"M45 41 L31 44\"/><path d=\"M31 44 L22 46 L20 56\"/><path d=\"M30 40 L33 46\"/>","<circle cx=\"47\" cy=\"36\" r=\"4\"/><path d=\"M45 40 L30 38\"/><path d=\"M30 38 L21 44 L20 56\"/><path d=\"M30 34 L33 40\"/>"] },
+  facepull: { t: 2, b: "<path d=\"M50 6 L50 58\"/><path d=\"M50 10 L44 10\"/>",
+    p: ["<circle cx=\"21\" cy=\"15\" r=\"4.5\"/><path d=\"M21 19.5 L21 38 M21 38 L17 50 L17 57 M21 38 L25 50 L25 57\"/><path d=\"M21 23 L31 20 L38 15\"/><path d=\"M44 10 L38 15 M38 15 L41 20\"/>","<circle cx=\"21\" cy=\"15\" r=\"4.5\"/><path d=\"M21 19.5 L21 38 M21 38 L17 50 L17 57 M21 38 L25 50 L25 57\"/><path d=\"M21 23 L29 21 L33 16\"/><path d=\"M44 10 L33 16 M33 16 L36 21\"/>","<circle cx=\"21\" cy=\"15\" r=\"4.5\"/><path d=\"M21 19.5 L21 38 M21 38 L17 50 L17 57 M21 38 L25 50 L25 57\"/><path d=\"M21 23 L26 20 L28 14\"/><path d=\"M44 10 L28 14 M28 14 L30 20\"/>"] },
+  releves: { t: 2, b: "<path d=\"M16 8 L48 8\"/><path d=\"M20 8 L20 12 M44 8 L44 12\"/>",
+    p: ["<circle cx=\"32\" cy=\"17\" r=\"4\"/><path d=\"M28 10 L31 14 M36 10 L33 14\"/><path d=\"M32 21 L32 38\"/><path d=\"M32 38 L31 48 L31 56\"/>","<circle cx=\"32\" cy=\"17\" r=\"4\"/><path d=\"M28 10 L31 14 M36 10 L33 14\"/><path d=\"M32 21 L32 38\"/><path d=\"M32 38 L26 45 L25 53\"/>","<circle cx=\"32\" cy=\"17\" r=\"4\"/><path d=\"M28 10 L31 14 M36 10 L33 14\"/><path d=\"M32 21 L32 38\"/><path d=\"M32 38 L22 40 L14 40\"/>"] },
+  tapis: { t: 1, b: "<path d=\"M10 56 L54 56\"/><path d=\"M12 56 L12 52 M52 56 L52 52\"/>",
+    p: ["<circle cx=\"31\" cy=\"14\" r=\"4.5\"/><path d=\"M31 18.5 L33 34\"/><path d=\"M33 24 L26 28 M33 24 L39 29\"/><path d=\"M33 34 L26 42 L28 50\"/><path d=\"M33 34 L40 41 L36 49\"/>","<circle cx=\"33\" cy=\"13\" r=\"4.5\"/><path d=\"M33 17.5 L34 33\"/><path d=\"M34 23 L27 25 M34 23 L41 26\"/><path d=\"M34 33 L28 43 L24 50\"/><path d=\"M34 33 L41 38 L46 45\"/>","<circle cx=\"32\" cy=\"14\" r=\"4.5\"/><path d=\"M32 18.5 L33 34\"/><path d=\"M33 24 L25 27 M33 24 L40 27\"/><path d=\"M33 34 L24 39 L18 46\"/><path d=\"M33 34 L38 43 L40 51\"/>"] },
+  pompes: { t: 0, b: "<path d=\"M6 58 L58 58\"/>",
+    p: ["<circle cx=\"14\" cy=\"30\" r=\"4.5\"/><path d=\"M18 33 L36 40 L52 50\"/><path d=\"M50 52 L56 54\"/><path d=\"M20 36 L20 46 L20 56\"/>","<circle cx=\"14\" cy=\"36\" r=\"4.5\"/><path d=\"M18 39 L36 44 L52 52\"/><path d=\"M50 54 L56 55\"/><path d=\"M20 41 L16 49 L20 56\"/>","<circle cx=\"14\" cy=\"43\" r=\"4.5\"/><path d=\"M18 45 L36 48 L52 54\"/><path d=\"M50 55 L56 56\"/><path d=\"M20 47 L13 51 L20 56\"/>"] },
+  traction: { t: 2, b: "<path d=\"M14 8 L50 8\"/><path d=\"M18 8 L18 12 M46 8 L46 12\"/>",
+    p: ["<circle cx=\"32\" cy=\"21\" r=\"4\"/><path d=\"M27 9 L31 18 M37 9 L33 18\"/><path d=\"M32 25 L32 40\"/><path d=\"M32 40 L29 48 L31 55\"/><path d=\"M32 40 L35 48 L33 55\"/>","<circle cx=\"32\" cy=\"17\" r=\"4\"/><path d=\"M27 9 L30 14 M37 9 L34 14\"/><path d=\"M32 21 L32 36\"/><path d=\"M32 36 L29 44 L31 51\"/><path d=\"M32 36 L35 44 L33 51\"/>","<circle cx=\"32\" cy=\"12\" r=\"4\"/><path d=\"M27 9 L29 11 M37 9 L35 11\"/><path d=\"M32 16 L32 31\"/><path d=\"M32 31 L29 39 L31 46\"/><path d=\"M32 31 L35 39 L33 46\"/>"] },
+  rowela: { t: 2, b: "<path d=\"M6 58 L58 58\"/><path d=\"M14 52 L14 58\"/>",
+    p: ["<circle cx=\"42\" cy=\"22\" r=\"4\"/><path d=\"M41 26 L38 44\"/><path d=\"M38 44 L26 50 L15 52\"/><path d=\"M40 30 L31 36 L23 42\"/><path d=\"M14 52 L23 42\" stroke-dasharray=\"3 3\"/>","<circle cx=\"43\" cy=\"21\" r=\"4\"/><path d=\"M42 25 L39 44\"/><path d=\"M39 44 L27 50 L15 52\"/><path d=\"M41 29 L34 34 L29 40\"/><path d=\"M14 52 L29 40\" stroke-dasharray=\"3 3\"/>","<circle cx=\"44\" cy=\"20\" r=\"4\"/><path d=\"M43 24 L40 44\"/><path d=\"M40 44 L28 50 L15 52\"/><path d=\"M42 28 L38 33 L36 39\"/><path d=\"M14 52 L36 39\" stroke-dasharray=\"3 3\"/>"] },
+  squatbulg: { t: 0, b: "<path d=\"M6 58 L58 58\"/><path d=\"M40 48 L52 48 L52 58 M40 48 L40 58\"/>",
+    p: ["<circle cx=\"22\" cy=\"10\" r=\"4.5\"/><path d=\"M22 14.5 L23 32\"/><path d=\"M23 20 L27 30\"/><path d=\"M24 28 L24 34 M30 28 L30 34 M24 31 L30 31\"/><path d=\"M23 32 L20 44 L20 56\"/><path d=\"M23 32 L34 40 L44 47\"/>","<circle cx=\"23\" cy=\"16\" r=\"4.5\"/><path d=\"M23 20.5 L25 36\"/><path d=\"M24 26 L28 35\"/><path d=\"M25 33 L25 39 M31 33 L31 39 M25 36 L31 36\"/><path d=\"M25 36 L18 46 L20 56\"/><path d=\"M25 36 L35 42 L44 47\"/>","<circle cx=\"24\" cy=\"22\" r=\"4.5\"/><path d=\"M24 26.5 L27 40\"/><path d=\"M25 31 L29 40\"/><path d=\"M26 38 L26 44 M32 38 L32 44 M26 41 L32 41\"/><path d=\"M27 40 L16 46 L20 56\"/><path d=\"M27 40 L36 44 L44 47\"/>"] },
+  elevlat: { t: 2, b: "<circle cx=\"32\" cy=\"10\" r=\"4.5\"/><path d=\"M32 14.5 L32 36 M32 36 L27 48 L27 57 M32 36 L37 48 L37 57\"/>",
+    p: ["<path d=\"M32 18 L26 30 M32 18 L38 30\"/><path d=\"M23 28 L29 32 M35 32 L41 28\"/>","<path d=\"M32 18 L22 25 M32 18 L42 25\"/><path d=\"M19 21 L24 28 M40 28 L45 21\"/>","<path d=\"M32 18 L20 18 M32 18 L44 18\"/><path d=\"M17 14 L18 21 M46 14 L45 21\"/>"] },
+  dips: { t: 0, b: "<path d=\"M6 58 L58 58\"/><path d=\"M12 40 L22 40 L22 58 M12 40 L12 58\"/><path d=\"M42 40 L52 40 L52 58 M42 40 L42 58\"/>",
+    p: ["<circle cx=\"32\" cy=\"16\" r=\"4.5\"/><path d=\"M32 20.5 L32 38\"/><path d=\"M32 24 L25 32 L22 40\"/><path d=\"M32 38 L38 46 L38 55\"/>","<circle cx=\"32\" cy=\"21\" r=\"4.5\"/><path d=\"M32 25.5 L32 42\"/><path d=\"M32 28 L24 34 L22 40\"/><path d=\"M32 42 L38 49 L38 56\"/>","<circle cx=\"32\" cy=\"26\" r=\"4.5\"/><path d=\"M32 30.5 L33 45\"/><path d=\"M32 33 L24 36 L22 40\"/><path d=\"M33 45 L38 51 L38 57\"/>"] },
+  roller: { t: 2, b: "<path d=\"M4 58 L60 58\"/>",
+    p: ["<circle cx=\"34\" cy=\"50\" r=\"5\"/><path d=\"M18 56 L26 52 L30 43\"/><circle cx=\"27\" cy=\"34\" r=\"4.5\"/><path d=\"M29 38 L33 45\"/>","<circle cx=\"43\" cy=\"51\" r=\"5.5\"/><path d=\"M12 55 L19 54 L26 44\"/><circle cx=\"35\" cy=\"31\" r=\"4.5\"/><path d=\"M32 35 L41 46\"/>","<circle cx=\"51\" cy=\"52\" r=\"5.5\"/><path d=\"M8 54 L14 56 L23 45 L39 33\"/><circle cx=\"44\" cy=\"29\" r=\"4.5\"/><path d=\"M38 34 L50 49\"/>"] },
+  corde: { t: 1, b: "<path d=\"M10 58 L54 58\"/>",
+    p: ["<circle cx=\"32\" cy=\"10\" r=\"4.5\"/><path d=\"M32 14.5 L32 32 M32 32 L28 42 L29 51 M32 32 L36 42 L35 51\"/><path d=\"M32 18 L25 25 M32 18 L39 25\"/><path d=\"M25 25 Q32 62 39 25\" fill=\"none\"/>","<circle cx=\"32\" cy=\"12\" r=\"4.5\"/><path d=\"M32 16.5 L32 34 M32 34 L28 46 L28 57 M32 34 L36 46 L36 57\"/><path d=\"M32 20 L25 27 M32 20 L39 27\"/><path d=\"M25 27 Q32 -18 39 27\" fill=\"none\"/>","<circle cx=\"32\" cy=\"12\" r=\"4.5\"/><path d=\"M32 16.5 L32 34 M32 34 L28 46 L28 57 M32 34 L36 46 L36 57\"/><path d=\"M32 20 L25 27 M32 20 L39 27\"/><path d=\"M25 27 Q32 52 39 27\" fill=\"none\"/>"] }
+};
+
+// Vignette fixe (accordéon fermé, tableaux)
+function pictoFixe(k, taille) {
+  const p = PICTOS[k];
+  if (!p) return '';
+  return '<svg class="picto-fixe" width="' + taille + '" height="' + taille + '" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p.b + p.p[p.t] + '</svg>';
+}
+// Picto animé (3 poses en boucle) — réservé au corps d'un accordéon ouvert
+function pictoAnime(k, taille) {
+  const p = PICTOS[k];
+  if (!p) return '';
+  return '<svg class="kfa" width="' + taille + '" height="' + taille + '" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p.b
+    + '<g class="kfa1">' + p.p[0] + '</g><g class="kfa2">' + p.p[1] + '</g><g class="kfa3">' + p.p[2] + '</g></svg>';
+}
+
+// ── EM : fiches techniques des exercices maison (v13.0), même format que EA/EB
+const EM = [
+  { pic: 'pompes', n: 'Pompes — surélevées → strictes → lestées', m: 'Poids du corps · sol', tg: ['Pectoraux 55%', 'Triceps 25%', 'Épaules 20%'],
+    ex: ['Mains largeur épaules + 10 cm, corps gainé en planche de la tête aux talons.', 'Descendre en 2–3 s jusqu\'à frôler le sol, coudes à ~45° du buste (pas collés, pas à 90°).', 'Trop dur en strict ? Mains surélevées sur une table ou le canapé — plus c\'est haut, plus c\'est facile.', 'Trop facile à 4×12 ? Sac à dos chargé de livres, ou tempo 4 s à la descente.', 'Erreur fréquente : bassin qui tombe → serrer fessiers et abdos en permanence.'],
+    nu: [['Progression', 'Surélevées → strictes → pieds surélevés → lestées'], ['Équivalent salle', 'Développé couché machine'], ['Repos', '90 s']] },
+  { pic: 'rowela', n: 'Rowing élastique — séries longues', m: 'Câble élastique · assis au sol', tg: ['Dos 60%', 'Biceps 25%', 'Accessoire'],
+    ex: ['Assis jambes tendues, élastique passé autour des pieds, dos droit.', 'Tirer les poignées vers les hanches en serrant les omoplates, 2 s de pause en fin de tirage.', 'La tension moyenne est faible : viser 3×20–25 lentes plutôt que des séries courtes.', 'Inspecter l\'élastique avant chaque usage — la moindre entaille = on jette.', 'Honnêtement : cet exercice entretient, il ne remplace pas un vrai tirage lourd. La barre de traction est la vraie solution dos à la maison.'],
+    nu: [['Statut', 'Accessoire en attendant la barre de traction'], ['Équivalent salle', 'Tirage horizontal (partiellement)'], ['Repos', '60 s']] },
+  { pic: 'traction', n: 'Tractions — dès que la barre est là', m: 'Barre de traction de porte', tg: ['Dos 65%', 'Biceps 25%', 'Exercice roi'],
+    ex: ['Prise pronation largeur épaules + 5 cm, départ bras tendus, épaules engagées (pas relâchées).', 'Tirer la poitrine vers la barre, coudes vers le bas, sans balancier.', 'Pas encore une traction complète ? Négatives : sauter en haut, descendre en 4–5 s. 3×5 négatives construisent la première traction.', 'Ensuite : ajouter des reps, puis du lest (sac à dos), puis ralentir le tempo.', 'Vérifier l\'ancrage de la barre à chaque installation — tout ton poids en dépend.'],
+    nu: [['Progression', 'Négatives → 1 rep → 3×8 → lestées'], ['Équivalent salle', 'Tirage vertical poulie'], ['Repos', '2 min']] },
+  { pic: 'squatbulg', n: 'Squat bulgare — haltères en main', m: 'Chaise + haltères 2×7,5 kg', tg: ['Quadriceps 55%', 'Fessiers 30%', 'Exercice roi'],
+    ex: ['Pied arrière posé sur une chaise, pied avant à ~60 cm devant, un haltère dans chaque main.', 'Descendre à la verticale en 2–3 s jusqu\'à ce que le genou arrière frôle le sol.', 'Le genou avant reste aligné avec le pied — s\'il rentre vers l\'intérieur, réduire la charge.', 'En unilatéral, tes 15 kg au total sont un vrai stimulus, contrairement au squat classique.', 'Progression : reps, puis tempo 3 s, puis pause 2 s en bas, puis haltères plus lourds quand tu les auras.'],
+    nu: [['Progression', 'Reps → tempo → pause → charge'], ['Équivalent salle', 'Presse à cuisses'], ['Repos', '90 s / jambe']] },
+  { pic: 'elevlat', n: 'Élévations latérales — tempo lent', m: 'Haltères 2×7,5 kg', tg: ['Épaules 80%', 'Trapèzes 20%'],
+    ex: ['Debout, légère flexion des coudes, monter les haltères jusqu\'à l\'horizontale — pas plus haut.', 'À 7,5 kg le poids est correct pour cet exercice : c\'est un mouvement qui se travaille léger et strict.', 'Tempo : 2 s montée, 3 s descente contrôlée. La descente lente fait la moitié du travail.', 'Erreur fréquente : hausser les épaules ou balancer le buste → réduire l\'amplitude, pas tricher.'],
+    nu: [['Progression', 'Reps 12→20, puis tempo, puis pause en haut'], ['Équivalent salle', 'Presse épaules (partiellement)'], ['Repos', '60 s']] },
+  { pic: 'curl', n: 'Curl haltères — unilatéral strict', m: 'Haltères 7,5 kg (14 kg+ quand réglables)', tg: ['Biceps 85%', 'Avant-bras 15%'],
+    ex: ['Tu curles déjà 14 kg en salle : à 7,5 kg, travailler en unilatéral strict, dos contre un mur pour interdire l\'élan.', 'Tempo 2 s montée, 4 s descente, sans jamais reposer complètement le bras en bas.', 'Viser 3×15–20 par bras jusqu\'à la brûlure — les séries longues compensent la charge légère.', 'Dès les haltères réglables : retour au 4×10–12 lourd classique.'],
+    nu: [['Progression', 'Séries longues → haltères réglables → charge'], ['Équivalent salle', 'Curl biceps machine ou barre'], ['Repos', '60 s']] },
+  { pic: 'dips', n: 'Dips entre deux chaises', m: 'Deux chaises stables', tg: ['Triceps 60%', 'Pectoraux 25%', 'Épaules 15%'],
+    ex: ['Deux chaises dossiers opposés, une main sur chaque assise, jambes tendues devant.', 'Descendre en 2 s jusqu\'à ~90° de flexion des coudes, remonter sans verrouiller.', 'Si douleur à l\'avant de l\'épaule : réduire l\'amplitude ou plier les genoux pour alléger.', 'Vérifier la stabilité des chaises AVANT de charger — sol non glissant, dossiers calés.'],
+    nu: [['Progression', 'Genoux pliés → jambes tendues → pieds surélevés → lest'], ['Équivalent salle', 'Extension triceps poulie'], ['Repos', '60 s']] },
+  { pic: 'roller', n: 'Abs roller — progression maîtrisée', m: 'Roulette abdominale · à genoux', tg: ['Abdos profonds', 'Gainage complet', 'Exercice roi'],
+    ex: ['À genoux sur un tapis, mains sur les poignées, dos neutre, bassin légèrement rétroversé.', 'Rouler vers l\'avant en 3 s SANS creuser le bas du dos — si le bassin lâche, tu es allé trop loin.', 'Revenir en tirant avec les abdos, pas avec les bras.', 'Tes 10 reps pénibles actuelles = exactement la bonne zone. Voir la carte de progression ci-dessus.', 'Jamais le premier exercice de la séance : les abdos frais protègent ton dos sur les autres mouvements... donc le roller vient en dernier.'],
+    nu: [['Progression', 'Partiel 2×6 → complet 3×8 → tempo → surélevé'], ['Équivalent salle', 'Crunch machine + planche'], ['Repos', '60 s']] },
+  { pic: 'corde', n: 'Corde à sauter — protocole HIIT', m: 'Corde · surface plane', tg: ['Cardio', 'Mollets', 'Coordination'],
+    ex: ['Sauts bas (2–3 cm), rebond sur l\'avant-pied, coudes près du corps — ce sont les poignets qui tournent.', 'Protocole : 45 s de saut / 30 s de marche sur place, 12 à 16 tours = 15–20 min.', 'Débuter par 8 tours si les mollets tirent — ils encaissent un volume inhabituel au début.', 'Remplace le tapis de la séance salle : à noter dans le champ Cardio du suivi.'],
+    nu: [['Intensité', 'Comparable au HIIT tapis 25 min'], ['Impact', 'Surface souple ou chaussures amorties'], ['Repos', '30 s entre tours']] }
 ];
 
 function buildExercises() {
@@ -1967,9 +2191,12 @@ function buildExercises() {
     document.getElementById(containerId).innerHTML = data.map((e, i) => `
       <div class="acc-item">
         <div class="acc-head" onclick="toggleAcc(this)">
-          <div>
-            <div class="acc-title">${e.n}</div>
-            <div class="acc-meta">${e.m} · ${e.tg.slice(0,2).join(' · ')}</div>
+          <div style="display:flex;align-items:center;gap:10px;min-width:0">
+            ${e.pic ? pictoFixe(e.pic, 36) : ''}
+            <div style="min-width:0">
+              <div class="acc-title">${e.n}</div>
+              <div class="acc-meta">${e.m} · ${e.tg.slice(0,2).join(' · ')}</div>
+            </div>
           </div>
           <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;justify-content:flex-end;max-width:50%">
             ${e.tg.map(t => `<span class="tag">${t}</span>`).join('')}
@@ -1977,6 +2204,7 @@ function buildExercises() {
           <div class="acc-chev">▼</div>
         </div>
         <div class="acc-body">
+          ${e.pic ? '<div style="display:flex;justify-content:center;margin-bottom:8px">' + pictoAnime(e.pic, 76) + '</div>' : ''}
           <div class="rec-two">
             <div>
               <div class="section-label" style="margin-bottom:6px">Exécution technique</div>
@@ -1992,6 +2220,9 @@ function buildExercises() {
   }
   renderList(EA, 'ex-a-list');
   renderList(EB, 'ex-b-list');
+  renderList(EM, 'ex-m-list');
+  App.equip.renderChips();
+  App.equip.renderSeanceM();
 }
 
 // ══════════════════════════════════════════════
@@ -2160,8 +2391,40 @@ const RR_PLUS = [
 ];
 
 
-function buildRecipes() {
-  document.getElementById('rec-ctn').innerHTML = RR.map((r, i) => `
+// ── Rendu recette partagé (v12.2) : source unique pour les accordéons (Plan
+//    Nutritionnel) ET la fiche flottante (Idées Frigo). Zéro duplication de markup.
+function renderCorpsRecette(r) {
+  const ig = (r.ig || []).map(([q, n]) => `<li><span class="ing-qty">${q} </span>${n}</li>`).join('');
+  const nu = (r.nu || []).map(([k, v]) => `<div class="nutr-row"><span style="color:var(--tx2)">${k}</span><span class="nutr-val">${v}</span></div>`).join('');
+  const st = (r.st || []).map((s, n) => `<div class="step-item"><div class="step-num">${n + 1}</div><div class="step-text">${s}</div></div>`).join('');
+  return `<div class="rec-two">
+      <div>
+        <div class="section-label" style="margin-bottom:6px">Ingrédients</div>
+        <ul class="ing-grid">${ig}</ul>
+        <div class="section-label" style="margin:10px 0 5px">Valeurs nutritives</div>
+        ${nu}
+      </div>
+      <div>
+        <div class="section-label" style="margin-bottom:6px">Préparation</div>
+        ${st}
+        ${r.tip ? `<div class="info">${r.tip}</div>` : ''}
+      </div>
+    </div>`;
+}
+// Ligne méta + tags d'une recette (réutilisée par la fiche)
+function renderMetaRecette(r) {
+  return '<div class="acc-meta" style="margin-bottom:6px">' + [r.tm, r.kc, r.sv, r.ap].filter(Boolean).join(' · ') + '</div>'
+    + ((r.tg && r.tg.length) ? '<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">' + r.tg.map(t => '<span class="tag">' + t + '</span>').join('') + '</div>' : '');
+}
+// Recherche d'une recette par son nom exact dans RR puis RR_PLUS
+function recetteParNom(nom) {
+  let r = RR.find(x => x.n === nom);
+  if (!r && typeof RR_PLUS !== 'undefined') r = RR_PLUS.find(x => x.n === nom);
+  return r || null;
+}
+// Accordéon recette (Plan Nutritionnel) — en-tête + corps partagé
+function renderAccRecette(r) {
+  return `
     <div class="acc-item">
       <div class="acc-head" onclick="toggleAcc(this)">
         <div>
@@ -2169,26 +2432,16 @@ function buildRecipes() {
           <div class="acc-meta">${r.tm} · ${r.kc} · ${r.sv} · ${r.ap}</div>
         </div>
         <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:45%">
-          ${r.tg.map(t => `<span class="tag">${t}</span>`).join('')}
+          ${(r.tg || []).map(t => `<span class="tag">${t}</span>`).join('')}
         </div>
         <div class="acc-chev">▼</div>
       </div>
-      <div class="acc-body">
-        <div class="rec-two">
-          <div>
-            <div class="section-label" style="margin-bottom:6px">Ingrédients</div>
-            <ul class="ing-grid">${r.ig.map(([q,n]) => `<li><span class="ing-qty">${q} </span>${n}</li>`).join('')}</ul>
-            <div class="section-label" style="margin:10px 0 5px">Valeurs nutritives</div>
-            ${r.nu.map(([k,v]) => `<div class="nutr-row"><span style="color:var(--tx2)">${k}</span><span class="nutr-val">${v}</span></div>`).join('')}
-          </div>
-          <div>
-            <div class="section-label" style="margin-bottom:6px">Préparation</div>
-            ${r.st.map((s,n) => `<div class="step-item"><div class="step-num">${n+1}</div><div class="step-text">${s}</div></div>`).join('')}
-            <div class="info">${r.tip}</div>
-          </div>
-        </div>
-      </div>
-    </div>`).join('');
+      <div class="acc-body">${renderCorpsRecette(r)}</div>
+    </div>`;
+}
+
+function buildRecipes() {
+  document.getElementById('rec-ctn').innerHTML = RR.map(r => renderAccRecette(r)).join('');
 }
 
 // ══════════════════════════════════════════════
@@ -2443,7 +2696,7 @@ function ico(name, size, cls) {
 // (le module Fitness regroupe : dash, sport, nutrition, mesures,
 //  frigo, habits — clés localStorage préfixées kf_fit_*)
 // ════════════════════════════════════════════════════════════
-const APP_VERSION = '12.1';
+const APP_VERSION = '13.0';
 
 // ── Migration du schéma v8 → v9 : renommage des clés vers kf_fit_* + kf_meta.
 //    Règle : l'ancienne clé n'écrase jamais une nouvelle clé déjà présente,
@@ -2548,7 +2801,8 @@ const App = {
     selectedFood:   null,
     snDate:         null,
     lazyBuilt:      {},
-    frigoSel:       {}
+    frigoSel:       {},
+    frigoPoelee:    null
   },
 
   // ── Stockage sécurisé
@@ -2652,7 +2906,9 @@ const App = {
       }
     },
 
+    scrollMem: {},
     goTo(section) {
+      if (App.nav.current) App.nav.scrollMem[App.nav.current] = window.scrollY || 0;
       App.nav.current = section;
       App.nav.ALL.forEach(s => {
         const el = document.getElementById('sec-' + s);
@@ -2704,7 +2960,8 @@ const App = {
       if (section === 'fin-budgets')     App.finance.initBudgets();
       if (section === 'fin-impots')      App.impots.init();
 
-      window.scrollTo(0, 0);
+      // v13.0 — restauration du scroll par section (mémorisé au départ, restitué au retour)
+      window.scrollTo(0, App.nav.scrollMem[section] || 0);
     },
 
     toggleDrawer() {
@@ -2719,6 +2976,162 @@ const App = {
       const o = document.getElementById('drawer-overlay');
       if (d) d.classList.remove('open');
       if (o) o.classList.remove('show');
+    }
+  },
+
+  // ════════════════════════════════════════════
+  // GESTES TACTILES (v12.3) — moteur à seuil, écouteurs passifs (zéro blocage
+  // du défilement natif). Trois gestes : ouvrir le tiroir depuis le bord gauche
+  // (mobile uniquement), fermer le tiroir vers la gauche, fermer la fiche vers
+  // le bas. Garde-fous : zone de bord stricte 24 px (pas de conflit avec les
+  // tableaux à défilement horizontal), désambiguïsation d'axe dès 8 px de
+  // mouvement (le scroll vertical garde toujours la main), fiche fermable
+  // seulement si son contenu est en haut (scrollTop = 0) ou depuis sa poignée.
+  // ════════════════════════════════════════════
+  gestes: {
+    BORD: 24,        // zone de départ pour ouvrir le tiroir (px depuis le bord gauche)
+    SEUIL_X: 50,     // distance horizontale déclenchant ouverture/fermeture du tiroir
+    SEUIL_Y: 60,     // distance verticale déclenchant la fermeture de la fiche
+    ctx: null,       // geste en cours : { type, x, y, dx, dy, axe, mort }
+
+    init() {
+      if (!('ontouchstart' in window)) return; // appareil sans tactile : rien à brancher
+      document.addEventListener('touchstart', App.gestes.debut,     { passive: true });
+      document.addEventListener('touchmove',  App.gestes.mouvement, { passive: true });
+      document.addEventListener('touchend',   App.gestes.fin,       { passive: true });
+      document.addEventListener('touchcancel', () => { App.gestes.ctx = null; }, { passive: true });
+    },
+
+    debut(e) {
+      if (!e.touches || e.touches.length !== 1) { App.gestes.ctx = null; return; }
+      const t = e.touches[0], cible = e.target;
+      const fiche = document.getElementById('fiche-ov');
+      const tiroir = document.getElementById('drawer');
+      let type = null;
+      if (fiche && fiche.classList.contains('show') && fiche.contains(cible)) {
+        // Fiche ouverte : armer la fermeture vers le bas seulement si le corps est
+        // déjà en haut, ou si le doigt part de la poignée/l'en-tête (hors zone scrollable)
+        const corps = document.getElementById('fiche-body');
+        if (!corps || corps.scrollTop <= 0 || !corps.contains(cible)) type = 'fiche';
+      } else if (tiroir && tiroir.classList.contains('open') && (tiroir.contains(cible) || cible.id === 'drawer-overlay')) {
+        type = 'tiroir-fermer';
+      } else if (t.clientX <= App.gestes.BORD && window.innerWidth <= 768 && (!tiroir || !tiroir.classList.contains('open'))) {
+        type = 'tiroir-ouvrir'; // bord strict : aucun conflit avec les tableaux overflow-x
+      }
+      App.gestes.ctx = type ? { type, x: t.clientX, y: t.clientY, dx: 0, dy: 0, axe: null, mort: false } : null;
+    },
+
+    mouvement(e) {
+      const c = App.gestes.ctx;
+      if (!c || c.mort || !e.touches || !e.touches.length) return;
+      const t = e.touches[0];
+      c.dx = t.clientX - c.x;
+      c.dy = t.clientY - c.y;
+      // Décision d'axe au premier mouvement franc (8 px) — puis irrévocable
+      if (!c.axe && (Math.abs(c.dx) > 8 || Math.abs(c.dy) > 8)) {
+        c.axe = Math.abs(c.dx) >= Math.abs(c.dy) ? 'h' : 'v';
+        // Axe incompatible avec le geste armé → geste abandonné, le défilement natif garde la main
+        if ((c.axe === 'v' && c.type !== 'fiche') || (c.axe === 'h' && c.type === 'fiche')) c.mort = true;
+      }
+    },
+
+    fin() {
+      const c = App.gestes.ctx;
+      App.gestes.ctx = null;
+      if (!c || c.mort) return;
+      if      (c.type === 'tiroir-ouvrir' && c.dx >  App.gestes.SEUIL_X) App.nav.toggleDrawer();
+      else if (c.type === 'tiroir-fermer' && c.dx < -App.gestes.SEUIL_X) App.nav.closeDrawer();
+      else if (c.type === 'fiche'         && c.dy >  App.gestes.SEUIL_Y) App.ui.ficheFermer();
+    }
+  },
+
+  // ════════════════════════════════════════════
+  // MATÉRIEL MAISON (v13.0) — clé kf_fit_equip. Chaque bloc de la Séance M est un
+  // schéma moteur stable ; la VARIANTE affichée suit le matériel coché. Le nom du
+  // bloc ne change jamais → l'historique et les charges restent cohérents.
+  // ════════════════════════════════════════════
+  equip: {
+    DEF: [
+      { k: 'hb75',       l: 'Haltères 2×7,5 kg' },
+      { k: 'corde',      l: 'Corde à sauter' },
+      { k: 'elastique',  l: 'Câble élastique' },
+      { k: 'roller',     l: 'Abs roller' },
+      { k: 'ems',        l: 'Électrostimulateur' },
+      { k: 'traction',   l: 'Barre de traction', prio: true },
+      { k: 'hbReg',      l: 'Haltères réglables' },
+      { k: 'kettlebell', l: 'Kettlebell 16 kg' },
+      { k: 'gilet',      l: 'Gilet lesté' }
+    ],
+    DEFAUT: { hb75: true, corde: true, elastique: true, roller: true, ems: true, traction: false, hbReg: false, kettlebell: false, gilet: false },
+
+    etat() { return Object.assign({}, App.equip.DEFAUT, App.storage.load('kf_fit_equip') || {}); },
+    has(k) { return !!App.equip.etat()[k]; },
+
+    toggle(k) {
+      const e = App.equip.etat();
+      e[k] = !e[k];
+      App.storage.save('kf_fit_equip', e);
+      App.equip.renderChips();
+      App.equip.renderSeanceM();
+      if (App.data.currentSeanceType === 4) App.sport.renderExoList();
+      App.ui.toast(e[k] ? 'Matériel ajouté — Séance M mise à jour' : 'Matériel retiré — variantes ajustées');
+    },
+
+    renderChips() {
+      const ctn = document.getElementById('equip-chips');
+      if (!ctn) return;
+      const e = App.equip.etat();
+      ctn.innerHTML = App.equip.DEF.map(d =>
+        '<button class="sn-food-chip' + (e[d.k] ? ' selected' : '') + '" onclick="equipToggle(\'' + d.k + '\')">' + d.l
+        + (d.prio && !e[d.k] ? ' · achat prioritaire' : '') + '</button>').join('');
+      const note = document.getElementById('equip-note');
+      if (note) note.innerHTML = e.traction ? ''
+        : '<div class="warn" style="margin-top:8px">Sans barre de traction, ton dos n\'a pas de vraie solution à la maison — le rowing élastique entretient mais ne fait pas progresser. C\'est l\'achat n°1 (25–35 €, encadrement de porte).</div>';
+    },
+
+    // Tableau de la Séance M dans le Plan (variantes résolues + pictos)
+    renderSeanceM() {
+      const ctn = document.getElementById('sm-table');
+      if (!ctn) return;
+      const defs = App.sport.EXOS[4] || [];
+      ctn.innerHTML = defs.map((d, i) =>
+        '<div class="row">'
+        + (d.pic ? pictoFixe(d.pic, 34) : '<div class="num">' + (i + 1) + '</div>')
+        + '<div style="flex:1;min-width:0"><div class="row-name">' + d.name + '</div>'
+        + '<div class="row-desc">' + App.sport.varianteM(d) + ' · ' + d.target + ' · repos ' + d.repos + '</div></div></div>').join('');
+    }
+  },
+
+  // ════════════════════════════════════════════
+  // CHRONO DE REPOS (v13.0) — bandeau verre flottant, décompte simple
+  // ════════════════════════════════════════════
+  chrono: {
+    iv: null, fin: 0,
+    start(sec) {
+      App.chrono.stop(true);
+      App.chrono.fin = Date.now() + sec * 1000;
+      const band = document.getElementById('chrono-band');
+      if (band) { band.classList.remove('fini'); band.classList.add('show'); }
+      App.chrono.tick();
+      App.chrono.iv = setInterval(App.chrono.tick, 250);
+    },
+    tick() {
+      const reste = Math.max(0, Math.ceil((App.chrono.fin - Date.now()) / 1000));
+      const t = document.getElementById('chrono-t');
+      if (t) t.textContent = Math.floor(reste / 60) + ':' + String(reste % 60).padStart(2, '0');
+      if (reste <= 0) {
+        clearInterval(App.chrono.iv); App.chrono.iv = null;
+        const band = document.getElementById('chrono-band');
+        if (band) band.classList.add('fini');
+        App.ui.toast('Repos terminé — série suivante');
+        setTimeout(() => App.chrono.stop(true), 2500);
+      }
+    },
+    stop(silencieux) {
+      if (App.chrono.iv) { clearInterval(App.chrono.iv); App.chrono.iv = null; }
+      const band = document.getElementById('chrono-band');
+      if (band) band.classList.remove('show', 'fini');
+      if (!silencieux) App.ui.toast('Chrono arrêté');
     }
   },
 
@@ -2801,6 +3214,20 @@ const App = {
       ov.classList.add('show');
       ok.onclick = () => { ov.classList.remove('show'); onOk(); };
       document.getElementById('modal-cancel').onclick = () => ov.classList.remove('show');
+    },
+    // Fiche — feuille de détail réutilisable (v12.2) : titre en texte, corps en HTML
+    fiche(titre, html) {
+      const ov = document.getElementById('fiche-ov');
+      if (!ov) return;
+      App.ui.setEl('fiche-titre', titre);
+      App.ui.setHTML('fiche-body', html);
+      const corps = document.getElementById('fiche-body');
+      if (corps) corps.scrollTop = 0;
+      ov.classList.add('show');
+    },
+    ficheFermer() {
+      const ov = document.getElementById('fiche-ov');
+      if (ov) ov.classList.remove('show');
     },
     setEl(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; },
     // Lecture / écriture de la valeur d'un champ (helpers du noyau, tolérants si l'élément manque)
@@ -3268,7 +3695,31 @@ const App = {
         { name: 'Leg curl (ischio)',                    target: '3 × 15',       targetSets: 3, targetReps: 15, coef: 2, smv: false },
         { name: 'Superset : Curl biceps + Ext. triceps',target: '3 × 12/12',    targetSets: 3, targetReps: 12, coef: 1, smv: false },
         { name: 'Planche + Crunch bicycle',             target: '3 × 45s / 20', targetSets: 3, targetReps: 20, coef: 1, smv: false }
+      ],
+      // v13.0 — Séance M (maison) : le NOM du bloc est stable (historique, charges) ;
+      // la variante affichée est résolue selon kf_fit_equip (première dont le matériel
+      // est possédé, sinon la base au poids du corps / matériel de départ).
+      4: [
+        { name: 'Poussée — pompes',        pic: 'pompes',    target: '4 × 12',      targetSets: 4, targetReps: 12, coef: 3, smv: true,  repos: '90 s',
+          base: 'Pompes (surélevées si besoin)', vars: [ { eq: 'gilet', v: 'Pompes lestées (gilet ou sac)' }, { eq: 'hbReg', v: 'Développé couché haltères au sol' } ] },
+        { name: 'Tirage — dos',            pic: 'traction',  target: '4 × 10',      targetSets: 4, targetReps: 10, coef: 3, smv: true,  repos: '2 min',
+          base: 'Rowing élastique — 3×20 lentes (accessoire)', vars: [ { eq: 'traction', v: 'Tractions pronation (négatives au début)' }, { eq: 'hbReg', v: 'Rowing haltère unilatéral lourd' } ] },
+        { name: 'Jambes — unilatéral',     pic: 'squatbulg', target: '4 × 10/jbe',  targetSets: 4, targetReps: 10, coef: 3, smv: true,  repos: '90 s',
+          base: 'Squat bulgare 2×7,5 kg', vars: [ { eq: 'hbReg', v: 'Squat bulgare haltères lourds' }, { eq: 'kettlebell', v: 'Goblet squat kettlebell + fentes' } ] },
+        { name: 'Épaules',                 pic: 'elevlat',   target: '3 × 15',      targetSets: 3, targetReps: 15, coef: 2, smv: false, repos: '60 s',
+          base: 'Élévations latérales 7,5 kg — tempo lent', vars: [ { eq: 'hbReg', v: 'Développé militaire haltères' } ] },
+        { name: 'Bras — superset',         pic: 'dips',      target: '3 × 12/12',   targetSets: 3, targetReps: 12, coef: 2, smv: false, repos: '60 s',
+          base: 'Curl unilatéral strict + Dips entre chaises', vars: [ { eq: 'hbReg', v: 'Curl lourd + Extension triceps nuque' } ] },
+        { name: 'Core — abs roller',       pic: 'roller',    target: '3 × 8',       targetSets: 3, targetReps: 8,  coef: 1, smv: false, repos: '60 s',
+          base: 'Abs roller — progression (voir Plan → Maison)', vars: [] }
       ]
+    },
+
+    // v13.0 — Variante affichée d'un bloc de la Séance M selon le matériel possédé
+    varianteM(def) {
+      if (!def || !def.vars) return '';
+      for (const v of def.vars) { if (App.equip.has(v.eq)) return v.v; }
+      return def.base || '';
     },
 
     // Machines de remplacement quand c'est occupé
@@ -3336,7 +3787,7 @@ const App = {
       if (!cMin) cMin = session.cardio === 'oui' ? 25 : session.cardio === 'court' ? 15 : 0;
       const metCardio = (session.cvit && session.cvit < 6) ? 5.0 : 8.0; // marche inclinée vs HIIT modéré
       // Musculation
-      const defDur = { 1: 60, 2: 60, 3: 45 };
+      const defDur = { 1: 60, 2: 60, 3: 45, 4: 50 };
       let mMin = App.ui.safeInt(session.duree) ? Math.max(0, App.ui.safeInt(session.duree) - cMin) : defDur[session.seance] || 55;
       if (session.motif && session.motif !== 'complete') mMin = Math.min(mMin, 45);
       const metMuscu = 3.5 + 2.5 * App.sport.t1Completion(session); // 3,5 → 6,0 selon l'intensité réelle
@@ -3403,6 +3854,23 @@ const App = {
       App.sport.renderDash();
     },
 
+    // v13.0 — Indicateur de récupération : rend la règle 48–72 h visible au moment
+    // de décider. Précision au jour (les séances sont datées, pas horodatées).
+    renderRecup() {
+      const el = document.getElementById('ss-recup');
+      if (!el) return;
+      const ss = App.data.sportSessions;
+      if (!ss || !ss.length) { el.innerHTML = ''; return; }
+      const derniere = ss.reduce((m, x) => x.date > m ? x.date : m, ss[0].date);
+      const jours = Math.round((new Date(App.ui.todayStr()) - new Date(derniere)) / 864e5);
+      if (!isFinite(jours)) { el.innerHTML = ''; return; } // date invalide : ne rien afficher plutôt qu'un NaN
+      let dot, txt, bg;
+      if (jours < 2)      { dot = '#f59e0b'; bg = 'var(--amberBg)'; txt = 'Dernière séance il y a ' + (jours === 0 ? 'moins de 24 h' : '1 jour') + ' — récupération en cours, vise 48 h minimum avant la prochaine.'; }
+      else if (jours <= 3){ dot = '#22c55e'; bg = 'var(--greenBg)'; txt = 'Dernière séance il y a ' + jours + ' jours — fenêtre idéale (48–72 h), c\'est le bon moment.'; }
+      else                { dot = 'var(--tx2)'; bg = 'var(--bg)';   txt = 'Dernière séance il y a ' + jours + ' jours — muscles récupérés, à toi de jouer (salle ou maison).'; }
+      el.innerHTML = '<div class="ss-recup" style="background:' + bg + '"><span class="dot" style="background:' + dot + '"></span><span>' + txt + '</span></div>';
+    },
+
     selectSeance(num, btn) {
       App.data.currentSeanceType = num;
       document.querySelectorAll('.ss-btn').forEach(b => b.classList.remove('active'));
@@ -3425,8 +3893,10 @@ const App = {
       exos.forEach((e, i) => {
         const tier = e.coef === 3 ? '<span class="tier t1">Phare</span>' : e.coef === 2 ? '<span class="tier t2">Secondaire</span>' : '<span class="tier t3">Accessoire</span>';
         const last = App.sport.derniereCharge(e.name);
+        const vari = App.data.currentSeanceType === 4 ? App.sport.varianteM(e) : '';
         html += '<div class="ss-exo-card' + (e.coef === 3 ? ' phare' : '') + '">'
-          + '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div class="ss-exo-name">' + e.name + '</div>' + tier + '</div>'
+          + '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div class="ss-exo-name" style="display:flex;align-items:center;gap:8px">' + (e.pic ? pictoFixe(e.pic, 28) : '') + '<span>' + e.name + '</span></div>' + tier + '</div>'
+          + (vari ? '<div class="ss-exo-target" style="font-weight:600">Variante : ' + vari + '</div>' : '')
           + '<div class="ss-exo-target">Objectif : ' + e.target + (last ? ' · dernière charge : ' + last + ' kg' : '') + '</div>'
           + '<div class="ss-input-grid">'
           + '<div class="ss-input-block"><label>Séries</label><input type="number" inputmode="numeric" id="ss-e' + i + '-ser" placeholder="' + e.targetSets + '" min="0" max="10"></div>'
@@ -3469,6 +3939,7 @@ const App = {
       const exoDefs = App.sport.EXOS[App.data.currentSeanceType] || [];
       const exercises = exoDefs.map((e, i) => ({
         name:   e.name,
+        vari:   App.data.currentSeanceType === 4 ? App.sport.varianteM(e) : undefined,
         target: e.target,
         ser:    App.ui.safeInt(document.getElementById('ss-e' + i + '-ser')?.value),
         rep:    App.ui.safeInt(document.getElementById('ss-e' + i + '-rep')?.value),
@@ -3641,6 +4112,7 @@ const App = {
     },
 
     renderSessions() {
+      App.sport.renderRecup(); // v13.0 — l'indicateur suit toute modification des séances
       const ctn = document.getElementById('ss-history');
       if (!ctn) return;
       const sessions = App.data.sportSessions;
@@ -3656,7 +4128,7 @@ const App = {
       const MOTIFS = { complete: '', temps: 'Écourtée — temps', affluence: 'Écourtée — affluence', fatigue: 'Écourtée — fatigue' };
       let html = '';
       sessions.forEach((s, i) => {
-        const typeLabel = s.seance === 1 ? 'Séance A' : s.seance === 2 ? 'Séance B' : 'Séance C';
+        const typeLabel = s.seance === 1 ? 'Séance A' : s.seance === 2 ? 'Séance B' : s.seance === 4 ? 'Séance M' : 'Séance C';
         const score     = App.sport.calcScore(s);
         const kcal      = App.sport.calcKcal(s);
         const smv       = App.sport.smvOk(s);
@@ -3667,6 +4139,7 @@ const App = {
         html += '<div class="ss-hist-card" style="' + (isEditing ? 'border-color:#f59e0b;background:var(--amberBg)' : '') + '">';
         html += '<div class="ss-hist-header"><div>'
           + '<div class="ss-hist-title">' + typeLabel + ' — ' + App.ui.fmtDate(s.date)
+          + (s.seance === 4 ? ' <span class="bdg bdg-m" style="font-size:10px">Maison</span>' : '')
           + (smv ? ' <span class="bdg bdg-g" style="font-size:10px">SMV validée</span>' : '')
           + (s.deload ? ' <span class="bdg bdg-b" style="font-size:10px">Deload</span>' : '')
           + (MOTIFS[s.motif] ? ' <span class="bdg bdg-a" style="font-size:10px">' + MOTIFS[s.motif] + '</span>' : '')
@@ -3692,7 +4165,7 @@ const App = {
             if (ex.rep > 0) vals.push(ex.rep + ' reps');
             if (ex.kg  > 0) vals.push(ex.kg + ' kg');
             html += '<div class="ss-hist-exo-row"><div class="ss-hist-exo-name">'
-              + (def && def.coef === 3 ? '<span class="tdot"></span>' : '') + ex.name + '</div>'
+              + (def && def.coef === 3 ? '<span class="tdot"></span>' : '') + ex.name + (ex.vari ? ' <span style="color:var(--tx2)">— ' + ex.vari + '</span>' : '') + '</div>'
               + '<div class="ss-hist-exo-val">' + (vals.join(' · ') || '—') + '</div></div>';
           });
         } else {
@@ -4035,26 +4508,28 @@ const App = {
     LBL: {},
 
     // req = indispensables · opt = améliorent la recette
+    // rid (v12.2) = nom EXACT de la recette dans RR ou RR_PLUS — la fiche flottante s'en sert.
+    // Ne jamais renommer une recette sans mettre à jour son rid (vérifié par la suite de tests).
     TAGS: [
-      { n: 'Poulet grillé épicé air fryer',              req: ['poulet'],                      opt: ['citron','ail','piment'] },
-      { n: 'Viande hachée bolognaise revisitée',         req: ['boeuf','tomate'],              opt: ['oignon','ail'] },
-      { n: 'Lentilles vertes au curry gingembre',        req: ['lentilles'],                   opt: ['gingembre','oignon','carotte'] },
-      { n: 'Omelette épinards-poivron',                  req: ['oeufs'],                       opt: ['epinards','poivron'] },
-      { n: 'Crevettes / gambas sautées ail-poivron',     req: ['crevettes'],                   opt: ['ail','poivron','piment'] },
-      { n: 'Velouté poireaux-brocoli-gingembre',         req: ['poireaux','brocoli'],          opt: ['gingembre'] },
-      { n: 'Bar ou tilapia épicé air fryer',             req: ['poisson'],                     opt: ['citron','piment'] },
-      { n: 'Haricots rouges braisés tomate-piment',      req: ['haricots_rouges','tomate'],    opt: ['piment','oignon'] },
-      { n: 'Porc maigre grillé épices camerounaises',    req: ['porc'],                        opt: ['ail','gingembre'] },
-      { n: 'Salade avocat-crevettes-épinards',           req: ['crevettes','avocat','epinards'], opt: ['citron'] },
-      { n: 'Poulet DG (repas plaisir)',                  req: ['poulet'],                      opt: ['carotte','haricots_verts'] },
-      { n: 'Épinards protéinés sautés aux crevettes',    req: ['epinards','crevettes'],        opt: ['ail'] },
-      { n: 'Salade sportive spaghettis-avocat-laitue',   req: ['pates','avocat','laitue'],     opt: ['poulet'] },
-      { n: 'Sauté pommes de terre + porc air fryer',     req: ['pdt','porc'],                  opt: ['poivron','oignon'] },
-      { n: 'Riz sauté poulet-légumes au wok',            req: ['riz','poulet'],                opt: ['carotte','poivron','ail'] },
-      { n: 'Omelette protéinée 3 œufs aux légumes',      req: ['oeufs'],                       opt: ['epinards','poivron','ail'] },
-      { n: 'Wrap poulet-crudités',                       req: ['galette','poulet'],            opt: ['laitue','tomate','avocat','yaourt'] },
-      { n: 'Soupe-repas lentilles-porc-légumes',         req: ['lentilles','porc'],            opt: ['carotte','oignon'] },
-      { n: 'Coleslaw épicé au poulet',                   req: ['chou_blanc','poulet'],         opt: ['carotte','lait_conc','citron'] }
+      { n: 'Poulet grillé épicé air fryer',              rid: 'Poulet grillé épicé air fryer',              req: ['poulet'],                      opt: ['citron','ail','piment'] },
+      { n: 'Viande hachée bolognaise revisitée',         rid: 'Viande hachée bolognaise revisitée',         req: ['boeuf','tomate'],              opt: ['oignon','ail'] },
+      { n: 'Lentilles vertes au curry gingembre',        rid: 'Lentilles vertes au curry gingembre',        req: ['lentilles'],                   opt: ['gingembre','oignon','carotte'] },
+      { n: 'Omelette épinards-poivron',                  rid: 'Œufs: omelette épinards-poivron',            req: ['oeufs'],                       opt: ['epinards','poivron'] },
+      { n: 'Crevettes / gambas sautées ail-poivron',     rid: 'Crevettes / gambas sautées ail-poivron',     req: ['crevettes'],                   opt: ['ail','poivron','piment'] },
+      { n: 'Velouté poireaux-brocoli-gingembre',         rid: 'Velouté poireaux-brocoli-gingembre',         req: ['poireaux','brocoli'],          opt: ['gingembre'] },
+      { n: 'Bar ou tilapia épicé air fryer',             rid: 'Bar ou tilapia épicé air fryer',             req: ['poisson'],                     opt: ['citron','piment'] },
+      { n: 'Haricots rouges braisés tomate-piment',      rid: 'Haricots rouges braisés sauce tomate-piment', req: ['haricots_rouges','tomate'],   opt: ['piment','oignon'] },
+      { n: 'Porc maigre grillé épices camerounaises',    rid: 'Porc maigre grillé épices camerounaises',    req: ['porc'],                        opt: ['ail','gingembre'] },
+      { n: 'Salade avocat-crevettes-épinards',           rid: 'Salade avocat-crevettes-épinards',           req: ['crevettes','avocat','epinards'], opt: ['citron'] },
+      { n: 'Poulet DG (repas plaisir)',                  rid: 'Poulet DG',                                  req: ['poulet'],                      opt: ['carotte','haricots_verts'] },
+      { n: 'Épinards protéinés sautés aux crevettes',    rid: 'Epinards proteines sautes',                  req: ['epinards','crevettes'],        opt: ['ail'] },
+      { n: 'Salade sportive spaghettis-avocat-laitue',   rid: 'Salade sportive spaghettis avocat laitue',   req: ['pates','avocat','laitue'],     opt: ['poulet'] },
+      { n: 'Sauté pommes de terre + porc air fryer',     rid: 'Saute pommes de terre porc air fryer',       req: ['pdt','porc'],                  opt: ['poivron','oignon'] },
+      { n: 'Riz sauté poulet-légumes au wok',            rid: 'Riz saute poulet legumes wok',               req: ['riz','poulet'],                opt: ['carotte','poivron','ail'] },
+      { n: 'Omelette protéinée 3 œufs aux légumes',      rid: 'Omelette proteinee legumes (3 oeufs)',       req: ['oeufs'],                       opt: ['epinards','poivron','ail'] },
+      { n: 'Wrap poulet-crudités',                       rid: 'Wrap poulet crudites saine',                 req: ['galette','poulet'],            opt: ['laitue','tomate','avocat','yaourt'] },
+      { n: 'Soupe-repas lentilles-porc-légumes',         rid: 'Soupe lentilles porc legumes',               req: ['lentilles','porc'],            opt: ['carotte','oignon'] },
+      { n: 'Coleslaw épicé au poulet',                   rid: 'Salade chou blanc coleslaw epice',           req: ['chou_blanc','poulet'],         opt: ['carotte','lait_conc','citron'] }
     ],
 
     // Pour l'assemblage express : correspondance clé → aliment FOODS + grammage
@@ -4101,6 +4576,7 @@ const App = {
     render() {
       const out = document.getElementById('fr-results');
       if (!out) return;
+      App.data.frigoPoelee = null; // v12.2 : réinitialisé à chaque rendu, re-renseigné si assemblage possible
       const S = App.frigo.sel();
       App.ui.setEl('fr-count', S.length ? S.length + ' ingrédient' + (S.length > 1 ? 's' : '') + ' sélectionné' + (S.length > 1 ? 's' : '') : '');
       if (S.length < 2) {
@@ -4122,10 +4598,12 @@ const App = {
       if (exact.length) {
         html += '<div class="section-label" style="margin-top:4px">Réalisables maintenant (' + Math.min(3, exact.length) + ')</div>';
         exact.slice(0, 3).forEach(({ r, optOk }) => {
-          html += '<div class="card" style="border-left:3px solid var(--acc)"><div class="row-name">' + r.n + '</div>'
+          const idx = App.frigo.TAGS.indexOf(r); // v12.2 : la carte ouvre la fiche recette
+          html += '<div class="card card-tap" style="border-left:3px solid var(--acc)" onclick="frFiche(' + idx + ')"><div class="row-name">' + r.n + '</div>'
             + '<div class="row-desc">Avec : ' + r.req.map(k => App.frigo.LBL[k]).join(', ')
             + (optOk.length ? ' · bonus dispo : ' + optOk.map(k => App.frigo.LBL[k]).join(', ') : '')
-            + '. Détail complet dans Plan Nutritionnel → Recettes.</div></div>';
+            + '.</div>'
+            + '<div class="row-desc" style="margin-top:4px;font-weight:600;color:var(--tx1)">Toucher pour la recette complète</div></div>';
         });
       }
       if (presque.length) {
@@ -4134,7 +4612,8 @@ const App = {
           // Suggestion : remplacer par un ingrédient de la même famille présent
           const fam = Object.keys(App.frigo.ING).find(cat => App.frigo.ING[cat].some(i => i.k === manque));
           const rempl = fam ? App.frigo.ING[fam].filter(i => has(i.k)).map(i => i.l) : [];
-          html += '<div class="card"><div class="row-name">' + r.n + '</div>'
+          const idx = App.frigo.TAGS.indexOf(r); // v12.2 : fiche consultable aussi (aide à décider la substitution)
+          html += '<div class="card card-tap" onclick="frFiche(' + idx + ')"><div class="row-name">' + r.n + '</div>'
             + '<div class="row-desc">Il manque : <strong>' + App.frigo.LBL[manque] + '</strong>'
             + (rempl.length ? ' — remplaçable par ' + rempl.join(' ou ') + ' (même famille).' : '.') + '</div></div>';
         });
@@ -4156,13 +4635,21 @@ const App = {
           return nm.split('(')[0].trim() + ' ' + g + ' g';
         });
         const aro = ['ail','oignon','gingembre','piment','citron'].filter(has).map(k => App.frigo.LBL[k].toLowerCase());
+        const titre = App.frigo.LBL[prots[0]] + (fecs.length ? ' + ' + App.frigo.LBL[fecs[0]] : '') + ' + légumes sautés';
+        // v12.2 : mémoriser l'assemblage pour la fiche « marche à suivre » (frFichePoelee)
+        App.data.frigoPoelee = {
+          titre, kcal, p, c, l, aro,
+          items: items.map(([nm, g]) => ({ name: nm, qty: g })),
+          protLbl: App.frigo.LBL[prots[0]].toLowerCase(),
+          fecLbl: fecs.length ? App.frigo.LBL[fecs[0]].toLowerCase() : null
+        };
         html += '<div class="section-label" style="margin-top:8px">Poêlée express (10–15 min)</div>'
-          + '<div class="card" style="border-left:3px solid var(--blue)"><div class="row-name">'
-          + App.frigo.LBL[prots[0]] + (fecs.length ? ' + ' + App.frigo.LBL[fecs[0]] : '') + ' + légumes sautés</div>'
+          + '<div class="card card-tap" style="border-left:3px solid var(--blue)" onclick="frFichePoelee()"><div class="row-name">' + titre + '</div>'
           + '<div class="row-desc">' + detail.join(' · ') + ' · huile d\'olive 10 g'
           + (aro.length ? ' · aromates : ' + aro.join(', ') : '') + '</div>'
           + '<div class="row-desc" style="margin-top:4px;font-weight:600;color:var(--tx1)">~' + Math.round(kcal) + ' kcal · P ' + Math.round(p) + ' g · G ' + Math.round(c) + ' g · L ' + Math.round(l) + ' g</div>'
-          + '<button class="mini-btn" style="margin-top:6px" onclick="frVersJournal(this)" data-items=\'' + JSON.stringify(items.map(([nm, g]) => ({ name: nm, qty: g }))).replace(/'/g, '&#39;') + '\'>' + ico('plus', 12) + ' Ajouter au journal du jour</button></div>';
+          + '<div class="row-desc" style="margin-top:4px;font-weight:600;color:var(--tx1)">Toucher pour la marche à suivre</div>'
+          + '<button class="mini-btn" style="margin-top:6px" onclick="frVersJournal(this);event.stopPropagation()" data-items=\'' + JSON.stringify(items.map(([nm, g]) => ({ name: nm, qty: g }))).replace(/'/g, '&#39;') + '\'>' + ico('plus', 12) + ' Ajouter au journal du jour</button></div>';
       }
       out.innerHTML = html || '<div class="ss-empty-hist">Pas assez de combinaisons — ajoute au moins une protéine et un légume.</div>';
     },
@@ -4178,6 +4665,37 @@ const App = {
         App.storage.save(key, cur);
         App.ui.toast('Poêlée ajoutée au journal du jour — retrouve-la dans Suivi Nutritionnel');
       } catch(e) { App.ui.toast('Impossible d\'ajouter au journal', 'err'); }
+    },
+
+    // v12.2 — Fiche recette flottante : la carte du frigo ouvre la recette complète
+    // sans quitter la page (résolution par rid = nom exact dans RR / RR_PLUS)
+    ficheRecette(i) {
+      const t = App.frigo.TAGS[i];
+      if (!t) return;
+      const r = recetteParNom(t.rid || t.n);
+      if (!r) { App.ui.toast('Recette détaillée introuvable — voir Plan Nutritionnel → Recettes', 'err'); return; }
+      App.ui.fiche(r.n, renderMetaRecette(r) + renderCorpsRecette(r));
+    },
+
+    // v12.2 — Fiche générée pour la poêlée express : grammages + macros calculés
+    // par render(), étapes génériques de sauté, ajout au journal depuis la fiche
+    fichePoelee() {
+      const px = App.data.frigoPoelee;
+      if (!px) return;
+      const etapes = [
+        'Chauffer 10 g d\'huile d\'olive à feu vif dans une grande poêle ou un wok.',
+        'Saisir ' + px.protLbl + (px.aro.length ? ' avec ' + px.aro.join(', ') : '') + ' — 4 à 5 min en remuant.',
+        'Ajouter les légumes, cuire 4 à 6 min : ils doivent rester légèrement croquants.',
+        px.fecLbl ? 'Incorporer ' + px.fecLbl + ' (déjà cuit) 2 min pour réchauffer. Rectifier sel, poivre, épices.' : 'Rectifier sel, poivre, épices. Servir aussitôt.'
+      ];
+      const r = {
+        ig: px.items.map(it => [it.qty + ' g', it.name.split('(')[0].trim()]).concat([['10 g', 'huile d\'olive']]),
+        st: etapes,
+        nu: [['Calories', '~' + Math.round(px.kcal) + ' kcal'], ['Protéines', Math.round(px.p) + ' g'], ['Glucides', Math.round(px.c) + ' g'], ['Lipides', Math.round(px.l) + ' g']],
+        tip: 'Assemblage express généré depuis ta sélection — grammages alignés sur ton plan.'
+      };
+      const btn = '<button class="mini-btn" style="margin-top:10px" onclick="frVersJournal(this)" data-items=\'' + JSON.stringify(px.items).replace(/'/g, '&#39;') + '\'>' + ico('plus', 12) + ' Ajouter au journal du jour</button>';
+      App.ui.fiche(px.titre, '<div class="acc-meta" style="margin-bottom:10px">10–15 min · 1 portion · Poêle ou wok</div>' + renderCorpsRecette(r) + btn);
     }
   },
 
@@ -5556,6 +6074,7 @@ const App = {
     App.dataio.renderIcsForm();
     App.ui.setEl('drawer-version', 'KF Apps · v' + APP_VERSION + ' · 2026');
     App.ui.setEl('sidebar-version', 'KF Apps · v' + APP_VERSION + ' · 2026');
+    App.gestes.init(); // gestes tactiles : tiroir + fiche (v12.3)
     App.nav.goTo('hub');
   }
 };
@@ -5598,6 +6117,11 @@ function msAjust(v)             { App.mesures.appliquerAjust(v); }
 function frToggle(chip)         { App.frigo.toggle(chip); }
 function frReset()              { App.frigo.resetSel(); }
 function frVersJournal(btn)     { App.frigo.versJournal(btn); }
+function frFiche(i)             { App.frigo.ficheRecette(i); }
+function frFichePoelee()        { App.frigo.fichePoelee(); }
+function equipToggle(k)         { App.equip.toggle(k); }
+function chronoStart(sec)       { App.chrono.start(sec); }
+function chronoStop()           { App.chrono.stop(); }
 
 function habEau(d)              { App.habits.eau(d); }
 function habSommeil(v)          { App.habits.setSommeil(v); }
@@ -5661,25 +6185,8 @@ function buildRecipesPlus() {
     ctn.innerHTML = '<div style="text-align:center;padding:1rem;color:var(--tx3);font-size:12px">Aucune recette disponible</div>';
     return;
   }
-  ctn.innerHTML = RR_PLUS.map(function(r, i) {
-    const tagsHtml = (r.tg || []).map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('');
-    const ingHtml  = (r.ig || []).map(function(x) { return '<li><span class="ing-qty">' + x[0] + ' </span>' + x[1] + '</li>'; }).join('');
-    const nuHtml   = (r.nu || []).map(function(x) { return '<div class="nutr-row"><span style="color:var(--tx2)">' + x[0] + '</span><span class="nutr-val">' + x[1] + '</span></div>'; }).join('');
-    const stHtml   = (r.st || []).map(function(s, n) { return '<div class="step-item"><div class="step-num">' + (n+1) + '</div><div class="step-text">' + s + '</div></div>'; }).join('');
-    return '<div class="acc-item">'
-      + '<div class="acc-head" onclick="toggleAcc(this)">'
-      + '<div><div class="acc-title">' + r.n + '</div><div class="acc-meta">' + r.tm + ' &middot; ' + r.kc + ' &middot; ' + r.sv + ' &middot; ' + r.ap + '</div></div>'
-      + '<div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:45%">' + tagsHtml + '</div>'
-      + '<div class="acc-chev">&#9660;</div>'
-      + '</div>'
-      + '<div class="acc-body">'
-      + '<div class="rec-two">'
-      + '<div><div class="section-label" style="margin-bottom:6px">Ingr&eacute;dients</div><ul class="ing-grid">' + ingHtml + '</ul>'
-      + '<div class="section-label" style="margin:10px 0 5px">Valeurs nutritives</div>' + nuHtml + '</div>'
-      + '<div><div class="section-label" style="margin-bottom:6px">Pr&eacute;paration</div>' + stHtml
-      + '<div class="info">' + r.tip + '</div></div>'
-      + '</div></div></div>';
-  }).join('');
+  // v12.2 : rendu partagé renderAccRecette — une seule source de markup pour toutes les recettes
+  ctn.innerHTML = RR_PLUS.map(r => renderAccRecette(r)).join('');
 }
 
 const M_BIS1 = [
