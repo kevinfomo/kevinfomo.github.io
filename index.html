@@ -250,7 +250,7 @@ select{font-size:12px;padding:5px 10px;border:1px solid var(--bdr2);border-radiu
 .ic-green{background:#f0fdf4}.ic-blue{background:#eff6ff}.ic-purple{background:#f5f3ff}.ic-amber{background:#fffbeb}.ic-shop{background:#fdf4ff}
 /* ══ BOTTOM NAV ══ */
 .bnav{position:fixed;bottom:0;left:0;right:0;z-index:500;background:var(--verre-sombre);-webkit-backdrop-filter:var(--flou);backdrop-filter:var(--flou);border-top:1px solid rgba(255,255,255,.1);padding-bottom:env(safe-area-inset-bottom)}
-.bnav-inner{display:flex}
+.bnav-inner{display:flex;gap:16px;padding:0 12px;justify-content:space-between}
 .bnav-item{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 4px 7px;cursor:pointer;color:var(--sbt);font-size:9px;font-weight:500;white-space:nowrap;transition:color .15s;border:none;background:none;font-family:var(--font-body)}
 .bnav-item.active{color:#22c55e}
 .bnav-icon{font-size:18px;line-height:1.2}
@@ -438,16 +438,21 @@ select{font-size:12px;padding:5px 10px;border:1px solid var(--bdr2);border-radiu
 }
 .picto-fixe{flex:none;color:var(--tx1);opacity:.85}
 
-/* ── CHRONO DE REPOS (v13.0) — bandeau verre flottant au-dessus de la barre du bas */
-.chrono-band{position:fixed;left:50%;bottom:calc(74px + env(safe-area-inset-bottom));transform:translate(-50%,16px);
-  display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:20px;
-  background:var(--verre);-webkit-backdrop-filter:var(--flou);backdrop-filter:var(--flou);
-  border:1px solid var(--verre-bdr);box-shadow:var(--ombre-haute);z-index:1100;
-  opacity:0;pointer-events:none;transition:opacity .2s,transform .22s var(--anim)}
-.chrono-band.show{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
-.chrono-band.fini{border-color:var(--green)}
-.chrono-t{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--tx1);min-width:74px;text-align:center}
-.chrono-x{width:34px;height:34px;border-radius:50%;border:1px solid var(--bdr2);background:var(--bg);color:var(--tx2);
+/* ── CHRONO DE REPOS (v13.1) — plein centre, fond flouté (surface exclusive et
+   transitoire : le blur plein écran est acceptable, comme une modale) */
+.chrono-ov{position:fixed;inset:0;z-index:1150;background:rgba(2,6,23,.35);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .2s}
+@supports not (backdrop-filter: blur(1px)){.chrono-ov{background:rgba(2,6,23,.6)}}
+.chrono-ov.show{opacity:1;pointer-events:auto}
+.chrono-band{display:flex;align-items:center;gap:16px;padding:20px 26px;border-radius:24px;
+  background:var(--verre);border:1px solid var(--verre-bdr);box-shadow:var(--ombre-haute);
+  transform:scale(.94);transition:transform .22s var(--anim)}
+.chrono-ov.show .chrono-band{transform:scale(1)}
+.chrono-ov.fini .chrono-band{border-color:var(--green)}
+.chrono-t{font-size:48px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--tx1);min-width:140px;text-align:center}
+.chrono-x{width:44px;height:44px;border-radius:50%;border:1px solid var(--bdr2);background:var(--bg);color:var(--tx2);
   display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation}
 .chrono-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
 .chrono-btn{flex:1;min-width:64px;min-height:44px;border-radius:12px;border:1px solid var(--bdr2);background:var(--bg);
@@ -640,10 +645,12 @@ input,select,button{touch-action:manipulation}
   </div>
 </div>
 
-<!-- Chrono de repos flottant (v13.0) -->
-<div id="chrono-band" class="chrono-band" role="timer">
-  <span class="chrono-t" id="chrono-t">0:00</span>
-  <button class="chrono-x" onclick="chronoStop()" aria-label="Arrêter le chrono"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+<!-- Chrono de repos plein centre (v13.1) : tap hors du cadran = arrêt -->
+<div id="chrono-ov" class="chrono-ov" onclick="if(event.target===this)chronoStop()">
+  <div class="chrono-band" role="timer">
+    <span class="chrono-t" id="chrono-t">0:00</span>
+    <button class="chrono-x" onclick="chronoStop()" aria-label="Arrêter le chrono"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  </div>
 </div>
 
 <!-- ══ BOUTON MENU FLOTTANT (hub) ══ -->
@@ -963,6 +970,8 @@ input,select,button{touch-action:manipulation}
       <div class="tgrid tgrid-sport"><div style="width:22px;height:22px;border-radius:50%;background:var(--bg);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">5</div><div><div class="tc">Superset: Curl biceps + Ext. triceps</div><div class="ts">Câble bas + câble haut enchaînés</div></div><div style="text-align:center"><span class="bdg bdg-a">3×12/12</span></div><div style="text-align:center;color:var(--tx2)">60s</div><div class="col-last" style="text-align:center;color:var(--tx2)">Léger</div></div>
       <div class="tgrid tgrid-sport"><div style="width:22px;height:22px;border-radius:50%;background:var(--bg);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">6</div><div><div class="tc">Planche + Crunch bicycle</div><div class="ts">Tapis sol</div></div><div style="text-align:center"><span class="bdg bdg-a">3×45s/20</span></div><div style="text-align:center;color:var(--tx2)">45s</div><div class="col-last" style="text-align:center;color:var(--tx2)">Poids corps</div></div>
     </div>
+    <div class="section-label" style="margin:14px 0 8px">Fiches techniques — toucher pour ouvrir</div>
+    <div id="ex-c-list"></div>
   </div>
 
   <!-- Pane G: Séance Maison (v13.0) -->
@@ -2186,6 +2195,29 @@ const EM = [
     nu: [['Intensité', 'Comparable au HIIT tapis 25 min'], ['Impact', 'Surface souple ou chaussures amorties'], ['Repos', '30 s entre tours']] }
 ];
 
+// ── EC : fiches de la Séance C condensée (v13.1) — mêmes mouvements que A/B,
+//    charges réduites : les fiches rappellent l'essentiel et le réglage −20 %.
+const EC = [
+  { pic: 'presse', n: 'Presse à cuisses — version C (−20 %)', m: 'Machine presse inclinée', tg: ['Quadriceps', 'Charge −20 %'],
+    ex: ['Même réglage et même technique qu\'en séance A (voir sa fiche complète).', 'Charge : −20 % par rapport à ta dernière séance A — l\'objectif est la stimulation, pas la performance.', '3×15 propres avec 2 reps en réserve. Si la 15e est un combat, retire encore 5 kg.'],
+    nu: [['Référence', 'Fiche complète en Séance A'], ['Charge', '−20 % vs séance A'], ['Repos', '90 s']] },
+  { pic: 'tiragev', n: 'Tirage vertical — version C', m: 'Lat pulldown', tg: ['Dos', 'Charge idem B'],
+    ex: ['Technique identique à la séance B : poitrine vers la barre, coudes vers le bas, sans balancier.', 'Charge identique à la séance B mais une série de moins (3×12).', 'Concentration sur la contraction du dos, tempo 2 s à la descente de la barre.'],
+    nu: [['Référence', 'Fiche complète en Séance B'], ['Charge', 'Idem séance B'], ['Repos', '90 s']] },
+  { pic: 'devcouche', n: 'Développé couché — version C', m: 'Chest press assis', tg: ['Pectoraux', 'Charge idem A'],
+    ex: ['Technique identique à la séance A, une série de moins (3×12).', 'Si la fatigue de la semaine se fait sentir, −10 % de charge sans hésiter : la séance C est un bonus, jamais une dette.'],
+    nu: [['Référence', 'Fiche complète en Séance A'], ['Charge', 'Idem séance A'], ['Repos', '90 s']] },
+  { pic: 'legcurl', n: 'Leg curl — version C', m: 'Machine leg curl', tg: ['Ischio-jambiers'],
+    ex: ['Technique identique à la séance B, en 3×15 plus légers.', 'Descente contrôlée 2–3 s : les ischios répondent très bien au tempo lent.'],
+    nu: [['Référence', 'Fiche complète en Séance B'], ['Charge', 'Idem séance B ou −10 %'], ['Repos', '60 s']] },
+  { pic: 'curl', n: 'Superset — Curl biceps + Extension triceps', m: 'Câble bas + câble haut enchaînés', tg: ['Biceps', 'Triceps', 'Superset'],
+    ex: ['Enchaîner sans repos : 12 curls au câble bas puis 12 extensions au câble haut, PUIS 60 s de repos.', 'Charges légères : le superset crée la congestion, pas besoin de lourd.', 'Coudes fixes sur les deux mouvements — seul l\'avant-bras bouge.'],
+    nu: [['Format', '3 tours de 12 + 12'], ['Charge', 'Légère — technique parfaite'], ['Repos', '60 s après le superset']] },
+  { pic: 'crunch', n: 'Planche + Crunch bicycle', m: 'Tapis sol', tg: ['Abdos', 'Gainage'],
+    ex: ['Planche : coudes sous les épaules, corps aligné, 45 s sans laisser tomber le bassin.', 'Enchaîner 20 crunchs bicycle : coude vers le genou opposé, lentement, sans tirer sur la nuque.', '3 tours. Si la planche casse avant 45 s, noter le temps réel — c\'est ta base de progression.'],
+    nu: [['Format', '3 × (45 s + 20)'], ['Charge', 'Poids du corps'], ['Repos', '45 s']] }
+];
+
 function buildExercises() {
   function renderList(data, containerId) {
     document.getElementById(containerId).innerHTML = data.map((e, i) => `
@@ -2220,6 +2252,7 @@ function buildExercises() {
   }
   renderList(EA, 'ex-a-list');
   renderList(EB, 'ex-b-list');
+  renderList(EC, 'ex-c-list');
   renderList(EM, 'ex-m-list');
   App.equip.renderChips();
   App.equip.renderSeanceM();
@@ -2696,7 +2729,7 @@ function ico(name, size, cls) {
 // (le module Fitness regroupe : dash, sport, nutrition, mesures,
 //  frigo, habits — clés localStorage préfixées kf_fit_*)
 // ════════════════════════════════════════════════════════════
-const APP_VERSION = '13.0';
+const APP_VERSION = '13.1';
 
 // ── Migration du schéma v8 → v9 : renommage des clés vers kf_fit_* + kf_meta.
 //    Règle : l'ancienne clé n'écrase jamais une nouvelle clé déjà présente,
@@ -2802,7 +2835,8 @@ const App = {
     snDate:         null,
     lazyBuilt:      {},
     frigoSel:       {},
-    frigoPoelee:    null
+    frigoPoelee:    null,
+    ssPictoActif:   null
   },
 
   // ── Stockage sécurisé
@@ -3110,8 +3144,8 @@ const App = {
     start(sec) {
       App.chrono.stop(true);
       App.chrono.fin = Date.now() + sec * 1000;
-      const band = document.getElementById('chrono-band');
-      if (band) { band.classList.remove('fini'); band.classList.add('show'); }
+      const ov = document.getElementById('chrono-ov');
+      if (ov) { ov.classList.remove('fini'); ov.classList.add('show'); }
       App.chrono.tick();
       App.chrono.iv = setInterval(App.chrono.tick, 250);
     },
@@ -3121,16 +3155,16 @@ const App = {
       if (t) t.textContent = Math.floor(reste / 60) + ':' + String(reste % 60).padStart(2, '0');
       if (reste <= 0) {
         clearInterval(App.chrono.iv); App.chrono.iv = null;
-        const band = document.getElementById('chrono-band');
-        if (band) band.classList.add('fini');
+        const ov = document.getElementById('chrono-ov');
+        if (ov) ov.classList.add('fini');
         App.ui.toast('Repos terminé — série suivante');
         setTimeout(() => App.chrono.stop(true), 2500);
       }
     },
     stop(silencieux) {
       if (App.chrono.iv) { clearInterval(App.chrono.iv); App.chrono.iv = null; }
-      const band = document.getElementById('chrono-band');
-      if (band) band.classList.remove('show', 'fini');
+      const ov = document.getElementById('chrono-ov');
+      if (ov) ov.classList.remove('show', 'fini');
       if (!silencieux) App.ui.toast('Chrono arrêté');
     }
   },
@@ -3671,30 +3705,30 @@ const App = {
     // smv : fait partie de la Séance Minimale Viable
     EXOS: {
       1: [
-        { name: 'Presse à cuisses 45°',                target: '4 × 12',       targetSets: 4, targetReps: 12, coef: 3, smv: true },
-        { name: 'Développé couché machine',             target: '4 × 12',       targetSets: 4, targetReps: 12, coef: 3, smv: true },
-        { name: 'Presse épaules machine',               target: '3 × 12',       targetSets: 3, targetReps: 12, coef: 2, smv: false },
-        { name: 'Leg extension (quadriceps)',           target: '3 × 15',       targetSets: 3, targetReps: 15, coef: 2, smv: false },
-        { name: 'Extension triceps poulie corde',       target: '3 × 15',       targetSets: 3, targetReps: 15, coef: 1, smv: false },
-        { name: 'Mollets machine',                      target: '4 × 20',       targetSets: 4, targetReps: 20, coef: 1, smv: false },
-        { name: 'Crunch machine + Planche',             target: '3 × 15 + 30s', targetSets: 3, targetReps: 15, coef: 1, smv: false }
+        { name: 'Presse à cuisses 45°',                 pic: 'presse',    target: '4 × 12',       targetSets: 4, targetReps: 12, coef: 3, smv: true },
+        { name: 'Développé couché machine',             pic: 'devcouche', target: '4 × 12',       targetSets: 4, targetReps: 12, coef: 3, smv: true },
+        { name: 'Presse épaules machine',               pic: 'presseep',  target: '3 × 12',       targetSets: 3, targetReps: 12, coef: 2, smv: false },
+        { name: 'Leg extension (quadriceps)',           pic: 'legext',    target: '3 × 15',       targetSets: 3, targetReps: 15, coef: 2, smv: false },
+        { name: 'Extension triceps poulie corde',       pic: 'triceps',   target: '3 × 15',       targetSets: 3, targetReps: 15, coef: 1, smv: false },
+        { name: 'Mollets machine',                      pic: 'mollets',   target: '4 × 20',       targetSets: 4, targetReps: 20, coef: 1, smv: false },
+        { name: 'Crunch machine + Planche',             pic: 'crunch',    target: '3 × 15 + 30s', targetSets: 3, targetReps: 15, coef: 1, smv: false }
       ],
       2: [
-        { name: 'Tirage horizontal machine',            target: '4 × 12',       targetSets: 4, targetReps: 12, coef: 3, smv: true },
-        { name: 'Tirage vertical poulie (lat pulldown)',target: '4 × 12',       targetSets: 4, targetReps: 12, coef: 3, smv: true },
-        { name: 'Leg curl couché (ischio-jambiers)',    target: '4 × 12',       targetSets: 4, targetReps: 12, coef: 3, smv: true },
-        { name: 'Curl biceps machine ou barre',         target: '3 × 12',       targetSets: 3, targetReps: 12, coef: 2, smv: false },
-        { name: 'Hip thrust machine',                   target: '3 × 15',       targetSets: 3, targetReps: 15, coef: 2, smv: false },
-        { name: 'Face pull poulie haute',               target: '3 × 15',       targetSets: 3, targetReps: 15, coef: 1, smv: false },
-        { name: 'Relevés de jambes + Planche',          target: '3 × 12 + 40s', targetSets: 3, targetReps: 12, coef: 1, smv: false }
+        { name: 'Tirage horizontal machine',            pic: 'tirageh',   target: '4 × 12',       targetSets: 4, targetReps: 12, coef: 3, smv: true },
+        { name: 'Tirage vertical poulie (lat pulldown)',pic: 'tiragev',   target: '4 × 12',       targetSets: 4, targetReps: 12, coef: 3, smv: true },
+        { name: 'Leg curl couché (ischio-jambiers)',    pic: 'legcurl',   target: '4 × 12',       targetSets: 4, targetReps: 12, coef: 3, smv: true },
+        { name: 'Curl biceps machine ou barre',         pic: 'curl',      target: '3 × 12',       targetSets: 3, targetReps: 12, coef: 2, smv: false },
+        { name: 'Hip thrust machine',                   pic: 'hipthrust', target: '3 × 15',       targetSets: 3, targetReps: 15, coef: 2, smv: false },
+        { name: 'Face pull poulie haute',               pic: 'facepull',  target: '3 × 15',       targetSets: 3, targetReps: 15, coef: 1, smv: false },
+        { name: 'Relevés de jambes + Planche',          pic: 'releves',   target: '3 × 12 + 40s', targetSets: 3, targetReps: 12, coef: 1, smv: false }
       ],
       3: [
-        { name: 'Presse à cuisses (−20% charge)',       target: '3 × 15',       targetSets: 3, targetReps: 15, coef: 3, smv: true },
-        { name: 'Tirage vertical poulie',               target: '3 × 12',       targetSets: 3, targetReps: 12, coef: 3, smv: true },
-        { name: 'Développé couché machine',             target: '3 × 12',       targetSets: 3, targetReps: 12, coef: 2, smv: false },
-        { name: 'Leg curl (ischio)',                    target: '3 × 15',       targetSets: 3, targetReps: 15, coef: 2, smv: false },
-        { name: 'Superset : Curl biceps + Ext. triceps',target: '3 × 12/12',    targetSets: 3, targetReps: 12, coef: 1, smv: false },
-        { name: 'Planche + Crunch bicycle',             target: '3 × 45s / 20', targetSets: 3, targetReps: 20, coef: 1, smv: false }
+        { name: 'Presse à cuisses (−20% charge)',       pic: 'presse',    target: '3 × 15',       targetSets: 3, targetReps: 15, coef: 3, smv: true },
+        { name: 'Tirage vertical poulie',               pic: 'tiragev',   target: '3 × 12',       targetSets: 3, targetReps: 12, coef: 3, smv: true },
+        { name: 'Développé couché machine',             pic: 'devcouche', target: '3 × 12',       targetSets: 3, targetReps: 12, coef: 2, smv: false },
+        { name: 'Leg curl (ischio)',                    pic: 'legcurl',   target: '3 × 15',       targetSets: 3, targetReps: 15, coef: 2, smv: false },
+        { name: 'Superset : Curl biceps + Ext. triceps',pic: 'curl',      target: '3 × 12/12',    targetSets: 3, targetReps: 12, coef: 1, smv: false },
+        { name: 'Planche + Crunch bicycle',             pic: 'crunch',    target: '3 × 45s / 20', targetSets: 3, targetReps: 20, coef: 1, smv: false }
       ],
       // v13.0 — Séance M (maison) : le NOM du bloc est stable (historique, charges) ;
       // la variante affichée est résolue selon kf_fit_equip (première dont le matériel
@@ -3873,9 +3907,28 @@ const App = {
 
     selectSeance(num, btn) {
       App.data.currentSeanceType = num;
+      App.data.ssPictoActif = null; // v13.1 — la liste est reconstruite, aucun picto animé
       document.querySelectorAll('.ss-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       App.sport.renderExoList();
+    },
+
+    // v13.1 — Bascule d'animation du picto d'un exercice du Suivi : une seule
+    // animation à la fois (garde-fou GPU). Retap ou tap ailleurs = retour fixe.
+    togglePicto(i) {
+      const defs = App.sport.EXOS[App.data.currentSeanceType] || [];
+      const actif = App.data.ssPictoActif;
+      // Figer l'ancien
+      if (actif !== null && actif !== undefined && actif !== i) {
+        const prev = document.getElementById('ss-pic-' + actif);
+        const dPrev = defs[actif];
+        if (prev && dPrev && dPrev.pic) prev.innerHTML = pictoFixe(dPrev.pic, 36);
+      }
+      const el = document.getElementById('ss-pic-' + i);
+      const d = defs[i];
+      if (!el || !d || !d.pic) { App.data.ssPictoActif = null; return; }
+      if (actif === i) { el.innerHTML = pictoFixe(d.pic, 36); App.data.ssPictoActif = null; }
+      else             { el.innerHTML = pictoAnime(d.pic, 36); App.data.ssPictoActif = i; }
     },
 
     // Dernière charge enregistrée pour un exercice donné
@@ -3895,7 +3948,9 @@ const App = {
         const last = App.sport.derniereCharge(e.name);
         const vari = App.data.currentSeanceType === 4 ? App.sport.varianteM(e) : '';
         html += '<div class="ss-exo-card' + (e.coef === 3 ? ' phare' : '') + '">'
-          + '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div class="ss-exo-name" style="display:flex;align-items:center;gap:8px">' + (e.pic ? pictoFixe(e.pic, 28) : '') + '<span>' + e.name + '</span></div>' + tier + '</div>'
+          + '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">'
+          + '<div class="ss-exo-name" style="display:flex;align-items:center;gap:8px;cursor:pointer;-webkit-tap-highlight-color:transparent" onclick="ssTogglePicto(' + i + ')">'
+          + '<span id="ss-pic-' + i + '" style="display:flex">' + (e.pic ? pictoFixe(e.pic, 36) : '') + '</span><span>' + e.name + '</span></div>' + tier + '</div>'
           + (vari ? '<div class="ss-exo-target" style="font-weight:600">Variante : ' + vari + '</div>' : '')
           + '<div class="ss-exo-target">Objectif : ' + e.target + (last ? ' · dernière charge : ' + last + ' kg' : '') + '</div>'
           + '<div class="ss-input-grid">'
@@ -6122,6 +6177,7 @@ function frFichePoelee()        { App.frigo.fichePoelee(); }
 function equipToggle(k)         { App.equip.toggle(k); }
 function chronoStart(sec)       { App.chrono.start(sec); }
 function chronoStop()           { App.chrono.stop(); }
+function ssTogglePicto(i)       { App.sport.togglePicto(i); }
 
 function habEau(d)              { App.habits.eau(d); }
 function habSommeil(v)          { App.habits.setSommeil(v); }
